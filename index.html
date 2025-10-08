@@ -68,10 +68,10 @@ button:hover {
   bottom: 25px;
   right: 25px;
   background-color: #25d366;
-  color: white;
   border-radius: 50px;
-  text-align: center;
-  font-size: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
   z-index: 100;
   animation: bounce 1.5s infinite ease-in-out, glow-green 2s infinite alternate;
@@ -87,8 +87,10 @@ button:hover {
   to { box-shadow: 0 0 25px #00ff88; }
 }
 
-.whatsapp-icon {
-  margin-top: 14px;
+.whatsapp-icon svg {
+  width: 35px;
+  height: 35px;
+  fill: white;
 }
 </style>
 </head>
@@ -113,9 +115,13 @@ A más tickets, ¡mayor probabilidad de ganar!</p>
 <div class="premio">🎉 <strong>Premios sorpresa</strong><br>Animaciones y sorteos continuos.</div>
 
 <!-- Botón de WhatsApp flotante con mensaje -->
-<a href="https://wa.me/51987654321?text=Hola%20👋%20quiero%20participar%20en%20el%20sorteo%20de%20la%20Casa%20de%20la%20Suerte%20Perú%20🎟️" 
+<a href="https://wa.me/51944315625?text=Hola%20👋%20quiero%20participar%20en%20el%20sorteo%20de%20la%20Casa%20de%20la%20Suerte%20Perú%20🎟️" 
    class="whatsapp-float" target="_blank">
-  <div class="whatsapp-icon">💬</div>
+  <div class="whatsapp-icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
+      <path d="M380.9 97.1C339-3.9 208.1-32 112.4 28.6c-92.6 57.4-127.4 172.3-80.3 267.8L0 480l187.2-32.3c89.5 49.5 203.3 17.1 260.7-72.4 57.4-89.6 25.1-203.5-67-278.2zm-70.6 248.7c-12.3 34.7-60.5 31.5-100.2 17.7-23.8-8.5-53.5-24.5-75.8-47.3s-41-51.8-49.4-75.4c-13.9-39.6-17.2-87.8 17.3-100.2 9.5-3.3 23.8 2.8 33.8 17.7l19.7 30.4c5.6 8.7 6.7 19.8 2.8 29.5l-8.3 20.7c6.8 11.7 22.2 30.9 39.1 45.2s33.8 24.9 45.2 29.1l20.4-8.1c9.8-3.9 20.9-2.8 29.6 2.7l30.4 19.5c14.9 9.5 20.9 24.2 17.7 33.7z"/>
+    </svg>
+  </div>
 </a>
 
 </body>
