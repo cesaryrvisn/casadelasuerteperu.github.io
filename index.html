@@ -1,25 +1,60 @@
-<script>
-  const btn = document.getElementById("ticketBtn");
-  const monedasContainer = document.querySelector(".monedas");
 
-  // Sonido de monedas (link estable de Pixabay)
-  const coinSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_aa8e9b6b36.mp3");
-
-  btn.addEventListener("click", () => {
-    // Reproducir sonido
-    coinSound.currentTime = 0;
-    coinSound.play().catch(e => console.log("El navegador bloqueó el sonido hasta que el usuario interactúe"));
-
-    // Animación de monedas
-    for (let i = 0; i < 25; i++) {
-      const moneda = document.createElement("div");
-      moneda.classList.add("moneda");
-      moneda.style.left = Math.random() * 100 + "vw";
-      moneda.style.animationDelay = Math.random() * 2 + "s";
-      monedasContainer.appendChild(moneda);
-
-      // Eliminar después de 2 segundos
-      setTimeout(() => moneda.remove(), 2000);
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa de la Suerte Perú 🍀</title>
+  <style>
+    body {
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, #004aad, #000);
+      color: white;
+      text-align: center;
+      margin: 0;
+      padding: 0;
     }
-  });
-</script>
+
+    h1 {
+      font-size: 2.2rem;
+      color: gold;
+      text-shadow: 0 0 10px #ff0;
+      margin-top: 1rem;
+    }
+
+    p {
+      font-size: 1.1rem;
+      margin: 0.5rem 1rem;
+    }
+
+    button {
+      background: gold;
+      color: #000;
+      font-weight: bold;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: transform 0.2s, box-shadow 0.2s;
+      margin-top: 20px;
+    }
+
+    button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px gold;
+    }
+
+    .monedas div {
+      position: fixed;
+      top: 0;
+      width: 20px;
+      height: 20px;
+      background-image: url("https://cdn-icons-png.flaticon.com/512/138/138292.png");
+      background-size: cover;
+      animation: caer 2s linear infinite;
+      z-index: 999;
+    }
+
+    @keyframes caer {
+      0%
