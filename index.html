@@ -1,61 +1,119 @@
-<!-- Botón flotante de WhatsApp -->
-<a href="https://wa.me/51944315625?text=¡Hola!%20Quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" 
-   class="whatsapp-float" 
-   target="_blank">
-  <i class="fab fa-whatsapp"></i>
-  <span class="tooltip-text">¡Participa ahora por WhatsApp!</span>
-</a>
-
-<!-- Estilos del botón -->
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Casa de la Suerte Perú</title>
 <style>
+body {
+  font-family: "Poppins", sans-serif;
+  background: radial-gradient(circle at top, #001a4d, #000814);
+  color: white;
+  text-align: center;
+  padding: 0;
+  margin: 0;
+}
+
+h1 {
+  font-size: 1.8em;
+  margin-top: 10px;
+}
+
+.highlight {
+  background: #ffd60a;
+  color: #001a4d;
+  padding: 10px 20px;
+  border-radius: 15px;
+  display: inline-block;
+  font-weight: bold;
+  box-shadow: 0 0 20px #ffd60a;
+  animation: glow 1.8s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from { box-shadow: 0 0 10px #ffd60a; }
+  to { box-shadow: 0 0 25px #ffd60a; }
+}
+
+button {
+  background: #ffd60a;
+  color: #001a4d;
+  border: none;
+  padding: 14px 35px;
+  border-radius: 25px;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 0 15px #ffd60a;
+  margin-top: 15px;
+  transition: transform 0.2s ease-in-out;
+}
+
+button:hover {
+  transform: scale(1.05);
+}
+
+.premio {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 15px;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80%;
+  max-width: 400px;
+}
+
 .whatsapp-float {
   position: fixed;
   width: 65px;
   height: 65px;
   bottom: 25px;
   right: 25px;
-  background-color: #25D366;
+  background-color: #25d366;
   color: white;
-  border-radius: 50%;
+  border-radius: 50px;
   text-align: center;
   font-size: 35px;
-  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
   z-index: 100;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: all 0.3s ease;
+  animation: bounce 1.5s infinite ease-in-out, glow-green 2s infinite alternate;
 }
 
-.whatsapp-float:hover {
-  transform: scale(1.1);
-  background-color: #1ebe5c;
+@keyframes bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
 }
 
-/* Tooltip */
-.tooltip-text {
-  visibility: hidden;
-  width: 190px;
-  background-color: #ffffff;
-  color: #333;
-  text-align: center;
-  border-radius: 8px;
-  padding: 5px 10px;
-  position: absolute;
-  right: 75px;
-  bottom: 10px;
-  font-size: 14px;
-  font-weight: 500;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
-  opacity: 0;
-  transition: opacity 0.3s;
+@keyframes glow-green {
+  from { box-shadow: 0 0 10px #25d366; }
+  to { box-shadow: 0 0 25px #00ff88; }
 }
 
-.whatsapp-float:hover .tooltip-text {
-  visibility: visible;
-  opacity: 1;
+.whatsapp-icon {
+  margin-top: 14px;
 }
 </style>
+</head>
+<body>
 
-<!-- Iconos FontAwesome (asegúrate de tener esto en el <head> de tu HTML) -->
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<h2 class="highlight">🏆 PREMIO MAYOR: S/500</h2>
+<p>💰 Premio en efectivo — entrega verificada</p>
+
+<h1>Casa de la Suerte Perú</h1>
+<p>¡Participa y gana! Sorteos transparentes y premios reales.</p>
+
+<button>🎟️ Participa ahora</button>
+
+<p>Participa con tan solo <strong>S/10 por ticket.</strong><br>
+A más tickets, ¡mayor probabilidad de ganar!</p>
+
+<div class="premio">💵 <strong>S/500 en efectivo</strong><br>Premio mayor — ¡podría ser tuyo!</div>
+<div class="premio">🎁 <strong>Caja de perfumes</strong><br>Pack premium — 4 fragancias.</div>
+<div class="premio">🏋️‍♂️ <strong>Bolso deportivo</strong><br>Ideal para gym o viajes.</div>
+<div class="premio">🎉 <strong>Premios sorpresa</strong><br>Animaciones y sorteos continuos.</div>
+
+<!-- Botón de WhatsApp flotante -->
+<a href="https://wa.me/51944315625" class="whatsapp-float" target="_blank">
+  <div class="whatsapp-icon">💬</div>
+</a>
+
+</body>
+</html>
