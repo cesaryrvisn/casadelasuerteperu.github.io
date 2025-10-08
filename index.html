@@ -3,253 +3,228 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Casa de la Suerte Perú — Compra tu ticket</title>
-<meta name="description" content="Casa de la Suerte Perú — Sorteos, premios y diversión." />
-<link rel="shortcut icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23d4af37'/%3E%3Ctext x='50' y='58' font-size='40' text-anchor='middle' fill='%230b8a4f' font-family='sans-serif'%3E%F0%9F%8D%80%3C/text%3E%3C/svg%3E" />
+<title>Casa de la Suerte Perú</title>
+<meta name="description" content="Participa y gana con Casa de la Suerte Perú" />
+<link rel="icon" href="favicon.svg" />
 
 <style>
 :root{
-  --bg:#05060a;
-  --gold:#d4af37;
-  --red:#e03b3b;
-  --blue:#1777ff;
-  --muted:#d7e6e6;
-  --glass: rgba(255,255,255,0.03);
+  --bg1:#071428; --red:#e03b3b; --blue:#1777ff; --gold:#ffd24d; --muted:#d7e6e6;
   --card: rgba(255,255,255,0.03);
-  --max:1100px;
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
 }
 *{box-sizing:border-box}
-body{margin:0;background:radial-gradient(circle at 10% 10%, rgba(212,175,55,0.03), transparent 20%), linear-gradient(120deg,#02040a 0%, #071226 60%);color:var(--muted);-webkit-font-smoothing:antialiased}
-.wrap{max-width:var(--max);margin:0 auto;padding:26px}
-header{display:flex;align-items:center;gap:14px}
-.logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#f7d07a);display:flex;align-items:center;justify-content:center;box-shadow:0 10px 30px rgba(0,0,0,0.45)}
-.logo span{font-size:34px}
-h1{margin:0;font-size:22px;color:var(--gold);letter-spacing:0.4px}
-.lead{margin:4px 0 0;color:#cfd8d8}
+html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1),#041526);color:var(--muted)}
+.container{max-width:1100px;margin:0 auto;padding:20px}
+.header{display:flex;align-items:center;gap:12px}
+.logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#c79b23);display:flex;align-items:center;justify-content:center;font-size:32px}
+.title{font-size:20px;color:var(--gold);margin:0}
+.lead{margin:4px 0 0;color:#cfe6e6}
 
-.hero{display:flex;gap:22px;margin-top:16px;align-items:flex-start}
+.main{display:flex;gap:20px;margin-top:18px;align-items:flex-start}
 .left{flex:1}
 .right{width:360px;min-width:260px}
 
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.02);box-shadow:0 8px 24px rgba(0,0,0,0.5)}
+.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
 
-.big-title{font-size:18px;color:#fff;margin:0}
-.subtitle{color:#dfeee6;margin-top:8px;font-size:14px}
-
-.actions{display:flex;gap:10px;margin-top:14px;flex-wrap:wrap}
-.btn{padding:12px 16px;border-radius:12px;font-weight:800;text-decoration:none;display:inline-flex;gap:10px;align-items:center;cursor:pointer;border:none}
-.btn-primary{background:linear-gradient(90deg,var(--gold),#ffd966);color:#08110a;box-shadow:0 10px 26px rgba(212,175,55,0.12);transform-origin:center;animation: pulse 2.2s infinite;}
+.actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
+.btn{padding:12px 14px;border-radius:12px;font-weight:800;display:inline-flex;gap:8px;align-items:center;text-decoration:none;border:none;cursor:pointer}
+.btn-pay{background:linear-gradient(90deg,var(--gold),#ffd966);color:#08110a;animation:pulse 2s infinite}
 @keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
 .btn-wa{background:linear-gradient(90deg,#25D366,#1da851);color:#fff}
 .btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
 
-.counter{margin-top:16px;display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-.count-seg{background:linear-gradient(90deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:10px 12px;border-radius:10px;min-width:66px;text-align:center;backdrop-filter: blur(4px)}
-.count-seg .num{font-size:16px;color:#fff;font-weight:900}
-.count-seg .lbl{font-size:11px;color:#cbd5d5;margin-top:6px}
+.counter{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
+.count-box{background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;min-width:64px;text-align:center}
+.count-num{font-weight:900;font-size:18px}
 
-.carousel-wrap{margin-top:18px;position:relative;overflow:hidden;border-radius:12px;box-shadow:0 18px 40px rgba(0,0,0,0.6)}
-.carousel{display:flex;gap:12px;transition:transform 0.6s cubic-bezier(.2,.9,.3,1);will-change:transform;padding:12px;background:linear-gradient(90deg, rgba(10,10,10,0.18), rgba(30,30,30,0.08))}
-.card-prize{min-width:220px;background:linear-gradient(180deg,rgba(255,255,255,0.02),rgba(255,255,255,0.01));border-radius:10px;padding:12px;border:1px solid rgba(255,255,255,0.03);text-align:left;box-shadow:0 6px 18px rgba(0,0,0,0.45)}
-.prize-img{width:100%;height:130px;border-radius:8px;object-fit:cover;background:#111}
-.prize-title{margin:8px 0 0;font-weight:800;color:#fff}
-.prize-desc{color:#d1d7d7;font-size:13px;margin-top:6px}
+.carousel{display:flex;gap:10px;overflow:hidden;padding:10px;margin-top:12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent)}
+.prize{min-width:200px;background:rgba(0,0,0,0.2);padding:10px;border-radius:8px}
 
-.carousel-nav{display:flex;gap:8px;position:absolute;right:12px;top:12px}
-.dot{width:10px;height:10px;border-radius:50%;background:rgba(255,255,255,0.12)}
+.section-title{color:var(--gold);margin-top:16px;margin-bottom:8px}
 
-.winners{margin-top:14px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.winner{background:linear-gradient(90deg, rgba(11,138,79,0.06), rgba(212,175,55,0.03));padding:10px;border-radius:10px}
-.winner .who{font-weight:800;color:#fff}
-.winner .meta{font-size:13px;color:#d3d7d7;margin-top:6px}
+.footer{margin-top:26px;padding:18px 0;color:#9aa3a3;text-align:center;font-size:13px}
 
-footer{margin-top:20px;padding:18px 0;color:#9aa3a3;text-align:center;font-size:13px}
-
-.lights{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0.75}
-.light{position:absolute;width:240px;height:240px;border-radius:50%;filter:blur(40px);animation: floaty 7s ease-in-out infinite}
-.light.l1{background:radial-gradient(circle,#e03b3b 0%, transparent 45%);left:4%;top:6%}
+/* decorative lights */
+.lights{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0.8}
+.light{position:absolute;width:260px;height:260px;border-radius:50%;filter:blur(40px);animation:floaty 7s ease-in-out infinite}
+.light.l1{background:radial-gradient(circle,#e03b3b 0%, transparent 45%);left:2%;top:8%}
 .light.l2{background:radial-gradient(circle,#1777ff 0%, transparent 45%);right:6%;top:12%}
-.light.l3{background:radial-gradient(circle,#d4af37 0%, transparent 45%);left:28%;bottom:6%}
+.light.l3{background:radial-gradient(circle,#ffd24d 0%, transparent 45%);left:28%;bottom:6%}
 @keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
 
-@media (max-width:880px){
-  .hero{flex-direction:column}
-  .right{width:100%}
-  .carousel{padding-bottom:10px}
-}
+@media (max-width:880px){.main{flex-direction:column}.right{width:100%}}
 </style>
+</head>
 <body>
-  <div class="lights" aria-hidden="true">
-    <div class="light l1"></div>
-    <div class="light l2"></div>
-    <div class="light l3"></div>
-  </div>
+<div class="lights" aria-hidden="true"><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div></div>
 
-  <div class="wrap">
-    <header>
-      <div class="logo" aria-hidden="true"><span>🍀</span></div>
-      <div>
-        <h1>Casa de la Suerte Perú</h1>
-        <div class="lead">¡Yo solo quiero ganar!</div>
-      </div>
-      <div style="margin-left:auto">
-        <a class="btn btn-ghost" href="mailto:talmarkSac@gmail.com">talmarkSac@gmail.com</a>
-      </div>
-    </header>
+<div class="container">
+  <header class="header">
+    <div class="logo">🍀</div>
+    <div>
+      <h1 class="title" id="siteTitle">Casa de la Suerte Perú</h1>
+      <div class="lead" id="siteLead">¡Yo solo quiero ganar!</div>
+    </div>
+    <div style="margin-left:auto"><a id="mailLink" href="mailto:talmarkSac@gmail.com" class="btn btn-ghost">talmarkSac@gmail.com</a></div>
+  </header>
 
-    <main class="hero">
-      <div class="left">
-        <div class="card">
-          <div class="big-title">Participa, gana y celebra</div>
-          <div class="subtitle">Sorteos transparentes, premios reales y entrega verificada.</div>
-
-          <div class="actions">
-            <a class="btn btn-primary" id="participa" href="https://mpago.la/1jQtrAC" target="_blank" rel="noopener">🎟️ Compra tu ticket</a>
-            <a class="btn btn-wa" id="whats" href="https://wa.me/51944315625?text=Yo%20solo%20quiero%20ganar.%20Venden%20tu%20ticket" target="_blank">💬 Yo solo quiero ganar. Venden tu ticket</a>
-            <a class="btn btn-ghost" href="#premios">🏆 Ver premios</a>
+  <main class="main">
+    <section class="left">
+      <div class="card">
+        <div style="display:flex;justify-content:space-between;align-items:center">
+          <div>
+            <div style="font-weight:800;font-size:18px" id="headline">Participa y gana con Casa de la Suerte Perú — ¡A más tickets, más chances de ganar!</div>
+            <div style="color:#cfe6e6;font-size:13px;margin-top:6px" id="subtitle">Sorteos transparentes, premios reales y entrega verificada.</div>
           </div>
-
-          <div class="counter" aria-hidden="false" title="Cuenta regresiva">
-            <div style="font-weight:800;color:var(--muted);margin-right:10px">Cuenta regresiva</div>
-            <div class="count-seg"><div class="num" id="days">0</div><div class="lbl">Días</div></div>
-            <div class="count-seg"><div class="num" id="hours">0</div><div class="lbl">Horas</div></div>
-            <div class="count-seg"><div class="num" id="minutes">0</div><div class="lbl">Min</div></div>
-            <div class="count-seg"><div class="num" id="seconds">0</div><div class="lbl">Seg</div></div>
-          </div>
-
-          <div class="carousel-wrap">
-            <div class="carousel" id="carousel">
-              <div class="card-prize">
-                <img class="prize-img" src="https://images.unsplash.com/photo-1582571341351-1d3f1f5d1c2f?auto=format&fit=crop&w=800&q=60" alt="S/500">
-                <div class="prize-title">S/500 en efectivo</div>
-                <div class="prize-desc">Dinero en efectivo para gastar como quieras.</div>
-              </div>
-              <div class="card-prize">
-                <img class="prize-img" src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?auto=format&fit=crop&w=800&q=60" alt="Perfumes mujer">
-                <div class="prize-title">Caja de perfumes (mujer) — S/300</div>
-                <div class="prize-desc">Pack de 4 fragancias premium.</div>
-              </div>
-              <div class="card-prize">
-                <img class="prize-img" src="https://images.unsplash.com/photo-1512069772996-505a7a7b7b6e?auto=format&fit=crop&w=800&q=60" alt="Perfumes hombre">
-                <div class="prize-title">Caja de perfumes (hombre) — S/300</div>
-                <div class="prize-desc">Pack de 4 fragancias premium.</div>
-              </div>
-              <div class="card-prize">
-                <img class="prize-img" src="https://images.unsplash.com/photo-1576618148405-867c9f0b0c4d?auto=format&fit=crop&w=800&q=60" alt="Bolsos">
-                <div class="prize-title">20 Bolsos deportivos</div>
-                <div class="prize-desc">20 ganadores recibirán un bolso deportivo cada uno.</div>
-              </div>
-              <div class="card-prize">
-                <img class="prize-img" src="https://images.unsplash.com/photo-1541872703-7a0f6a8a7d4e?auto=format&fit=crop&w=800&q=60" alt="Sorpresa">
-                <div class="prize-title">10 Premios sorpresa</div>
-                <div class="prize-desc">Regalos sorpresa para los participantes afortunados.</div>
-              </div>
-            </div>
-            <div class="carousel-nav" id="dots"></div>
-          </div>
-
         </div>
 
-        <section id="premios" style="margin-top:18px">
-          <h3 style="color:var(--gold)">Premios destacados</h3>
-          <p style="color:#cdd9d9">Los premios son ejemplos; reemplaza imágenes y textos fácilmente editando este archivo.</p>
-          <div class="winners">
-            <div class="winner">
-              <div class="who">María R.</div>
-              <div class="meta">Ganadora S/500 — Lima</div>
-            </div>
-            <div class="winner">
-                <div class="who">Carlos T.</div>
-                <div class="meta">Ganador Caja perfumes — Arequipa</div>
-            </div>
-          </div>
-        </section>
+        <div class="actions">
+          <button id="buyBtn" class="btn btn-pay">🎟️ Compra tu ticket</button>
+          <a id="whats" class="btn btn-wa" href="#" target="_blank">💬 Enviar WhatsApp</a>
+          <a class="btn btn-ghost" id="viewPrizes" href="#prizes">🏆 Ver premios</a>
+        </div>
 
+        <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+          <div class="counter" id="counterWrap" aria-hidden="false" title="Cuenta regresiva">
+            <div class="count-box"><div class="count-num" id="days">0</div><div style="font-size:11px">Días</div></div>
+            <div class="count-box"><div class="count-num" id="hours">00</div><div style="font-size:11px">Horas</div></div>
+            <div class="count-box"><div class="count-num" id="minutes">00</div><div style="font-size:11px">Min</div></div>
+            <div class="count-box"><div class="count-num" id="seconds">00</div><div style="font-size:11px">Seg</div></div>
+          </div>
+          <div style="margin-left:10px;font-size:13px;color:#d6e6e6" id="sorteoLabel">Sorteo: 31 de Octubre 2025</div>
+        </div>
+
+        <div class="carousel" id="prizeCarousel"></div>
+
+        <div class="section-title">Próximos sorteos</div>
+        <div id="upcomingList" style="color:#cfe6e6"></div>
+
+        <div class="section-title">Ganadores</div>
+        <div id="winnersList" style="color:#cfe6e6"></div>
+      </div>
+    </section>
+
+    <aside class="right">
+      <div class="card">
+        <div style="font-weight:800;color:#fff">¿Cómo participar?</div>
+        <div style="color:#cfe6e6;font-size:14px;margin-top:6px">Haz clic en "Compra tu ticket", paga y quedas registrado automáticamente.</div>
+
+        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:12px 0">
+
+        <div style="font-weight:700;margin-top:6px">Beneficios</div>
+        <ul style="padding-left:18px;color:#cfe6e6">
+          <li>Participación fácil con Mercado Pago</li>
+          <li>Sorteos y entrega documentada</li>
+          <li>Premios reales y verificados</li>
+        </ul>
       </div>
 
-      <aside class="right">
-        <div class="card">
-          <div style="display:flex;align-items:center;justify-content:space-between">
-            <div>
-              <div style="font-weight:800;color:#fff">¿Cómo participar?</div>
-              <div style="color:#cfd8d8;font-size:14px;margin-top:6px">Haz clic en Compra tu ticket, paga tu ticket y quedas registrado automáticamente.</div>
-            </div>
-          </div>
+      <div style="height:14px"></div>
 
-          <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:12px 0">
+      <div class="card">
+        <div style="font-weight:800">Contacto</div>
+        <div style="margin-top:8px;color:#cfe6e6">WhatsApp directo</div>
+        <a id="waLink" class="btn btn-wa" href="#" target="_blank">💬 Enviar mensaje</a>
 
-          <div style="font-weight:700;margin-top:6px">Beneficios</div>
-          <ul style="padding-left:18px;color:#cfd8d8">
-            <li>Participación fácil con Mercado Pago</li>
-            <li>Sorteos y entrega documentada</li>
-            <li>Premios reales y verificados</li>
-          </ul>
-        </div>
+        <div style="margin-top:12px;color:#cfe6e6;font-size:13px">Correo: <a href="mailto:talmarkSac@gmail.com" style="color:var(--gold)">talmarkSac@gmail.com</a></div>
+      </div>
+    </aside>
+  </main>
 
-        <div style="height:14px"></div>
-
-        <div class="card">
-          <div style="font-weight:800">Contacto</div>
-          <div style="margin-top:8px;color:#cfd8d8">WhatsApp directo</div>
-          <a class="btn btn-wa" href="https://wa.me/51944315625?text=Yo%20solo%20quiero%20ganar.%20Venden%20tu%20ticket" target="_blank">💬 Enviar mensaje</a>
-
-          <div style="margin-top:12px;color:#cfd8d8;font-size:13px">Correo: <a href="mailto:talmarkSac@gmail.com" style="color:var(--gold)">talmarkSac@gmail.com</a></div>
-        </div>
-      </aside>
-    </main>
-
-    <footer>
-      © 2025 Casa de la Suerte Perú · Todos los derechos reservados · Síguenos en TikTok (próximamente)
-    </footer>
-  </div>
+  <footer class="footer">
+    © 2025 Casa de la Suerte Perú — Todos los derechos reservados
+  </footer>
+</div>
 
 <script>
-// Countdown to 31 Oct 2025 20:00 local time
+// Load editable content from content.json
+async function loadContent(){
+  try{
+    const res = await fetch('content.json');
+    if(!res.ok) throw new Error('no content file');
+    const cfg = await res.json();
+    document.getElementById('siteTitle').textContent = cfg.title || 'Casa de la Suerte Perú';
+    document.getElementById('siteLead').textContent = cfg.lead || '¡Yo solo quiero ganar!';
+    document.getElementById('headline').textContent = cfg.headline || '';
+    document.getElementById('subtitle').textContent = cfg.subtitle || '';
+    document.getElementById('sorteoLabel').textContent = 'Sorteo: ' + (cfg.draw_date_text || '31 de Octubre 2025');
+    document.getElementById('whats').href = 'https://wa.me/' + (cfg.whatsapp_number || '') + '?text=' + encodeURIComponent(cfg.whatsapp_message || '');
+    document.getElementById('waLink').href = document.getElementById('whats').href;
+    document.getElementById('mailLink').href = 'mailto:' + (cfg.email || 'talmarkSac@gmail.com');
+    document.getElementById('buyBtn').dataset.link = cfg.mp_link || '#';
+    // prizes
+    const carousel = document.getElementById('prizeCarousel');
+    carousel.innerHTML = '';
+    (cfg.prizes || []).forEach(p => {
+      const div = document.createElement('div'); div.className = 'prize';
+      div.innerHTML = `<div style="font-weight:800">${p.title}</div><div style="font-size:13px;color:#d6e6e6">${p.desc}</div>`;
+      carousel.appendChild(div);
+    });
+    // upcoming
+    const up = document.getElementById('upcomingList'); up.innerHTML='';
+    (cfg.upcoming || []).forEach(u=>{ const d=document.createElement('div'); d.textContent = u; up.appendChild(d); });
+    // winners
+    const w = document.getElementById('winnersList'); w.innerHTML='';
+    (cfg.winners || []).forEach(win=>{ const d=document.createElement('div'); d.textContent = win; w.appendChild(d); });
+    // countdown target
+    window.countdownTarget = new Date(cfg.draw_iso || '2025-10-31T20:00:00');
+  }catch(err){
+    console.warn('No content.json found, using defaults', err);
+    window.countdownTarget = new Date('2025-10-31T20:00:00');
+  }
+}
+loadContent();
+
+// Countdown
 (function(){
-  const target = new Date('2025-10-31T20:00:00');
-  function update() {
+  function update(){
     const now = new Date();
+    const target = window.countdownTarget || new Date('2025-10-31T20:00:00');
     let diff = Math.max(0, target - now);
-    const days = Math.floor(diff / (1000*60*60*24));
-    diff -= days * (1000*60*60*24);
-    const hours = Math.floor(diff / (1000*60*60));
-    diff -= hours * (1000*60*60);
-    const minutes = Math.floor(diff / (1000*60));
-    diff -= minutes * (1000*60);
-    const seconds = Math.floor(diff / 1000);
+    const days = Math.floor(diff / (1000*60*60*24)); diff -= days*(1000*60*60*24);
+    const hours = Math.floor(diff/(1000*60*60)); diff -= hours*(1000*60*60);
+    const minutes = Math.floor(diff/(1000*60)); diff -= minutes*(1000*60);
+    const seconds = Math.floor(diff/1000);
     document.getElementById('days').textContent = days;
     document.getElementById('hours').textContent = String(hours).padStart(2,'0');
     document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
     document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
   }
-  update();
-  setInterval(update,1000);
+  update(); setInterval(update,1000);
 })();
 
 // Carousel auto-scroll
 (function(){
-  const carousel = document.getElementById('carousel');
-  const dots = document.getElementById('dots');
-  const slides = carousel.children;
-  const total = slides.length;
-  let idx = 0;
-  for(let i=0;i<total;i++){
-    const d = document.createElement('div'); d.className='dot'; d.dataset.i=i;
-    d.style.opacity = i===0? '1':'0.4';
-    d.addEventListener('click', ()=>{ idx = i; move(); resetTimer(); });
-    dots.appendChild(d);
-  }
-  function move(){
-    const w = slides[0].getBoundingClientRect().width + 12;
-    carousel.style.transform = `translateX(${-idx * w}px)`;
-    Array.from(dots.children).forEach((dot,i)=>dot.style.opacity = i===idx? '1':'0.4');
-  }
-  let timer = setInterval(()=>{ idx = (idx+1)%total; move(); },3600);
-  function resetTimer(){ clearInterval(timer); timer = setInterval(()=>{ idx = (idx+1)%total; move(); },3600); }
-  window.addEventListener('resize', move);
-  move();
+  const carousel = document.getElementById('prizeCarousel');
+  let idx=0;
+  function move(){ const items = carousel.children; if(!items.length) return; const w = items[0].getBoundingClientRect().width+10; carousel.style.transform = `translateX(${-idx*w}px)`; idx=(idx+1)%items.length; }
+  setInterval(move,3500);
 })();
+
+// Play coin sound using WebAudio on button click
+function playCoin(){
+  try{
+    const ctx = new (window.AudioContext||window.webkitAudioContext)();
+    const o = ctx.createOscillator(); const g = ctx.createGain();
+    o.type='square'; o.frequency.value = 880;
+    g.gain.value = 0.0008;
+    o.connect(g); g.connect(ctx.destination);
+    o.start();
+    const now = ctx.currentTime;
+    g.gain.setValueAtTime(0.0008, now);
+    g.gain.exponentialRampToValueAtTime(0.00001, now + 0.25);
+    o.stop(now + 0.3);
+  }catch(e){ /* ignore audio errors on some browsers */ }
+}
+
+document.getElementById('buyBtn').addEventListener('click', function(){
+  playCoin();
+  const link = this.dataset.link || '#';
+  // open payment in new tab
+  if(link && link!=='#') window.open(link, '_blank');
+});
+
 </script>
 </body>
 </html>

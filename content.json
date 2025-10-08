@@ -1,0 +1,21 @@
+{
+  "title": "Casa de la Suerte Perú",
+  "lead": "¡Yo solo quiero ganar!",
+  "headline": "Participa y gana con Casa de la Suerte Perú — ¡A más tickets, más chances de ganar!",
+  "subtitle": "Sorteos transparentes, premios reales y entrega verificada.",
+  "draw_date_text": "31 de Octubre 2025",
+  "draw_iso": "2025-10-31T20:00:00",
+  "mp_link": "https://mpago.la/1jQtrAC",
+  "whatsapp_number": "51944315625",
+  "whatsapp_message": "Yo solo quiero ganar. Venden tu ticket",
+  "email": "talmarkSac@gmail.com",
+  "prizes": [
+    {"title":"S/500 en efectivo","desc":"Dinero en efectivo para gastar como quieras."},
+    {"title":"Caja de perfumes (mujer) — S/300","desc":"Pack de 4 fragancias premium."},
+    {"title":"Caja de perfumes (hombre) — S/300","desc":"Pack de 4 fragancias premium."},
+    {"title":"20 Bolsos deportivos","desc":"20 ganadores recibirán un bolso deportivo cada uno."},
+    {"title":"10 Premios sorpresa","desc":"Regalos sorpresa para los participantes afortunados."}
+  ],
+  "upcoming": ["Sorteo mensual: 30 de Noviembre 2025","Sorteo especial: 25 de Diciembre 2025"],
+  "winners": ["María R. — S/500 (Lima)","Carlos T. — Caja perfumes (Arequipa)"]
+}
