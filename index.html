@@ -4,165 +4,134 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Casa de la Suerte Perú</title>
-  <link rel="icon" href="favicon.svg" />
   <style>
     body {
-      margin: 0;
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(180deg, #001b44 0%, #002a66 100%);
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at top, #00143f, #000b1f);
       color: white;
       text-align: center;
-      overflow-x: hidden;
+      padding: 20px;
     }
 
-    h1 {
-      font-size: 2.2em;
-      margin: 20px 0 10px;
+    h1, h2, h3 {
+      margin: 10px 0;
     }
 
-    .banner {
-      background: #ffcc00;
-      color: #000;
+    .premio-mayor {
+      background-color: #ffcc00;
+      color: #00143f;
       font-weight: bold;
-      font-size: 1.2em;
-      padding: 15px;
-      border-radius: 0 0 20px 20px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      font-size: 1.5em;
+      padding: 10px 20px;
+      border-radius: 15px;
+      display: inline-block;
+      margin-bottom: 10px;
+      box-shadow: 0 0 15px #ffd700;
     }
 
-    .highlight {
-      font-weight: 700;
+    .subtitulo {
+      font-size: 1.1em;
       color: #ffd700;
-    }
-
-    .btn {
-      background: linear-gradient(90deg, #ffae00, #ffda4d);
-      color: #000;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.2em;
-      font-weight: bold;
-      padding: 15px 30px;
-      margin: 15px auto;
-      cursor: pointer;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      transition: transform 0.2s ease;
-    }
-
-    .btn:hover {
-      transform: scale(1.08);
-      background: linear-gradient(90deg, #ffe066, #ffcc00);
+      margin-bottom: 25px;
     }
 
     .card {
-      background: rgba(255,255,255,0.1);
+      background: rgba(255, 255, 255, 0.05);
       border-radius: 15px;
+      padding: 15px;
       margin: 15px auto;
-      padding: 20px;
-      width: 85%;
-      max-width: 400px;
-      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+      max-width: 350px;
+      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
+      animation: fadeInUp 1s ease forwards;
+      opacity: 0;
     }
 
-    .card h2 {
-      margin-bottom: 10px;
-      font-size: 1.3em;
+    .card:nth-child(1) { animation-delay: 0.3s; }
+    .card:nth-child(2) { animation-delay: 0.6s; }
+    .card:nth-child(3) { animation-delay: 0.9s; }
+
+    @keyframes fadeInUp {
+      from { transform: translateY(20px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
     }
 
-    .countdown {
+    .btn {
+      background: linear-gradient(90deg, #ffcc00, #ffa500);
+      color: #00143f;
+      font-weight: bold;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 50px;
       font-size: 1.1em;
-      margin-top: 10px;
-      font-weight: 600;
-      color: #ffda4d;
+      cursor: pointer;
+      margin: 20px 0;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-block;
+      box-shadow: 0 0 10px #ffd700;
+      animation: glow 1.5s infinite alternate;
     }
 
-    /* WhatsApp botón flotante */
-    .whatsapp-float {
+    @keyframes glow {
+      from { box-shadow: 0 0 10px #ffd700; }
+      to { box-shadow: 0 0 25px #ffea00; }
+    }
+
+    .descripcion {
+      font-size: 1em;
+      color: #fff;
+      margin-top: 5px;
+    }
+
+    .whatsapp {
       position: fixed;
-      width: 60px;
-      height: 60px;
       bottom: 20px;
       right: 20px;
       background-color: #25d366;
-      color: #fff;
       border-radius: 50%;
-      text-align: center;
-      font-size: 35px;
-      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
-      z-index: 100;
+      padding: 12px;
+      box-shadow: 0 0 15px rgba(0,0,0,0.3);
     }
 
-    .whatsapp-float i {
-      margin-top: 12px;
+    .whatsapp img {
+      width: 40px;
+      height: 40px;
+    }
+
+    footer {
+      margin-top: 30px;
+      font-size: 0.9em;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
-  <div class="banner">🏆 PREMIO MAYOR: S/500</div>
-  <p style="margin-top:8px;">💰 Premio en efectivo — entrega verificada</p>
 
-  <h1>🍀 Casa de la Suerte Perú 🎉</h1>
+  <div class="premio-mayor">🏆 PREMIO MAYOR: S/500</div>
+  <div class="subtitulo">💰 Premio en efectivo — entrega verificada</div>
+
+  <h2>Casa de la Suerte Perú</h2>
   <p>¡Participa y gana! Sorteos transparentes y premios reales.</p>
 
-  <button class="btn" id="btnParticipa" onclick="playSoundAndOpen()">🎟️ Participa ahora</button>
-
-  <p>Participa con tan solo <span class="highlight">S/10 por ticket</span>.<br>
-  A más tickets, ¡mayor probabilidad de ganar!</p>
-
-  <div class="countdown" id="countdown"></div>
+  <a href="https://mpago.la/1jQtrAC" class="btn">🎟️ Participa ahora</a>
+  <div class="descripcion">Participa con tan solo <strong>S/10 por ticket</strong>.  
+  A más tickets, ¡mayor probabilidad de ganar!</div>
 
   <div class="card">
-    <h2>💵 S/500 en efectivo</h2>
+    <h3>💵 S/500 en efectivo</h3>
     <p>Premio mayor — ¡podría ser tuyo!</p>
   </div>
 
   <div class="card">
-    <h2>🎁 Caja de perfumes</h2>
+    <h3>🎁 Caja de perfumes</h3>
     <p>Pack premium — 4 fragancias.</p>
   </div>
 
   <div class="card">
-    <h2>👜 Bolsos deportivos</h2>
+    <h3>👜 Bolsos deportivos</h3>
     <p>20 ganadores — estilo y utilidad.</p>
   </div>
 
-  <a href="https://wa.me/51900000000" class="whatsapp-float" target="_blank">
-    <i>💬</i>
-  </a>
-
-  <audio id="coinSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0f25d3f3d3.mp3?filename=coin-collect-retro-8-bit-sound-146828.mp3"></audio>
-
-  <script>
-    // Abrir link de pago con sonido
-    function playSoundAndOpen() {
-      const sound = document.getElementById("coinSound");
-      sound.play();
-      setTimeout(() => {
-        window.open("https://mpago.la/1jQtrAC", "_blank");
-      }, 600);
-    }
-
-    // Contador regresivo (ejemplo: sorteo en 12 días)
-    const countdownElement = document.getElementById("countdown");
-    const targetDate = new Date();
-    targetDate.setDate(targetDate.getDate() + 12); // 12 días desde hoy
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = targetDate - now;
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-
-      countdownElement.innerHTML = `🎯 Sorteo en: ${days}d ${hours}h ${minutes}m`;
-
-      if (distance < 0) {
-        countdownElement.innerHTML = "🎉 ¡El sorteo está en curso!";
-      }
-    }
-    setInterval(updateCountdown, 60000);
-    updateCountdown();
-  </script>
-</body>
-</html>
+  <div class="card">
+    <h3
