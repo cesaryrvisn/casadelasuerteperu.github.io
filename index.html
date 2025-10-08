@@ -1,230 +1,111 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Casa de la Suerte Perú</title>
-<meta name="description" content="Participa y gana con Casa de la Suerte Perú" />
-<link rel="icon" href="favicon.svg" />
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa de la Suerte Perú</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", system-ui, sans-serif;
+      background: linear-gradient(135deg, #002b7f, #0050c0);
+      color: #fff;
+      text-align: center;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
 
-<style>
-:root{
-  --bg1:#071428; --red:#e03b3b; --blue:#1777ff; --gold:#ffd24d; --muted:#d7e6e6;
-  --card: rgba(255,255,255,0.03);
-  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, Arial;
-}
-*{box-sizing:border-box}
-html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg1),#041526);color:var(--muted)}
-.container{max-width:1100px;margin:0 auto;padding:20px}
-.header{display:flex;align-items:center;gap:12px}
-.logo{width:64px;height:64px;border-radius:12px;background:linear-gradient(135deg,var(--gold),#c79b23);display:flex;align-items:center;justify-content:center;font-size:32px}
-.title{font-size:20px;color:var(--gold);margin:0}
-.lead{margin:4px 0 0;color:#cfe6e6}
+    h1 {
+      font-size: 2.8em;
+      color: gold;
+      text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
+      margin-bottom: 0.3em;
+    }
 
-.main{display:flex;gap:20px;margin-top:18px;align-items:flex-start}
-.left{flex:1}
-.right{width:360px;min-width:260px}
+    p {
+      font-size: 1.1em;
+      margin: 0.5em 0 1.2em;
+    }
 
-.card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));padding:16px;border-radius:12px;border:1px solid rgba(255,255,255,0.03)}
+    button {
+      background: linear-gradient(90deg, #ffd700, #ffb400);
+      color: #000;
+      border: none;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 15px 35px;
+      border-radius: 50px;
+      cursor: pointer;
+      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
+      transition: all 0.2s ease-in-out;
+    }
 
-.actions{display:flex;gap:10px;margin-top:12px;flex-wrap:wrap}
-.btn{padding:12px 14px;border-radius:12px;font-weight:800;display:inline-flex;gap:8px;align-items:center;text-decoration:none;border:none;cursor:pointer}
-.btn-pay{background:linear-gradient(90deg,var(--gold),#ffd966);color:#08110a;animation:pulse 2s infinite}
-@keyframes pulse{0%{transform:scale(1)}50%{transform:scale(1.03)}100%{transform:scale(1)}}
-.btn-wa{background:linear-gradient(90deg,#25D366,#1da851);color:#fff}
-.btn-ghost{background:transparent;border:1px solid rgba(255,255,255,0.06);color:var(--muted)}
+    button:hover {
+      transform: scale(1.07);
+      box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
+    }
 
-.counter{display:flex;gap:8px;align-items:center;margin-top:12px;flex-wrap:wrap}
-.count-box{background:rgba(255,255,255,0.03);padding:10px 12px;border-radius:10px;min-width:64px;text-align:center}
-.count-num{font-weight:900;font-size:18px}
+    .monedas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      overflow: hidden;
+      z-index: 10;
+    }
 
-.carousel{display:flex;gap:10px;overflow:hidden;padding:10px;margin-top:12px;border-radius:10px;background:linear-gradient(90deg, rgba(255,255,255,0.02), transparent)}
-.prize{min-width:200px;background:rgba(0,0,0,0.2);padding:10px;border-radius:8px}
+    .moneda {
+      position: absolute;
+      width: 25px;
+      height: 25px;
+      background: radial-gradient(circle, gold 40%, orange 60%);
+      border-radius: 50%;
+      animation: caer 2s linear forwards;
+    }
 
-.section-title{color:var(--gold);margin-top:16px;margin-bottom:8px}
+    @keyframes caer {
+      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+    }
 
-.footer{margin-top:26px;padding:18px 0;color:#9aa3a3;text-align:center;font-size:13px}
-
-/* decorative lights */
-.lights{position:fixed;inset:0;pointer-events:none;mix-blend-mode:screen;opacity:0.8}
-.light{position:absolute;width:260px;height:260px;border-radius:50%;filter:blur(40px);animation:floaty 7s ease-in-out infinite}
-.light.l1{background:radial-gradient(circle,#e03b3b 0%, transparent 45%);left:2%;top:8%}
-.light.l2{background:radial-gradient(circle,#1777ff 0%, transparent 45%);right:6%;top:12%}
-.light.l3{background:radial-gradient(circle,#ffd24d 0%, transparent 45%);left:28%;bottom:6%}
-@keyframes floaty{0%{transform:translateY(0)}50%{transform:translateY(-18px)}100%{transform:translateY(0)}}
-
-@media (max-width:880px){.main{flex-direction:column}.right{width:100%}}
-</style>
+    footer {
+      position: fixed;
+      bottom: 10px;
+      font-size: 0.9em;
+      color: rgba(255,255,255,0.8);
+    }
+  </style>
 </head>
 <body>
-<div class="lights" aria-hidden="true"><div class="light l1"></div><div class="light l2"></div><div class="light l3"></div></div>
+  <h1>🍀 Casa de la Suerte Perú 🍀</h1>
+  <p>¡Participa, gana y disfruta! Cuantos más tickets, más oportunidades.</p>
+  <button id="ticketBtn">🎟️ Compra tu ticket</button>
 
-<div class="container">
-  <header class="header">
-    <div class="logo">🍀</div>
-    <div>
-      <h1 class="title" id="siteTitle">Casa de la Suerte Perú</h1>
-      <div class="lead" id="siteLead">¡Yo solo quiero ganar!</div>
-    </div>
-    <div style="margin-left:auto"><a id="mailLink" href="mailto:talmarkSac@gmail.com" class="btn btn-ghost">talmarkSac@gmail.com</a></div>
-  </header>
+  <div class="monedas"></div>
 
-  <main class="main">
-    <section class="left">
-      <div class="card">
-        <div style="display:flex;justify-content:space-between;align-items:center">
-          <div>
-            <div style="font-weight:800;font-size:18px" id="headline">Participa y gana con Casa de la Suerte Perú — ¡A más tickets, más chances de ganar!</div>
-            <div style="color:#cfe6e6;font-size:13px;margin-top:6px" id="subtitle">Sorteos transparentes, premios reales y entrega verificada.</div>
-          </div>
-        </div>
+  <footer>© 2025 Casa de la Suerte Perú - ¡La suerte está de tu lado!</footer>
 
-        <div class="actions">
-          <button id="buyBtn" class="btn btn-pay">🎟️ Compra tu ticket</button>
-          <a id="whats" class="btn btn-wa" href="#" target="_blank">💬 Enviar WhatsApp</a>
-          <a class="btn btn-ghost" id="viewPrizes" href="#prizes">🏆 Ver premios</a>
-        </div>
+  <script>
+    const btn = document.getElementById("ticketBtn");
+    const monedasContainer = document.querySelector(".monedas");
 
-        <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
-          <div class="counter" id="counterWrap" aria-hidden="false" title="Cuenta regresiva">
-            <div class="count-box"><div class="count-num" id="days">0</div><div style="font-size:11px">Días</div></div>
-            <div class="count-box"><div class="count-num" id="hours">00</div><div style="font-size:11px">Horas</div></div>
-            <div class="count-box"><div class="count-num" id="minutes">00</div><div style="font-size:11px">Min</div></div>
-            <div class="count-box"><div class="count-num" id="seconds">00</div><div style="font-size:11px">Seg</div></div>
-          </div>
-          <div style="margin-left:10px;font-size:13px;color:#d6e6e6" id="sorteoLabel">Sorteo: 31 de Octubre 2025</div>
-        </div>
-
-        <div class="carousel" id="prizeCarousel"></div>
-
-        <div class="section-title">Próximos sorteos</div>
-        <div id="upcomingList" style="color:#cfe6e6"></div>
-
-        <div class="section-title">Ganadores</div>
-        <div id="winnersList" style="color:#cfe6e6"></div>
-      </div>
-    </section>
-
-    <aside class="right">
-      <div class="card">
-        <div style="font-weight:800;color:#fff">¿Cómo participar?</div>
-        <div style="color:#cfe6e6;font-size:14px;margin-top:6px">Haz clic en "Compra tu ticket", paga y quedas registrado automáticamente.</div>
-
-        <hr style="border:none;height:1px;background:rgba(255,255,255,0.03);margin:12px 0">
-
-        <div style="font-weight:700;margin-top:6px">Beneficios</div>
-        <ul style="padding-left:18px;color:#cfe6e6">
-          <li>Participación fácil con Mercado Pago</li>
-          <li>Sorteos y entrega documentada</li>
-          <li>Premios reales y verificados</li>
-        </ul>
-      </div>
-
-      <div style="height:14px"></div>
-
-      <div class="card">
-        <div style="font-weight:800">Contacto</div>
-        <div style="margin-top:8px;color:#cfe6e6">WhatsApp directo</div>
-        <a id="waLink" class="btn btn-wa" href="#" target="_blank">💬 Enviar mensaje</a>
-
-        <div style="margin-top:12px;color:#cfe6e6;font-size:13px">Correo: <a href="mailto:talmarkSac@gmail.com" style="color:var(--gold)">talmarkSac@gmail.com</a></div>
-      </div>
-    </aside>
-  </main>
-
-  <footer class="footer">
-    © 2025 Casa de la Suerte Perú — Todos los derechos reservados
-  </footer>
-</div>
-
-<script>
-// Load editable content from content.json
-async function loadContent(){
-  try{
-    const res = await fetch('content.json');
-    if(!res.ok) throw new Error('no content file');
-    const cfg = await res.json();
-    document.getElementById('siteTitle').textContent = cfg.title || 'Casa de la Suerte Perú';
-    document.getElementById('siteLead').textContent = cfg.lead || '¡Yo solo quiero ganar!';
-    document.getElementById('headline').textContent = cfg.headline || '';
-    document.getElementById('subtitle').textContent = cfg.subtitle || '';
-    document.getElementById('sorteoLabel').textContent = 'Sorteo: ' + (cfg.draw_date_text || '31 de Octubre 2025');
-    document.getElementById('whats').href = 'https://wa.me/' + (cfg.whatsapp_number || '') + '?text=' + encodeURIComponent(cfg.whatsapp_message || '');
-    document.getElementById('waLink').href = document.getElementById('whats').href;
-    document.getElementById('mailLink').href = 'mailto:' + (cfg.email || 'talmarkSac@gmail.com');
-    document.getElementById('buyBtn').dataset.link = cfg.mp_link || '#';
-    // prizes
-    const carousel = document.getElementById('prizeCarousel');
-    carousel.innerHTML = '';
-    (cfg.prizes || []).forEach(p => {
-      const div = document.createElement('div'); div.className = 'prize';
-      div.innerHTML = `<div style="font-weight:800">${p.title}</div><div style="font-size:13px;color:#d6e6e6">${p.desc}</div>`;
-      carousel.appendChild(div);
+    btn.addEventListener("click", () => {
+      for (let i = 0; i < 25; i++) {
+        const moneda = document.createElement("div");
+        moneda.classList.add("moneda");
+        moneda.style.left = Math.random() * 100 + "vw";
+        moneda.style.animationDelay = Math.random() * 0.5 + "s";
+        monedasContainer.appendChild(moneda);
+        setTimeout(() => moneda.remove(), 2000);
+      }
+      new Audio("https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-win-1939.mp3").play();
     });
-    // upcoming
-    const up = document.getElementById('upcomingList'); up.innerHTML='';
-    (cfg.upcoming || []).forEach(u=>{ const d=document.createElement('div'); d.textContent = u; up.appendChild(d); });
-    // winners
-    const w = document.getElementById('winnersList'); w.innerHTML='';
-    (cfg.winners || []).forEach(win=>{ const d=document.createElement('div'); d.textContent = win; w.appendChild(d); });
-    // countdown target
-    window.countdownTarget = new Date(cfg.draw_iso || '2025-10-31T20:00:00');
-  }catch(err){
-    console.warn('No content.json found, using defaults', err);
-    window.countdownTarget = new Date('2025-10-31T20:00:00');
-  }
-}
-loadContent();
-
-// Countdown
-(function(){
-  function update(){
-    const now = new Date();
-    const target = window.countdownTarget || new Date('2025-10-31T20:00:00');
-    let diff = Math.max(0, target - now);
-    const days = Math.floor(diff / (1000*60*60*24)); diff -= days*(1000*60*60*24);
-    const hours = Math.floor(diff/(1000*60*60)); diff -= hours*(1000*60*60);
-    const minutes = Math.floor(diff/(1000*60)); diff -= minutes*(1000*60);
-    const seconds = Math.floor(diff/1000);
-    document.getElementById('days').textContent = days;
-    document.getElementById('hours').textContent = String(hours).padStart(2,'0');
-    document.getElementById('minutes').textContent = String(minutes).padStart(2,'0');
-    document.getElementById('seconds').textContent = String(seconds).padStart(2,'0');
-  }
-  update(); setInterval(update,1000);
-})();
-
-// Carousel auto-scroll
-(function(){
-  const carousel = document.getElementById('prizeCarousel');
-  let idx=0;
-  function move(){ const items = carousel.children; if(!items.length) return; const w = items[0].getBoundingClientRect().width+10; carousel.style.transform = `translateX(${-idx*w}px)`; idx=(idx+1)%items.length; }
-  setInterval(move,3500);
-})();
-
-// Play coin sound using WebAudio on button click
-function playCoin(){
-  try{
-    const ctx = new (window.AudioContext||window.webkitAudioContext)();
-    const o = ctx.createOscillator(); const g = ctx.createGain();
-    o.type='square'; o.frequency.value = 880;
-    g.gain.value = 0.0008;
-    o.connect(g); g.connect(ctx.destination);
-    o.start();
-    const now = ctx.currentTime;
-    g.gain.setValueAtTime(0.0008, now);
-    g.gain.exponentialRampToValueAtTime(0.00001, now + 0.25);
-    o.stop(now + 0.3);
-  }catch(e){ /* ignore audio errors on some browsers */ }
-}
-
-document.getElementById('buyBtn').addEventListener('click', function(){
-  playCoin();
-  const link = this.dataset.link || '#';
-  // open payment in new tab
-  if(link && link!=='#') window.open(link, '_blank');
-});
-
-</script>
+  </script>
 </body>
 </html>
