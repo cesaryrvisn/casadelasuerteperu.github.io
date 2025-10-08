@@ -100,7 +100,7 @@
   border-radius:20px; padding:18px; width:220px;
   box-shadow:0 6px 18px rgba(0,0,0,0.5);
   animation:flotar 3s ease-in-out infinite;
-  transition:transform .25s;
+  transition:transform .25s;coinSound.play(); // 🔊 sonido de monedas
 }
 .premio-card:hover { transform:scale(1.05); }
 .premio-card .emoji { font-size:2.2rem; display:block; margin-bottom:10px; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.5)); }
@@ -120,7 +120,7 @@
     const btn = document.getElementById("ticketBtn");
     const monedasContainer = document.querySelector(".monedas");
 
-    btn.addEventListener("click", () => {
+    const coinSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_aa8e9b6b36.mp3?filename=coins-1.mp3");btn.addEventListener("click", () => {coinSound.play(); // 🔊 sonido de monedas
       for (let i = 0; i < 25; i++) {
         const moneda = document.createElement("div");
         moneda.classList.add("moneda");
