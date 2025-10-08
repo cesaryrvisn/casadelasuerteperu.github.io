@@ -1,136 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Casa de la Suerte Perú</title>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
-  <style>
-    body {
-      margin: 0;
-      font-family: "Poppins", system-ui, sans-serif;
-      background: linear-gradient(135deg, #002b7f, #0050c0);
-      color: #fff;
-      text-align: center;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
+<script>
+  const btn = document.getElementById("ticketBtn");
+  const monedasContainer = document.querySelector(".monedas");
+
+  // Sonido de monedas (link estable de Pixabay)
+  const coinSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_aa8e9b6b36.mp3");
+
+  btn.addEventListener("click", () => {
+    // Reproducir sonido
+    coinSound.currentTime = 0;
+    coinSound.play().catch(e => console.log("El navegador bloqueó el sonido hasta que el usuario interactúe"));
+
+    // Animación de monedas
+    for (let i = 0; i < 25; i++) {
+      const moneda = document.createElement("div");
+      moneda.classList.add("moneda");
+      moneda.style.left = Math.random() * 100 + "vw";
+      moneda.style.animationDelay = Math.random() * 2 + "s";
+      monedasContainer.appendChild(moneda);
+
+      // Eliminar después de 2 segundos
+      setTimeout(() => moneda.remove(), 2000);
     }
-
-    h1 {
-      font-size: 2.8em;
-      color: gold;
-      text-shadow: 0 0 12px rgba(255, 215, 0, 0.7);
-      margin-bottom: 0.3em;
-    }
-
-    p {
-      font-size: 1.1em;
-      margin: 0.5em 0 1.2em;
-    }
-
-    button {Compra tu ticket
-      background: linear-gradient(90deg, #ffd700, #ffb400);
-      color: #000;
-      border: none;
-      font-size: 1.2em;
-      font-weight: bold;
-      padding: 15px 35px;
-      border-radius: 50px;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(255, 215, 0, 0.6);
-      transition: all 0.2s ease-in-out;
-    }
-
-    button:hover {
-      transform: scale(1.07);
-      box-shadow: 0 0 25px rgba(255, 215, 0, 0.9);
-    }
-
-    .monedas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 10;
-    }
-
-    .moneda {
-      position: absolute;
-      width: 25px;
-      height: 25px;
-      background: radial-gradient(circle, gold 40%, orange 60%);
-      border-radius: 50%;
-      animation: caer 2s linear forwards;
-    }
-
-    @keyframes caer {
-      0% { transform: translateY(-10px) rotate(0deg); opacity: 1; }
-      100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
-    }
-
-    footer {
-      position: fixed;
-      bottom: 10px;
-      font-size: 0.9em;
-      color: rgba(255,255,255,0.8);
-    }
-  </style><!-- 🎯 Sección de Premios y Animaciones -->
-<section id="premios" class="premios">
-  <h2>🎯 Premios en juego</h2>
-  <div class="premios-container">
-    <div class="premio-card"><span class="emoji">💵</span><h3>S/500 en efectivo</h3><p>¡Tu suerte en acción!</p></div>
-    <div class="premio-card"><span class="emoji">🎁</span><h3>Caja de perfumes premium</h3><p>Fragancias que enamoran.</p></div>
-    <div class="premio-card"><span class="emoji">👜</span><h3>Bolso deportivo exclusivo</h3><p>Estilo y energía en cada paso.</p></div>
-    <div class="premio-card"><span class="emoji">🎉</span><h3>Premios sorpresa</h3><p>¡Nunca sabes qué maravilla te espera!</p></div>
-  </div>
-</section>
-
-<style>
-.premios { text-align:center; margin:60px 0; color:#fff; }
-.premios h2 { font-size:2rem; color:#FFD700; text-shadow:0 0 12px #FFD700; margin-bottom:25px; }
-.premios-container { display:flex; flex-wrap:wrap; justify-content:center; gap:20px; }
-.premio-card {
-  background:linear-gradient(145deg,#1a3da1,#2563eb);
-  border-radius:20px; padding:18px; width:220px;
-  box-shadow:0 6px 18px rgba(0,0,0,0.5);
-  animation:flotar 3s ease-in-out infinite;
-  transition:transform .25s;coinSound.play(); // 🔊 sonido de monedas
-}
-.premio-card:hover { transform:scale(1.05); }
-.premio-card .emoji { font-size:2.2rem; display:block; margin-bottom:10px; filter:drop-shadow(0 4px 4px rgba(0,0,0,0.5)); }
-@keyframes flotar { 0%,100%{transform:translateY(0);} 50%{transform:translateY(-8px);} }
-</style>
-</head>
-<body>
-  <h1>🍀 Casa de la Suerte Perú 🍀</h1>
-  <p>¡Participa, gana y disfruta! Cuantos más tickets, más oportunidades.</p>
-  <button id="ticketBtn">🎟️ Compra tu ticket</button>
-
-  <div class="monedas"></div>
-
-  <footer>© 2025 Casa de la Suerte Perú - ¡La suerte está de tu lado!</footer>
-
-  <script>
-    const btn = document.getElementById("ticketBtn");
-    const monedasContainer = document.querySelector(".monedas");
-
-    const coinSound = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_aa8e9b6b36.mp3?filename=coins-1.mp3");btn.addEventListener("click", () => {coinSound.play(); // 🔊 sonido de monedas
-      for (let i = 0; i < 25; i++) {
-        const moneda = document.createElement("div");
-        moneda.classList.add("moneda");
-        moneda.style.left = Math.random() * 100 + "vw";
-        moneda.style.animationDelay = Math.random() * 0.5 + "s";
-        monedasContainer.appendChild(moneda);
-        setTimeout(() => moneda.remove(), 2000);
-      }
-      new Audio("https://assets.mixkit.co/sfx/preview/mixkit-slot-machine-win-1939.mp3").play();
-    });
-  </script>
-</body>
-</html>
+  });
+</script>
