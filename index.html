@@ -1,154 +1,56 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Casa de la Suerte Perú</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at top, #00143f, #000b1f);
-      color: white;
-      text-align: center;
-      padding: 20px;
-    }
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/51944315629?text=¡Hola!%20Quiero%20más%20información%20sobre%20Casa%20de%20la%20Suerte%20Perú" class="whatsapp" target="_blank" title="Chatea con nosotros por WhatsApp">
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="34" height="34" fill="white">
+    <path d="M16.004 2.003c-7.732 0-14 6.268-14 14 0 2.472.648 4.878 1.882 6.996l-1.99 7.29 7.457-1.956a13.94 13.94 0 0 0 6.65 1.67c7.732 0 14-6.268 14-14s-6.268-14-14-14zm0 25.57a11.56 11.56 0 0 1-5.883-1.61l-.422-.25-4.428 1.162 1.183-4.333-.275-.445a11.54 11.54 0 0 1-1.758-6.116c0-6.38 5.188-11.57 11.583-11.57 3.092 0 6.002 1.205 8.192 3.394a11.55 11.55 0 0 1 3.392 8.177c0 6.384-5.188 11.591-11.584 11.591zm6.362-8.68c-.348-.174-2.056-1.013-2.376-1.129-.319-.117-.551-.174-.782.174s-.896 1.128-1.098 1.361c-.202.233-.404.262-.751.088-.348-.174-1.469-.54-2.8-1.722-1.034-.922-1.732-2.06-1.934-2.408-.202-.348-.021-.535.153-.709.157-.156.348-.405.522-.608.174-.203.231-.348.348-.58.116-.232.058-.435-.029-.608-.087-.174-.782-1.888-1.071-2.584-.282-.676-.57-.584-.782-.595l-.667-.012c-.202 0-.521.073-.796.362s-1.045 1.02-1.045 2.486 1.07 2.887 1.219 3.087c.145.203 2.107 3.222 5.104 4.517.714.308 1.27.492 1.705.63.716.228 1.367.196 1.883.119.575-.086 1.757-.717 2.006-1.409.249-.692.249-1.283.174-1.409-.07-.126-.319-.203-.667-.377z"/>
+  </svg>
+</a>
 
-    h1, h2, h3 {
-      margin: 10px 0;
-    }
+<!-- Estilos del botón flotante -->
+<style>
+.whatsapp {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  background-color: #25d366;
+  color: white;
+  border-radius: 50%;
+  width: 65px;
+  height: 65px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 15px gold;
+  z-index: 999;
+  text-decoration: none;
+  animation: bounce 2s infinite, glow 3s ease-in-out infinite;
+}
 
-    .premio-mayor {
-      background-color: #ffcc00;
-      color: #00143f;
-      font-weight: bold;
-      font-size: 1.5em;
-      padding: 10px 20px;
-      border-radius: 15px;
-      display: inline-block;
-      margin-bottom: 10px;
-      box-shadow: 0 0 15px #ffd700;
-    }
+.whatsapp:hover {
+  transform: scale(1.1);
+  box-shadow: 0 0 25px #25d366;
+}
 
-    .subtitulo {
-      font-size: 1.1em;
-      color: #ffd700;
-      margin-bottom: 25px;
-    }
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% {
+    transform: translateY(0);
+  }
+  40% {
+    transform: translateY(-10px);
+  }
+  60% {
+    transform: translateY(-5px);
+  }
+}
 
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 15px;
-      padding: 15px;
-      margin: 15px auto;
-      max-width: 350px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.1);
-      animation: fadeInUp 1s ease forwards;
-      opacity: 0;
-    }
-
-    .card:nth-child(1) { animation-delay: 0.3s; }
-    .card:nth-child(2) { animation-delay: 0.6s; }
-    .card:nth-child(3) { animation-delay: 0.9s; }
-
-    @keyframes fadeInUp {
-      from { transform: translateY(20px); opacity: 0; }
-      to { transform: translateY(0); opacity: 1; }
-    }
-
-    .btn {
-      background: linear-gradient(90deg, #ffcc00, #ffa500);
-      color: #00143f;
-      font-weight: bold;
-      padding: 15px 30px;
-      border: none;
-      border-radius: 50px;
-      font-size: 1.1em;
-      cursor: pointer;
-      margin: 20px 0;
-      position: relative;
-      overflow: hidden;
-      text-decoration: none;
-      display: inline-block;
-      box-shadow: 0 0 10px #ffd700;
-      animation: glow 1.5s infinite alternate;
-    }
-
-    @keyframes glow {
-      from { box-shadow: 0 0 10px #ffd700; }
-      to { box-shadow: 0 0 25px #ffea00; }
-    }
-
-    .descripcion {
-      font-size: 1em;
-      color: #fff;
-      margin-top: 5px;
-    }
-
-    .whatsapp {
-      position: fixed;
-      bottom: 20px;
-      right: 20px;
-      background-color: #25d366;
-      border-radius: 50%;
-      padding: 10px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      z-index: 1000;
-    }
-
-    .whatsapp img {
-      width: 45px;
-      height: 45px;
-      display: block;
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 0.9em;
-      color: #ccc;
-    }
-  </style>
-</head>
-<body>
-
-  <div class="premio-mayor">🏆 PREMIO MAYOR: S/500</div>
-  <div class="subtitulo">💰 Premio en efectivo — entrega verificada</div>
-
-  <h2>Casa de la Suerte Perú</h2>
-  <p>¡Participa y gana! Sorteos transparentes y premios reales.</p>
-
-  <a href="https://mpago.la/1jQtrAC" class="btn">🎟️ Participa ahora</a>
-  <div class="descripcion">Participa con tan solo <strong>S/10 por ticket</strong>.  
-  A más tickets, ¡mayor probabilidad de ganar!</div>
-
-  <div class="card">
-    <h3>💵 S/500 en efectivo</h3>
-    <p>Premio mayor — ¡podría ser tuyo!</p>
-  </div>
-
-  <div class="card">
-    <h3>🎁 Caja de perfumes</h3>
-    <p>Pack premium — 4 fragancias.</p>
-  </div>
-
-  <div class="card">
-    <h3>👜 Bolsos deportivos</h3>
-    <p>20 ganadores — estilo y utilidad.</p>
-  </div>
-
-  <div class="card">
-    <h3>🎊 Premios sorpresa</h3>
-    <p>¡Porque siempre hay algo más para celebrar!</p>
-  </div>
-
-  <footer>
-    📅 Sorteo oficial: <strong>20 de octubre, 8:00 p.m.</strong><br>
-    🎉 ¡Buena suerte a todos los participantes!
-  </footer>
-
-  <!-- BOTÓN WHATSAPP -->
-  <a href="https://wa.me/51944315625" class="whatsapp" target="_blank">
-    <img src="https://upload.wikimedia.org/wikipedia/commons/6/6b/WhatsApp.svg" alt="WhatsApp">
-  </a>
-
-</body>
-</html>
+@keyframes glow {
+  0% {
+    box-shadow: 0 0 10px #25d366;
+  }
+  50% {
+    box-shadow: 0 0 25px #25d366;
+  }
+  100% {
+    box-shadow: 0 0 10px #25d366;
+  }
+}
+</style>
