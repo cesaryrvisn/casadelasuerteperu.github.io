@@ -4,6 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casa de la Suerte Perú</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
   <style>
     body {
       background: linear-gradient(180deg, #001F54, #002b80);
@@ -44,10 +45,12 @@
       border-radius: 25px;
       margin-top: 20px;
       box-shadow: 0 0 15px #FFC107;
+      transition: transform 0.2s;
     }
 
     .boton:hover {
       background-color: #ffb300;
+      transform: scale(1.05);
     }
 
     .descripcion {
@@ -76,14 +79,17 @@
       font-size: 35px;
       box-shadow: 0 0 15px rgba(0,0,0,0.3);
       z-index: 100;
+      transition: transform 0.2s;
+    }
+
+    .whatsapp:hover {
+      transform: scale(1.1);
     }
 
     .whatsapp i {
       margin-top: 12px;
     }
   </style>
-  <!-- Iconos -->
-  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 
 <body>
@@ -120,8 +126,12 @@
     Animaciones y sorteos continuos.
   </div>
 
-  <a href="https://wa.me/51944315625?text=Hola%20quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" class="whatsapp" target="_blank" title="Chatear con nosotros">
-    <i class="fab fa-whatsapp"></i>
+  <!-- BOTÓN WHATSAPP -->
+  <a href="https://wa.me/51944315629?text=Hola%20quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" 
+     class="whatsapp" 
+     target="_blank" 
+     title="Chatear con nosotros">
+    <i class="fa-brands fa-whatsapp"></i>
   </a>
 </body>
 </html>
