@@ -1,150 +1,61 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casa de la Suerte Perú</title>
-  
-  <!-- Carga segura de íconos -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-  
-  <style>
-    body {
-      background: linear-gradient(180deg, #001F54, #003399);
-      color: white;
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
+<!-- Botón flotante de WhatsApp -->
+<a href="https://wa.me/51944315625?text=¡Hola!%20Quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" 
+   class="whatsapp-float" 
+   target="_blank">
+  <i class="fab fa-whatsapp"></i>
+  <span class="tooltip-text">¡Participa ahora por WhatsApp!</span>
+</a>
 
-    h1 {
-      font-size: 28px;
-      margin-top: 15px;
-    }
+<!-- Estilos del botón -->
+<style>
+.whatsapp-float {
+  position: fixed;
+  width: 65px;
+  height: 65px;
+  bottom: 25px;
+  right: 25px;
+  background-color: #25D366;
+  color: white;
+  border-radius: 50%;
+  text-align: center;
+  font-size: 35px;
+  box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
 
-    .premio {
-      background-color: #FFD700;
-      color: #001F54;
-      padding: 15px;
-      border-radius: 15px;
-      margin: 20px;
-      font-weight: bold;
-      box-shadow: 0 0 20px #FFD700;
-    }
+.whatsapp-float:hover {
+  transform: scale(1.1);
+  background-color: #1ebe5c;
+}
 
-    .sub {
-      color: #ffeb3b;
-      font-size: 16px;
-    }
+/* Tooltip */
+.tooltip-text {
+  visibility: hidden;
+  width: 190px;
+  background-color: #ffffff;
+  color: #333;
+  text-align: center;
+  border-radius: 8px;
+  padding: 5px 10px;
+  position: absolute;
+  right: 75px;
+  bottom: 10px;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+  opacity: 0;
+  transition: opacity 0.3s;
+}
 
-    .boton {
-      display: inline-block;
-      background-color: #FFC107;
-      color: #001F54;
-      font-weight: bold;
-      text-decoration: none;
-      padding: 14px 24px;
-      border-radius: 25px;
-      margin-top: 20px;
-      box-shadow: 0 0 15px #FFC107;
-      transition: transform 0.2s;
-    }
+.whatsapp-float:hover .tooltip-text {
+  visibility: visible;
+  opacity: 1;
+}
+</style>
 
-    .boton:hover {
-      background-color: #ffb300;
-      transform: scale(1.05);
-    }
-
-    .descripcion {
-      margin-top: 10px;
-      font-size: 16px;
-    }
-
-    .tarjeta {
-      background-color: rgba(255, 255, 255, 0.1);
-      padding: 15px;
-      margin: 15px;
-      border-radius: 15px;
-    }
-
-    /* Botón flotante de WhatsApp */
-    .whatsapp {
-      position: fixed;
-      width: 60px;
-      height: 60px;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25D366;
-      color: white;
-      border-radius: 50%;
-      text-align: center;
-      font-size: 35px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.3);
-      z-index: 100;
-      transition: transform 0.2s;
-    }
-
-    .whatsapp:hover {
-      transform: scale(1.1);
-    }
-
-    .whatsapp i {
-      margin-top: 12px;
-    }
-
-    /* Animación suave para aparecer */
-    .fade-in {
-      animation: fadein 1.2s ease-in-out;
-    }
-
-    @keyframes fadein {
-      from {opacity: 0;}
-      to {opacity: 1;}
-    }
-  </style>
-</head>
-
-<body class="fade-in">
-  <div class="premio">🏆 PREMIO MAYOR: S/500</div>
-  <div class="sub">💰 Premio en efectivo — entrega verificada</div>
-
-  <h1>Casa de la Suerte Perú</h1>
-  <p>¡Participa y gana! Sorteos transparentes y premios reales.</p>
-
-  <a href="https://mpago.la/1jQtrAC" class="boton">🎟️ Participa ahora</a>
-
-  <div class="descripcion">
-    Participa con tan solo <b>S/10 por ticket</b>.  
-    A más tickets, ¡mayor probabilidad de ganar!
-  </div>
-
-  <div class="tarjeta">
-    💵 <b>S/500 en efectivo</b><br>
-    Premio mayor — ¡podría ser tuyo!
-  </div>
-
-  <div class="tarjeta">
-    🎁 <b>Caja de perfumes</b><br>
-    Pack premium — 4 fragancias.
-  </div>
-
-  <div class="tarjeta">
-    🏋️‍♂️ <b>Bolso deportivo</b><br>
-    Ideal para gym o viajes.
-  </div>
-
-  <div class="tarjeta">
-    🎊 <b>Premios sorpresa</b><br>
-    Animaciones y sorteos continuos.
-  </div>
-
-  <!-- BOTÓN WHATSAPP -->
-  <a href="https://wa.me/51944315625?text=Hola%20quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" 
-     class="whatsapp" 
-     target="_blank" 
-     title="Chatear con nosotros">
-    <i class="fab fa-whatsapp"></i>
-  </a>
-</body>
-</html>
+<!-- Iconos FontAwesome (asegúrate de tener esto en el <head> de tu HTML) -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
