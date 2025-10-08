@@ -1,243 +1,168 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width,initial-scale=1"/>
-<title>Casa de la Suerte Perú — Participa</title>
-<style>
-  :root{
-    --blue:#001f4d;
-    --blue2:#003a8c;
-    --gold:#ffd24d;
-    --muted:#dceefc;
-    --card-bg: rgba(255,255,255,0.06);
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0;
-    font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,Arial;
-    background:linear-gradient(180deg,var(--blue),var(--blue2));
-    color:var(--muted);
-    -webkit-font-smoothing:antialiased;
-    -moz-osx-font-smoothing:grayscale;
-    min-height:100vh;
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    padding:28px 16px 120px;
-  }
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa de la Suerte Perú</title>
+  <link rel="icon" href="favicon.svg" />
+  <style>
+    body {
+      margin: 0;
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(180deg, #001b44 0%, #002a66 100%);
+      color: white;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-  /* Header / premio mayor */
-  .hero{
-    text-align:center;
-    margin-bottom:18px;
-  }
-  .jackpot{
-    display:inline-block;
-    background:linear-gradient(90deg,var(--gold),#f0b900);
-    color:#07121a;
-    padding:14px 20px;
-    border-radius:14px;
-    font-weight:900;
-    font-size:20px;
-    box-shadow:0 12px 40px rgba(0,0,0,0.45), 0 0 30px rgba(255,210,77,0.08);
-    transform-origin:center;
-    animation:jackDrop 900ms ease;
-  }
-  @keyframes jackDrop{
-    0%{transform:translateY(-14px) scale(.9); opacity:0}
-    60%{transform:translateY(6px) scale(1.03); opacity:1}
-    100%{transform:translateY(0) scale(1)}
-  }
-  .jack-sub{margin-top:8px;color:#e8f6ff;font-weight:700}
+    h1 {
+      font-size: 2.2em;
+      margin: 20px 0 10px;
+    }
 
-  /* Contenedor principal */
-  .card{
-    width:100%;
-    max-width:980px;
-    background:var(--card-bg);
-    border-radius:14px;
-    padding:18px;
-    box-shadow:0 6px 30px rgba(0,0,0,0.45);
-    border:1px solid rgba(255,255,255,0.03);
-    margin-bottom:18px;
-  }
+    .banner {
+      background: #ffcc00;
+      color: #000;
+      font-weight: bold;
+      font-size: 1.2em;
+      padding: 15px;
+      border-radius: 0 0 20px 20px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+    }
 
-  h1{margin:0;font-size:22px;color:var(--gold)}
-  .lead{margin-top:6px;color:#cfeeff;font-size:14px}
+    .highlight {
+      font-weight: 700;
+      color: #ffd700;
+    }
 
-  /* Botón participa */
-  .buy-wrap{display:flex;flex-direction:column;align-items:center;gap:8px;margin-top:14px}
-  .btn-cta{
-    appearance:none;border:0;cursor:pointer;padding:14px 26px;border-radius:999px;
-    font-weight:900;font-size:16px;background:linear-gradient(90deg,var(--gold),#ffd966);
-    color:#08121b;box-shadow:0 12px 30px rgba(0,0,0,0.45);transition:transform .18s,box-shadow .18s;
-  }
-  .btn-cta:active{transform:translateY(2px)}
-  /* rebote */
-  .btn-anim{-webkit-animation:btnBounce .6s ease;animation:btnBounce .6s ease}
-  @keyframes btnBounce{0%{transform:scale(1)}40%{transform:scale(1.08)}100%{transform:scale(1)}}
+    .btn {
+      background: linear-gradient(90deg, #ffae00, #ffda4d);
+      color: #000;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.2em;
+      font-weight: bold;
+      padding: 15px 30px;
+      margin: 15px auto;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: transform 0.2s ease;
+    }
 
-  .ticket-info{font-size:14px;color:#d9f1ff;margin-top:6px; text-align:center;}
-  .ticket-info strong{color:var(--gold); font-weight:900;}
+    .btn:hover {
+      transform: scale(1.08);
+      background: linear-gradient(90deg, #ffe066, #ffcc00);
+    }
 
-  /* Premios cards */
-  .prizes{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:18px}
-  .prize{
-    background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-    width:220px;padding:14px;border-radius:12px;text-align:center;color:#fff;
-    box-shadow:0 6px 18px rgba(0,0,0,0.45);animation:floaty 3.2s ease-in-out infinite;
-    border:1px solid rgba(255,255,255,0.03);
-  }
-  .prize .emoji{font-size:30px;display:block;margin-bottom:8px}
-  .prize h3{margin:6px 0;font-size:16px}
-  .prize p{margin:0;font-size:13px;color:#cfeeff}
+    .card {
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      margin: 15px auto;
+      padding: 20px;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    }
 
-  @keyframes floaty{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    .card h2 {
+      margin-bottom: 10px;
+      font-size: 1.3em;
+    }
 
-  /* mensaje central ¡suerte activada! */
-  .suerte{
-    position:fixed;left:50%;top:50%;transform:translate(-50%,-50%);
-    background:linear-gradient(90deg,var(--gold),#ffce4b);color:#081219;padding:18px 28px;border-radius:18px;
-    font-weight:900;font-size:18px;box-shadow:0 18px 50px rgba(0,0,0,0.5);z-index:9999;
-    animation:suerteAnim 1s ease forwards;
-  }
-  @keyframes suerteAnim{
-    0%{opacity:0; transform:translate(-50%,-60%) scale(.85)}
-    50%{opacity:1; transform:translate(-50%,-50%) scale(1.06)}
-    100%{opacity:0; transform:translate(-50%,-45%) scale(1)}
-  }
+    .countdown {
+      font-size: 1.1em;
+      margin-top: 10px;
+      font-weight: 600;
+      color: #ffda4d;
+    }
 
-  /* monedas (simples) */
-  .coin{
-    position:fixed;width:26px;height:26px;border-radius:50%;
-    background:radial-gradient(circle,#ffd24d,#c79b23);box-shadow:0 6px 12px rgba(0,0,0,0.35);
-    pointer-events:none;z-index:998;transform-origin:center;
-    animation:coinFall 900ms cubic-bezier(.2,.7,.2,1) forwards;
-  }
-  @keyframes coinFall{0%{transform:translateY(-20px) scale(.6);opacity:0}40%{opacity:1;transform:translateY(140px) scale(1.05)}80%{transform:translateY(260px) scale(.9)}100%{opacity:0;transform:translateY(320px) scale(.6)}}
+    /* WhatsApp botón flotante */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 20px;
+      right: 20px;
+      background-color: #25d366;
+      color: #fff;
+      border-radius: 50%;
+      text-align: center;
+      font-size: 35px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      z-index: 100;
+    }
 
-  footer{margin-top:26px;color:#9fb6d0;font-size:13px;text-align:center}
-
-  /* responsive */
-  @media (max-width:760px){
-    .prize{width:86%}
-    .card{padding:14px}
-    body{padding-bottom:160px}
-  }
-</style>
+    .whatsapp-float i {
+      margin-top: 12px;
+    }
+  </style>
 </head>
 <body>
+  <div class="banner">🏆 PREMIO MAYOR: S/500</div>
+  <p style="margin-top:8px;">💰 Premio en efectivo — entrega verificada</p>
 
-  <div class="hero">
-    <div class="jackpot">🪙 PREMIO MAYOR: S/500</div>
-    <div class="jack-sub">💰 Premio en efectivo — entrega verificada</div>
+  <h1>🍀 Casa de la Suerte Perú 🎉</h1>
+  <p>¡Participa y gana! Sorteos transparentes y premios reales.</p>
+
+  <button class="btn" id="btnParticipa" onclick="playSoundAndOpen()">🎟️ Participa ahora</button>
+
+  <p>Participa con tan solo <span class="highlight">S/10 por ticket</span>.<br>
+  A más tickets, ¡mayor probabilidad de ganar!</p>
+
+  <div class="countdown" id="countdown"></div>
+
+  <div class="card">
+    <h2>💵 S/500 en efectivo</h2>
+    <p>Premio mayor — ¡podría ser tuyo!</p>
   </div>
 
-  <div class="card" role="main" aria-labelledby="main-title">
-    <h1 id="main-title">Casa de la Suerte Perú</h1>
-    <div class="lead">¡Participa y gana! Sorteos transparentes y premios reales.</div>
-
-    <div class="buy-wrap">
-      <button id="cta" class="btn-cta" aria-label="Participa ahora">🎟️ Participa ahora</button>
-      <div class="ticket-info">Participa con tan solo <strong>S/10 por ticket</strong>. A más tickets, ¡mayor probabilidad de ganar!</div>
-    </div>
-
-    <div class="prizes" aria-live="polite" aria-atomic="true" style="margin-top:20px">
-      <div class="prize">
-        <span class="emoji">💵</span>
-        <h3>S/500 en efectivo</h3>
-        <p>Premio mayor — ¡podría ser tuyo!</p>
-      </div>
-
-      <div class="prize">
-        <span class="emoji">🎁</span>
-        <h3>Caja de perfumes</h3>
-        <p>Pack premium — 4 fragancias.</p>
-      </div>
-
-      <div class="prize">
-        <span class="emoji">👜</span>
-        <h3>Bolsos deportivos</h3>
-        <p>20 ganadores — estilo y utilidad.</p>
-      </div>
-
-      <div class="prize">
-        <span class="emoji">🎉</span>
-        <h3>Premio sorpresa #1</h3>
-        <p>Regalos especiales para los afortunados.</p>
-      </div>
-
-      <div class="prize">
-        <span class="emoji">🎊</span>
-        <h3>Premio sorpresa #2</h3>
-        <p>Sorpresas variadas que encantan.</p>
-      </div>
-    </div>
+  <div class="card">
+    <h2>🎁 Caja de perfumes</h2>
+    <p>Pack premium — 4 fragancias.</p>
   </div>
 
-  <footer>© 2025 Casa de la Suerte Perú — Juego responsable</footer>
+  <div class="card">
+    <h2>👜 Bolsos deportivos</h2>
+    <p>20 ganadores — estilo y utilidad.</p>
+  </div>
 
-<script>
-  // Config
-  const mpLink = "https://mpago.la/1jQtrAC"; // tu enlace de pago
-  const cta = document.getElementById('cta');
+  <a href="https://wa.me/51900000000" class="whatsapp-float" target="_blank">
+    <i>💬</i>
+  </a>
 
-  // sonido (enlace confiable Pixabay)
-  const coinSound = new Audio("https://cdn.pixabay.com/audio/2022/03/15/audio_aa8e9b6b36.mp3");
-  coinSound.preload = "auto";
+  <audio id="coinSound" src="https://cdn.pixabay.com/download/audio/2022/03/15/audio_0f25d3f3d3.mp3?filename=coin-collect-retro-8-bit-sound-146828.mp3"></audio>
 
-  // contenedor para monedas
-  function spawnCoins(n=10){
-    for(let i=0;i<n;i++){
-      const c = document.createElement('div'); c.className='coin';
-      // posición horizontal alrededor del centro con dispersión
-      const center = window.innerWidth/2;
-      const offset = (Math.random()*360) - 180; // px spread
-      const left = Math.max(8, Math.min(window.innerWidth - 34, center + offset));
-      c.style.left = left + 'px';
-      c.style.top = (80 + Math.random()*40) + 'px';
-      c.style.transform = `translateY(-10px) scale(${0.7 + Math.random()*0.6})`;
-      // slight rotation initial
-      c.style.rotate = (Math.random()*90 - 45) + 'deg';
-      document.body.appendChild(c);
-      // remove after animation
-      setTimeout(()=>{ try{ c.remove(); }catch(e){} }, 1200);
+  <script>
+    // Abrir link de pago con sonido
+    function playSoundAndOpen() {
+      const sound = document.getElementById("coinSound");
+      sound.play();
+      setTimeout(() => {
+        window.open("https://mpago.la/1jQtrAC", "_blank");
+      }, 600);
     }
-  }
 
-  // mensaje central
-  function showSuerteMessage(){
-    const el = document.createElement('div');
-    el.className = 'suerte';
-    el.innerText = '¡Suerte activada! 🍀';
-    document.body.appendChild(el);
-    // animation lasts 1s per CSS; remove after slightly more
-    setTimeout(()=>{ try{ el.remove(); }catch(e){} }, 1100);
-  }
+    // Contador regresivo (ejemplo: sorteo en 12 días)
+    const countdownElement = document.getElementById("countdown");
+    const targetDate = new Date();
+    targetDate.setDate(targetDate.getDate() + 12); // 12 días desde hoy
 
-  // boton: rebote visual y acción
-  cta.addEventListener('click', (e)=>{
-    // small visual bounce
-    cta.classList.add('btn-anim');
-    setTimeout(()=> cta.classList.remove('btn-anim'), 700);
+    function updateCountdown() {
+      const now = new Date().getTime();
+      const distance = targetDate - now;
 
-    // spawn coins & sound (play may be blocked on some mobiles until user interacts - but click is an interaction)
-    try{
-      coinSound.currentTime = 0;
-      coinSound.volume = 0.6;
-      coinSound.play().catch(()=>{/* silent */});
-    }catch(e){/* ignore */}
+      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
 
-    spawnCoins(12);
-    showSuerteMessage();
+      countdownElement.innerHTML = `🎯 Sorteo en: ${days}d ${hours}h ${minutes}m`;
 
-    // wait 1s (message) then redirect to payment
-    setTimeout(()=> {
-      // open in new tab so user returns if wants
-      window.open(mpLink, '_blank');
-    }, 1000);
-  });
-</script>
+      if (distance < 0) {
+        countdownElement.innerHTML = "🎉 ¡El sorteo está en curso!";
+      }
+    }
+    setInterval(updateCountdown, 60000);
+    updateCountdown();
+  </script>
 </body>
 </html>
