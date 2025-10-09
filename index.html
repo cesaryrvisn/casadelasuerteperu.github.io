@@ -7,17 +7,14 @@
 <style>
 body {
   font-family: "Poppins", sans-serif;
-  background-color: #002b80; /* Azul fuerte */
+  background-color: #002b80;
   color: white;
   text-align: center;
-  padding: 0;
   margin: 0;
+  padding: 0;
 }
 
-h1 {
-  font-size: 1.8em;
-  margin-top: 10px;
-}
+h1 { font-size: 1.8em; margin-top: 10px; }
 
 .highlight {
   background: #ffd60a;
@@ -47,13 +44,10 @@ button {
   margin-top: 15px;
   transition: transform 0.2s ease-in-out;
 }
-
-button:hover {
-  transform: scale(1.05);
-}
+button:hover { transform: scale(1.05); }
 
 .premio {
-  background: rgba(255, 255, 255, 0.15);
+  background: rgba(255,255,255,0.15);
   border-radius: 15px;
   margin: 10px auto;
   padding: 10px;
@@ -68,11 +62,11 @@ button:hover {
   bottom: 25px;
   right: 25px;
   background-color: #25d366;
-  border-radius: 50px;
+  border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 0 25px rgba(37, 211, 102, 0.8);
+  box-shadow: 0 0 25px rgba(37,211,102,0.8);
   z-index: 100;
   animation: bounce 1.5s infinite ease-in-out, glow-green 2s infinite alternate;
 }
@@ -85,6 +79,11 @@ button:hover {
 @keyframes glow-green {
   from { box-shadow: 0 0 10px #25d366; }
   to { box-shadow: 0 0 25px #00ff88; }
+}
+
+.whatsapp-float:hover {
+  background-color: #1ebe5b;
+  transform: scale(1.05);
 }
 
 .whatsapp-icon svg {
@@ -114,8 +113,8 @@ A más tickets, ¡mayor probabilidad de ganar!</p>
 <div class="premio">🏋️‍♂️ <strong>Bolso deportivo</strong><br>Ideal para gym o viajes.</div>
 <div class="premio">🎉 <strong>Premios sorpresa</strong><br>Animaciones y sorteos continuos.</div>
 
-<!-- Botón de WhatsApp flotante con mensaje -->
-<a href="https://wa.me/51944315625?text=Hola%20👋%20quiero%20participar%20en%20el%20sorteo%20de%20la%20Casa%20de%20la%20Suerte%20Perú%20🎟️" 
+<!-- BOTÓN DE WHATSAPP CON ÍCONO SVG REAL -->
+<a href="https://wa.me/519944315625?text=Hola%20👋%20quiero%20participar%20en%20el%20sorteo%20de%20la%20Casa%20de%20la%20Suerte%20Perú%20🎟️" 
    class="whatsapp-float" target="_blank">
   <div class="whatsapp-icon">
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
