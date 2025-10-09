@@ -1,158 +1,78 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Casa de la Suerte Perú 🍀</title>
-<style>
-    body {
-        font-family: 'Poppins', sans-serif;
-        background: linear-gradient(180deg, #002D72 0%, #001B44 100%);
-        color: white;
-        margin: 0;
-        text-align: center;
+<!-- 🔥 SORTEO DIARIO ACUMULABLE 🔥 -->
+<section id="sorteo-acumulable" style="margin-top: 30px; padding: 20px; background: linear-gradient(180deg,#001f4d,#002b66); border-radius: 20px; box-shadow: 0 0 10px #0003; text-align: center; color: #fff;">
+
+  <h2 style="color: #ffde59; font-size: 1.5em; margin-bottom: 10px;">
+    🎯 Sorteo Diario Acumulable desde S/1
+  </h2>
+
+  <p style="font-size: 1.1em;">
+    ¡El pozo crece en tiempo real y puede tocarte a ti!<br>
+    Cada participante aporta <strong>S/1</strong> y el premio se actualiza automáticamente.
+  </p>
+
+  <div style="margin: 20px auto; padding: 10px; background: #003366; border-radius: 12px; width: 90%; max-width: 400px;">
+    <h3 style="color: #00ff99;">💰 Pozo actual: S/<span id="pozo">0</span></h3>
+    <p style="font-size: 0.9em;">(Actualiza en tiempo real con cada ticket vendido)</p>
+  </div>
+
+  <div>
+    <label for="cantidad" style="display:block; margin-bottom:5px;">Cantidad de tickets:</label>
+    <input type="number" id="cantidad" min="1" value="1" style="padding:6px; border-radius:6px; border:none; width:80px; text-align:center;">
+  </div>
+
+  <button id="comprar-acumulable" style="margin-top:15px; padding:12px 20px; background:#ffde59; color:#000; border:none; border-radius:10px; font-weight:bold; cursor:pointer;">
+    🎟️ Comprar ticket(s)
+  </button>
+
+  <p id="mensaje-compra" style="margin-top:10px; font-size:0.95em; color:#9eff9e;"></p>
+
+  <p style="margin-top: 20px; font-size: 0.9em; color:#ddd;">
+    El pozo se reinicia automáticamente cada día a las 00:00 🕛<br>
+    Comisión del 10% aplicada al total acumulado.
+  </p>
+
+</section>
+
+<script>
+  // ---- 🧠 Configuración ----
+  const comision = 0.10; // 10%
+  let pozo = parseFloat(localStorage.getItem('pozo')) || 0;
+  const pozoEl = document.getElementById('pozo');
+  const mensajeEl = document.getElementById('mensaje-compra');
+
+  // ---- ⏰ Reinicio diario ----
+  function reiniciarSiEsNuevoDia() {
+    const hoy = new Date().toDateString();
+    const ultimoDia = localStorage.getItem('ultimoDia');
+    if (ultimoDia !== hoy) {
+      pozo = 0;
+      localStorage.setItem('ultimoDia', hoy);
+      localStorage.setItem('pozo', pozo);
     }
+  }
+  reiniciarSiEsNuevoDia();
 
-    header {
-        padding: 40px 10px 10px;
+  // ---- 🧮 Actualizar Pozo ----
+  function actualizarPozo() {
+    pozoEl.textContent = pozo.toFixed(2);
+  }
+  actualizarPozo();
+
+  // ---- 💸 Comprar Ticket ----
+  document.getElementById('comprar-acumulable').addEventListener('click', () => {
+    const cantidad = parseInt(document.getElementById('cantidad').value);
+    if (cantidad > 0) {
+      const monto = cantidad * 1; // S/1 por ticket
+      pozo += monto * (1 - comision);
+      localStorage.setItem('pozo', pozo);
+      actualizarPozo();
+      mensajeEl.textContent = `✅ Has comprado ${cantidad} ticket(s). ¡Buena suerte!`;
+      setTimeout(() => mensajeEl.textContent = "", 4000);
     }
+  });
 
-    header h1 {
-        font-size: 2.2em;
-        font-weight: 800;
-        color: #FFD700;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        gap: 8px;
-        text-shadow: 2px 2px 8px #000;
-    }
-
-    header h1 span {
-        font-size: 1.5em;
-    }
-
-    h2 {
-        font-weight: 500;
-        margin-top: 10px;
-        color: #fff;
-    }
-
-    .countdown {
-        background: #FFD700;
-        color: #001B44;
-        font-weight: 700;
-        display: inline-block;
-        padding: 10px 20px;
-        border-radius: 30px;
-        margin-top: 20px;
-        box-shadow: 0 0 20px #FFD700;
-    }
-
-    .button {
-        display: inline-block;
-        background: linear-gradient(90deg, #FFD700, #FFB300);
-        color: #001B44;
-        font-weight: 700;
-        padding: 15px 40px;
-        border-radius: 30px;
-        margin-top: 15px;
-        text-decoration: none;
-        font-size: 1.1em;
-        box-shadow: 0 0 25px #FFD700;
-        transition: transform 0.2s ease-in-out;
-    }
-
-    .button:hover {
-        transform: scale(1.05);
-    }
-
-    p {
-        font-size: 1em;
-        margin: 10px 15px;
-    }
-
-    .extra-info {
-        background: rgba(255, 255, 255, 0.1);
-        padding: 15px;
-        margin: 10px 25px;
-        border-radius: 10px;
-        font-size: 0.95em;
-        color: #FFD700;
-    }
-
-    .card {
-        background: rgba(255, 255, 255, 0.1);
-        margin: 20px auto;
-        padding: 15px;
-        width: 85%;
-        border-radius: 15px;
-        box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
-    }
-
-    .card img {
-        width: 100%;
-        border-radius: 12px;
-    }
-
-    .whatsapp {
-        position: fixed;
-        bottom: 20px;
-        right: 20px;
-        background-color: #25D366;
-        color: white;
-        font-size: 30px;
-        border-radius: 50%;
-        width: 60px;
-        height: 60px;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        text-decoration: none;
-        box-shadow: 0 0 15px #25D366;
-    }
-</style>
-</head>
-<body>
-
-<header>
-    <h1>CASA DE LA SUERTE PERÚ <span>🍀</span></h1>
-    <h2>Tu portal de diversión y premios increíbles</h2>
-</header>
-
-<div class="countdown">⏰ Sorteo en: 21d 12h 37m 0s</div>
-
-<a href="#" class="button">💰 COMPRA TU TICKET 💰</a>
-
-<p>Participa con tan solo <strong>S/10 por ticket</strong>.<br>
-¡A más tickets, más probabilidades de ganar!</p>
-
-<div class="extra-info">
-    🎯 Participa también en el <strong>sorteo diario acumulable</strong> desde S/1.<br>
-    ¡El pozo crece en tiempo real y puede tocarte a ti!
-</div>
-
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1606312619349-ffb6df06c1f7?auto=format&fit=crop&w=900&q=80" alt="Premio en efectivo">
-    <p><strong>S/500 en efectivo</strong><br>Premio mayor — ¡podría ser tuyo!</p>
-</div>
-
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1618354691253-61f26d36a6f3?auto=format&fit=crop&w=900&q=80" alt="Caja de perfumes">
-    <p><strong>Caja de perfumes</strong><br>Pack premium — 4 fragancias.</p>
-</div>
-
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&fit=crop&w=900&q=80" alt="Bolso deportivo">
-    <p><strong>Bolso deportivo</strong><br>Ideal para gym o viajes.</p>
-</div>
-
-<div class="card">
-    <img src="https://images.unsplash.com/photo-1604866830893-13fbfdd6b6e5?auto=format&fit=crop&w=900&q=80" alt="Premios sorpresa">
-    <p><strong>🎉 Premios sorpresa</strong><br>Animaciones y sorteos continuos.</p>
-</div>
-
-<a href="https://wa.me/51936331215?text=Hola!%20Quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" class="whatsapp">💬</a>
-
-</body>
-</html>
+  // ---- 🔁 Actualización en tiempo real ----
+  setInterval(() => {
+    actualizarPozo();
+  }, 1000);
+</script>
