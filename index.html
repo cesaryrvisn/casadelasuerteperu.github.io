@@ -1,310 +1,47 @@
-<!doctype html>
-<html lang="es">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Casa de la Suerte Perú - Sorteo Diario</title>
-  <style>
-    /* ---------- CONFIGURABLE STYLES ---------- */
-    :root{
-      --bg:#0e3b78;    /* azul fuerte de fondo */
-      --accent:#ffcc00;/* amarillo */
-      --card:#0a3a77;
-      --text:#ffffff;
-      --glow: 0 8px 30px rgba(255,204,0,0.25);
-      --radius:24px;
-      --btn-radius:40px;
-      --muted:#9fb6dd;
-      --green:#00cc66;
-    }
-    body{ margin:0; font-family: "Inter", Roboto, Arial, sans-serif; background:linear-gradient(180deg,var(--bg),#0a2b57); color:var(--text); -webkit-font-smoothing:antialiased;}
-    .wrap{ max-width:760px; margin:0 auto; padding:28px; }
-    .title{ text-align:center; margin-top:8px; }
-    .brand{ font-weight:900; font-size:40px; color:var(--accent); text-shadow:0 6px 18px rgba(0,0,0,0.45); letter-spacing:1px;}
-    .subtitle{ text-align:center; font-size:20px; color:#eef6ff; margin-top:12px; opacity:0.95;}
-    .center{ display:flex; gap:14px; justify-content:center; align-items:center; flex-direction:column; margin:20px 0 12px; }
-    .pill{ background:var(--accent); color:#05223a; padding:12px 20px; border-radius:40px; font-weight:700; box-shadow: var(--glow);}
-    .big-btn{ background:linear-gradient(90deg,var(--accent),#f2b400); border:none; color:#05223a; padding:18px 28px; border-radius:var(--btn-radius); font-weight:800; font-size:18px; box-shadow:var(--glow); cursor:pointer;}
-    .muted{ color:var(--muted); text-align:center; font-size:16px; }
-    .card{ background:rgba(255,255,255,0.04); padding:18px; border-radius:18px; margin:14px 0; box-shadow:inset 0 2px 8px rgba(0,0,0,0.25); }
-    .pozo{ text-align:center; }
-    .pozo h2{ color:#13ff8c; font-size:26px; margin:6px 0 4px; font-weight:800; text-shadow:0 4px 8px rgba(0,0,0,0.35);}
-    .small{ font-size:14px; color:var(--muted); margin-bottom:8px;}
-    .controls{ display:flex; gap:12px; justify-content:center; align-items:center; margin-top:10px; }
-    input[type=number]{ width:80px; padding:8px 10px; border-radius:8px; border:none; text-align:center; font-weight:700;}
-    button.purchase{ background:linear-gradient(90deg,#ffd54a,#f6bf00); padding:10px 18px; border-radius:12px; border:none; font-weight:800; cursor:pointer;}
-    .participants{ margin-top:12px; }
-    .list-item{ background:rgba(0,0,0,0.15); padding:10px; border-radius:10px; display:flex; justify-content:space-between; align-items:center; gap:8px; margin-bottom:8px;}
-    .small-muted{ font-size:13px; color:#d7e8ff; opacity:0.85; }
-    .footer{ text-align:center; font-size:13px; color:rgba(255,255,255,0.7); margin:22px 0 80px;}
-    /* modal */
-    .modal{ position:fixed; inset:0; display:none; justify-content:center; align-items:center; background:rgba(0,0,0,0.45); z-index:9999;}
-    .modal.open{ display:flex; }
-    .modal-card{ background:linear-gradient(180deg,#fff,#eef6ff); color:#05223a; padding:18px; border-radius:12px; width:92%; max-width:480px; }
-    .field{ margin-bottom:8px; }
-    .field label{ display:block; font-weight:700; font-size:13px; color:#08324a; margin-bottom:6px;}
-    .field input{ width:100%; padding:10px 12px; border-radius:8px; border:1px solid #c7e0ff; }
-    .modal-card .actions{ display:flex; gap:10px; justify-content:flex-end; margin-top:10px;}
-    .btn-secondary{ background:#f0f6ff; padding:10px 12px; border-radius:8px; border:1px solid #cfdff0; cursor:pointer;}
-    .btn-primary{ background:var(--accent); padding:10px 12px; border-radius:8px; cursor:pointer; font-weight:800;}
-    .admin-actions{ text-align:center; margin-top:12px; }
-    .hint{ font-size:12px; color:#cfe7ff; text-align:center; margin-top:8px;}
-    .whatsapp{ position:fixed; right:18px; bottom:18px; width:72px; height:72px; border-radius:50%; background:#25D366; display:flex; justify-content:center; align-items:center; box-shadow:0 8px 30px rgba(37,211,102,0.25); z-index:999;}
-    .whatsapp a{ color:#fff; font-weight:900; text-decoration:none;}
-    @media(min-width:900px){ .wrap{ padding:48px; } .brand{ font-size:56px; } }
-  </style>
-</head>
-<body>
-  <div class="wrap">
-    <div class="title">
-      <div class="brand">CASA DE LA SUERTE PERÚ <span style="font-size:0.6em">🍀</span></div>
-      <div class="subtitle">Tu portal de diversión y premios increíbles</div>
-    </div>
+<!-- 🟦 BLOQUE PÚBLICO: Sorteo Diario Acumulable -->
+<section id="sorteo-diario" style="background:#002b7f; color:white; padding:20px; border-radius:15px; text-align:center; margin:20px 0;">
+  <h2>🎯 Sorteo Diario Acumulable</h2>
+  <p>Participa desde solo <strong>S/1</strong> y mira cómo crece el pozo en tiempo real 💰</p>
 
-    <div class="center">
-      <div class="pill">⏰ Sorteo principal: 30 de octubre (S/500)</div>
-      <button class="big-btn" id="buyMain">💸 COMPRA TU TICKET</button>
-      <div class="muted">Participa con tan solo <strong>S/10</strong> por ticket.</div>
-    </div>
+  <p style="font-size:18px;">Pozo actual: <span id="pozo-actual" style="color:#00FF66; font-weight:bold;">S/0.00</span></p>
+  <p>Acumulado total: <span id="acumulado-total" style="color:#FFD700;">S/0.00</span></p>
 
-    <!-- SORTEO DIARIO ACUMULABLE -->
-    <div class="card">
-      <h3 style="text-align:center; margin-top:0;">🎯 Sorteo Diario Acumulable</h3>
-      <p style="text-align:center; margin:0 0 8px;">Participa desde solo <strong>S/1</strong> y mira cómo crece el pozo en tiempo real 💰</p>
-
-      <div class="pozo">
-        <div class="small">Pozo actual:</div>
-        <h2 id="pozoText">S/ 0.00</h2>
-        <div class="small-muted">Acumulado total: <span id="acumText">S/ 0.00</span></div>
-
-        <div class="controls" style="margin-top:10px;">
-          <label style="color:var(--text); display:flex; align-items:center; gap:8px;">
-            Tickets:
-            <input id="ticketsInput" type="number" min="1" value="1" />
-          </label>
-          <button id="openBuy" class="purchase">🎟️ Comprar ticket(s)</button>
-        </div>
-
-        <div class="hint">* Reinicia automáticamente cada día a medianoche</div>
-
-        <div class="participants" id="participantsList" style="margin-top:12px;">
-          <!-- lista de participantes -->
-        </div>
-
-        <div class="admin-actions">
-          <button id="clearAll" class="btn-secondary">🔄 Reiniciar pozo ahora (admin)</button>
-        </div>
-      </div>
-    </div>
-
-    <div class="card" style="text-align:center;">
-      <div style="font-weight:800; font-size:20px;">Premio en efectivo</div>
-      <div style="font-size:26px; margin-top:6px; font-weight:900;">S/500 en efectivo</div>
-      <div class="muted" style="margin-top:6px;">Premio mayor — ¡podría ser tuyo!</div>
-    </div>
-
-    <div style="height:28px;"></div>
-    <div class="footer">© 2025 Casa de la Suerte Perú — Todos los derechos reservados</div>
+  <div style="margin-top:10px;">
+    <label style="font-size:16px;">Tickets:
+      <input type="number" id="tickets" min="1" value="1" style="width:60px; text-align:center;">
+    </label>
   </div>
 
-  <!-- WhatsApp floater (edítalo si quieres otro número) -->
-  <div class="whatsapp"><a id="waLink" href="https://wa.me/51936331215?text=Hola%20quiero%20participar" target="_blank">WA</a></div>
+  <button id="comprar-ticket" style="background:#FFD700; color:black; border:none; padding:10px 20px; border-radius:10px; margin-top:10px; font-weight:bold;">
+    🎟️ Comprar ticket(s)
+  </button>
 
-  <!-- Modal compra -->
-  <div id="modal" class="modal">
-    <div class="modal-card">
-      <div style="font-weight:900; font-size:18px; margin-bottom:8px;">Comprar ticket(s)</div>
-      <div class="field">
-        <label>Nombre</label>
-        <input id="inpName" type="text" placeholder="Tu nombre (ej: Juan Pérez)" />
-      </div>
-      <div class="field">
-        <label>WhatsApp</label>
-        <input id="inpWhats" type="text" placeholder="Ej: +519XXXXXXXX" />
-      </div>
-      <div class="field">
-        <label>Correo (opcional)</label>
-        <input id="inpEmail" type="email" placeholder="ejemplo@correo.com" />
-      </div>
-      <div style="font-size:13px; color:#0b3a5a; margin-bottom:8px;">
-        Tickets seleccionados: <strong id="confirmTickets">1</strong>
-      </div>
-      <div class="actions">
-        <button id="cancelBtn" class="btn-secondary">Cancelar</button>
-        <button id="confirmBtn" class="btn-primary">Confirmar compra</button>
-      </div>
-    </div>
-  </div>
+  <p style="margin-top:10px; font-size:13px;">* Reinicia automáticamente cada día a medianoche</p>
+</section>
 
-  <script>
-    /*********************************************************
-     * CONFIG
-     *********************************************************/
-    const TICKET_PRICE = 1.00; // S/ por ticket para el sorteo diario
-    const YA_PES_NUMBER = "936331215"; // número Yape (mostrar)
-    const WEBHOOK_URL = ""; // si quieres que esto haga POST a un endpoint pon aquí la URL (p.ej. Apps Script)
-    const STORAGE_KEY = "cdls_pozo_v1";
-    /*********************************************************/
+<script>
+  // 🟩 Simulación de actualización en tiempo real
+  let pozo = 0;
+  let acumulado = 0;
 
-    // Estado inicial y utilidades
-    const nowDate = () => new Date().toISOString().slice(0,10); // yyyy-mm-dd
-    const money = v => "S/ " + Number(v||0).toFixed(2);
+  const pozoElem = document.getElementById("pozo-actual");
+  const acumuladoElem = document.getElementById("acumulado-total");
+  const ticketsInput = document.getElementById("tickets");
+  const comprarBtn = document.getElementById("comprar-ticket");
 
-    // carga desde localStorage
-    function loadState(){
-      const saved = localStorage.getItem(STORAGE_KEY);
-      if(!saved) {
-        return { date: nowDate(), pozo:0, acumulado_total:0, participants: [] };
-      }
-      try{
-        const s = JSON.parse(saved);
-        // si la fecha guardada no es hoy, reiniciamos pozo pero mantenemos acumulado_total (opcional)
-        if(s.date !== nowDate()){
-          s.date = nowDate();
-          s.pozo = 0;
-          s.participants = [];
-        }
-        return s;
-      }catch(e){
-        return { date: nowDate(), pozo:0, acumulado_total:0, participants: [] };
-      }
-    }
-    function saveState(state){ localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); }
+  function actualizarVista() {
+    pozoElem.textContent = "S/ " + pozo.toFixed(2);
+    acumuladoElem.textContent = "S/ " + acumulado.toFixed(2);
+  }
 
-    // DOM
-    const pozoText = document.getElementById("pozoText");
-    const acumText = document.getElementById("acumText");
-    const participantsList = document.getElementById("participantsList");
-    const ticketsInput = document.getElementById("ticketsInput");
-    const openBuy = document.getElementById("openBuy");
-    const modal = document.getElementById("modal");
-    const confirmTickets = document.getElementById("confirmTickets");
-    const inpName = document.getElementById("inpName");
-    const inpWhats = document.getElementById("inpWhats");
-    const inpEmail = document.getElementById("inpEmail");
-    const confirmBtn = document.getElementById("confirmBtn");
-    const cancelBtn = document.getElementById("cancelBtn");
-    const clearAll = document.getElementById("clearAll");
-    const buyMain = document.getElementById("buyMain");
-    const waLink = document.getElementById("waLink");
+  comprarBtn.addEventListener("click", () => {
+    const cantidad = parseInt(ticketsInput.value) || 1;
+    const monto = cantidad * 1; // S/1 por ticket
+    pozo += monto;
+    acumulado += monto;
+    actualizarVista();
+    alert(`🎟️ Has comprado ${cantidad} ticket(s) por S/${monto}. ¡Suerte! 🍀`);
+  });
 
-    waLink.href = `https://wa.me/51${YA_PES_NUMBER}?text=${encodeURIComponent("Hola, quiero comprar tickets")}`;
-
-    // Inicializa estado
-    let state = loadState();
-    render();
-
-    // FUNCIONES
-    function render(){
-      pozoText.textContent = money(state.pozo);
-      acumText.textContent = money(state.acumulado_total);
-      // lista de participantes
-      participantsList.innerHTML = "";
-      if(state.participants.length === 0){
-        participantsList.innerHTML = "<div class='small-muted' style='text-align:center; margin-top:8px'>Aún no hay participantes</div>";
-      } else {
-        state.participants.slice().reverse().forEach((p,idx) => {
-          const div = document.createElement("div");
-          div.className = "list-item";
-          div.innerHTML = `
-            <div style="flex:1">
-              <div style="font-weight:800;">${escapeHtml(p.name||"Anon")}</div>
-              <div class="small-muted">${escapeHtml(p.whats||"")}${p.email? " · " + escapeHtml(p.email):""}</div>
-            </div>
-            <div style="text-align:right; min-width:120px;">
-              <div style="font-weight:800">${money(p.amount)}</div>
-              <div style="font-size:12px; color:#cfe7ff;">${p.tickets} tk</div>
-              <button data-id="${p.id}" style="margin-top:6px;padding:6px 8px;border-radius:8px;border:none;background:#ffebcd;cursor:pointer" onclick="removeParticipant('${p.id}')">Eliminar</button>
-            </div>
-          `;
-          participantsList.appendChild(div);
-        });
-      }
-      saveState(state);
-    }
-
-    function addPurchase(data){
-      // data: {name,whats,email,tickets,amount}
-      data.id = "p_" + Date.now() + "_" + Math.floor(Math.random()*9999);
-      data.createdAt = new Date().toISOString();
-      state.participants.push(data);
-      state.pozo = Number((Number(state.pozo) + Number(data.amount)).toFixed(2));
-      state.acumulado_total = Number((Number(state.acumulado_total) + Number(data.amount)).toFixed(2));
-      saveState(state);
-      render();
-      // enviar webhook si está configurado
-      if(WEBHOOK_URL && WEBHOOK_URL.length>5){
-        // intento de post
-        fetch(WEBHOOK_URL, {
-          method:"POST",
-          headers:{"Content-Type":"application/json"},
-          body: JSON.stringify({ event:"purchase", data })
-        }).catch(e => console.log("webhook error",e));
-      }
-    }
-
-    function removeParticipant(id){
-      state.participants = state.participants.filter(p=>p.id !== id);
-      saveState(state);
-      render();
-    }
-
-    // Abre modal compra
-    openBuy.addEventListener("click",()=>{
-      const t = Number(ticketsInput.value) || 1;
-      confirmTickets.textContent = t;
-      inpName.value = "";
-      inpWhats.value = "";
-      inpEmail.value = "";
-      modal.classList.add("open");
-    });
-    cancelBtn.addEventListener("click",()=> modal.classList.remove("open"));
-
-    confirmBtn.addEventListener("click",()=>{
-      const tickets = Number(ticketsInput.value) || 1;
-      const name = inpName.value.trim() || ("Participante " + (state.participants.length+1));
-      const whats = inpWhats.value.trim();
-      const email = inpEmail.value.trim();
-      // amount: each ticket = TICKET_PRICE in S/
-      const amount = Number((tickets * TICKET_PRICE).toFixed(2));
-      // registrar
-      addPurchase({ name, whats, email, tickets, amount });
-      modal.classList.remove("open");
-      // mostrar pantalla de instrucciones para pago (puedes editar)
-      alert(`Gracias ${name}! Para completar el pago envía S/ ${amount.toFixed(2)} por Yape al número ${YA_PES_NUMBER} y luego confirma por WhatsApp.`);
-    });
-
-    // Botón reiniciar (admin)
-    clearAll.addEventListener("click",()=>{
-      if(!confirm("¿Reiniciar pozo y borrar participantes de hoy? (esto sólo afecta al pozo diario)")) return;
-      state.date = nowDate();
-      state.pozo = 0;
-      state.participants = [];
-      saveState(state);
-      render();
-    });
-
-    // Reinicio automático a medianoche
-    function scheduleMidnightReset(){
-      const now = new Date();
-      const msToMidnight = new Date(now.getFullYear(),now.getMonth(),now.getDate()+1,0,0,2) - now; // +2s
-      setTimeout(()=>{
-        // reset pozo y participantes, mantiene acumulado_total si quieres
-        state.date = nowDate();
-        state.pozo = 0;
-        state.participants = [];
-        saveState(state);
-        render();
-        scheduleMidnightReset(); // re-programar
-      }, msToMidnight);
-    }
-    scheduleMidnightReset();
-
-    // simple escape
-    function escapeHtml(s){ return String(s||"").replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]) ); }
-
-    // helper: despues de pegar el HTML en tu web, si el área de pozo sale vacía o "0" revisa localStorage (puede haber valores previos)
-    window.removeParticipant = removeParticipant; // expone para botones inline
-  </script>
-</body>
-</html>
+  actualizarVista();
+</script>
