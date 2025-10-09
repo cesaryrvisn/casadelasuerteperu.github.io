@@ -1,130 +1,150 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Casa de la Suerte Perú 🍀</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: #00235b;
-      color: #fff;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-
-    h1 {
-      color: #ffdc00;
-      font-size: 2em;
-      margin-top: 30px;
-    }
-
-    .countdown, .buy-button, .acumulable {
-      background: linear-gradient(90deg, #ffdc00, #ffb700);
-      color: #000;
-      display: inline-block;
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-weight: 700;
-      margin: 15px 0;
-      box-shadow: 0 0 15px #ffdc00;
-    }
-
-    .buy-button:hover {
-      background: #ffb700;
-      cursor: pointer;
-    }
-
-    .section {
-      background: #003a9c;
-      border-radius: 15px;
-      margin: 20px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
-    }
-
-    .whatsapp-btn {
-      background: #25d366;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 30px;
-      font-weight: bold;
-      text-decoration: none;
-      display: inline-block;
-      margin-top: 15px;
-      box-shadow: 0 0 15px #25d366;
-    }
-
-    .whatsapp-btn:hover {
-      background: #1ebe57;
-    }
-
-    .footer {
-      font-size: 0.9em;
-      opacity: 0.8;
-      margin-top: 30px;
-      padding-bottom: 40px;
-    }
-  </style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Casa de la Suerte Perú 🍀</title>
+<style>
+  body {
+    font-family: 'Poppins', sans-serif;
+    background-color: #00235b;
+    color: white;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+  }
+  h1 {
+    color: #ffd700;
+    margin-top: 20px;
+  }
+  .timer, .btn {
+    background: #ffd700;
+    color: #00235b;
+    padding: 12px 25px;
+    border-radius: 25px;
+    display: inline-block;
+    font-weight: bold;
+    margin: 10px;
+    box-shadow: 0 0 10px #ffd700;
+  }
+  .section {
+    background: #003a9c;
+    border-radius: 15px;
+    margin: 20px auto;
+    padding: 20px;
+    width: 90%;
+    max-width: 480px;
+    box-shadow: 0 0 15px rgba(255,255,255,0.3);
+  }
+  .btn-buy {
+    background: linear-gradient(90deg, #ffd700, #ffb700);
+    color: #00235b;
+    border: none;
+    border-radius: 25px;
+    padding: 10px 25px;
+    cursor: pointer;
+    font-weight: bold;
+  }
+  .btn-buy:hover {
+    background: #ffb700;
+  }
+  .whatsapp {
+    background: #25d366;
+    color: white;
+    text-decoration: none;
+    padding: 12px 25px;
+    border-radius: 25px;
+    display: inline-block;
+    margin-top: 20px;
+    font-weight: bold;
+    box-shadow: 0 0 15px #25d366;
+  }
+  .footer {
+    margin-top: 30px;
+    font-size: 0.9em;
+    opacity: 0.8;
+    padding-bottom: 40px;
+  }
+</style>
 </head>
+
 <body>
+<h1>CASA DE LA SUERTE PERÚ 🍀</h1>
+<h3>Tu portal de diversión y premios increíbles</h3>
 
-  <h1>CASA DE LA SUERTE PERÚ 🍀</h1>
-  <h3>Tu portal de diversión y premios increíbles</h3>
+<div class="timer" id="countdown">⏰ Sorteo en: 21d 12h 37m 0s</div>
 
-  <div class="countdown" id="countdown">⏰ Sorteo en: 21d 12h 37m 0s</div>
+<p>Participa con tan solo <b>S/10 por ticket</b>.<br>¡A más tickets, más probabilidades de ganar!</p>
 
-  <div>
-    <div class="buy-button">💰 COMPRA TU TICKET 💰</div>
-    <p>Participa con tan solo <b>S/10 por ticket</b>.<br>¡A más tickets, más probabilidades de ganar!</p>
-  </div>
+<div class="section">
+  🎯 <b>Sorteo Diario Acumulable</b><br>
+  Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰<br><br>
+  <div><b>Pozo actual:</b> <span id="pozo">S/ 0.00</span></div>
+  <br>
+  Tickets: <input type="number" id="tickets" value="1" min="1" style="width:60px; text-align:center; border-radius:5px;" />
+  <br><br>
+  <button class="btn-buy" id="buyBtn">🎟️ Comprar ticket(s)</button>
+  <p style="font-size:0.9em;opacity:0.8;">* Reinicia automáticamente cada día a medianoche</p>
+</div>
 
-  <div class="section">
-    🎯 <b>Participa también en el sorteo diario acumulable desde S/1.</b><br>
-    ¡El pozo crece en tiempo real y puede tocarte a ti!<br>
-    <span style="display:block; margin-top:10px;">💸 Pozo actual: <b id="pozo">S/0</b></span>
-  </div>
+<div class="section">
+  💵 <b>Premio en efectivo</b><br>
+  <h2>S/500 en efectivo</h2>
+  Premio mayor — ¡podría ser tuyo!
+</div>
 
-  <div class="section">
-    💵 <b>Premio en efectivo</b><br>
-    <h2>S/500 en efectivo</h2>
-    Premio mayor — ¡podría ser tuyo!
-  </div>
+<div class="section">
+  🌸 <b>Caja de perfumes</b><br>
+  Pack premium — 4 fragancias exclusivas
+</div>
 
-  <div class="section">
-    💐 <b>Caja de perfumes</b><br>
-    Pack premium — 4 fragancias exclusivas
-  </div>
+<a id="whatsappLink" class="whatsapp" target="_blank">📲 Participar por WhatsApp</a>
 
-  <a class="whatsapp-btn" href="https://wa.me/519XXXXXXXX?text=Hola!%20Quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú!">📲 Participar por WhatsApp</a>
+<div class="footer">
+  © 2025 Casa de la Suerte Perú — Todos los derechos reservados
+</div>
 
-  <div class="footer">
-    © 2025 Casa de la Suerte Perú — Todos los derechos reservados
-  </div>
+<script>
+  // === POZO ACUMULABLE ===
+  let pozo = 0;
+  setInterval(() => {
+    pozo += (Math.random() * 3).toFixed(2) * 1; // S/1 a S/3
+    document.getElementById("pozo").textContent = "S/ " + pozo.toFixed(2);
+  }, 3000);
 
-  <script>
-    // Simulación del pozo acumulable en tiempo real
-    let pozo = 0;
-    setInterval(() => {
-      pozo += Math.floor(Math.random() * 3); // simula entradas de S/1 a S/3
-      document.getElementById("pozo").textContent = "S/" + pozo;
-    }, 3000);
+  // Reinicio automático a medianoche
+  setInterval(() => {
+    const now = new Date();
+    if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+      pozo = 0;
+    }
+  }, 1000);
 
-    // Temporizador del sorteo (ejemplo simple)
-    const countdownEl = document.getElementById('countdown');
-    let totalSeconds = 21 * 24 * 60 * 60 + 12 * 60 * 60 + 37 * 60;
-    setInterval(() => {
-      totalSeconds--;
-      let d = Math.floor(totalSeconds / (3600*24));
-      let h = Math.floor((totalSeconds % (3600*24)) / 3600);
-      let m = Math.floor((totalSeconds % 3600) / 60);
-      let s = Math.floor(totalSeconds % 60);
-      countdownEl.textContent = `⏰ Sorteo en: ${d}d ${h}h ${m}m ${s}s`;
-    }, 1000);
-  </script>
+  // === TEMPORIZADOR ===
+  const countdownEl = document.getElementById('countdown');
+  let totalSeconds = 21*24*60*60 + 12*60*60 + 37*60;
+  setInterval(() => {
+    totalSeconds--;
+    let d = Math.floor(totalSeconds / (3600*24));
+    let h = Math.floor((totalSeconds % (3600*24)) / 3600);
+    let m = Math.floor((totalSeconds % 3600) / 60);
+    let s = Math.floor(totalSeconds % 60);
+    countdownEl.textContent = `⏰ Sorteo en: ${d}d ${h}h ${m}m ${s}s`;
+  }, 1000);
 
+  // === WHATSAPP ===
+  const buyBtn = document.getElementById("buyBtn");
+  const whatsappLink = document.getElementById("whatsappLink");
+  buyBtn.addEventListener("click", () => {
+    const t = document.getElementById("tickets").value;
+    const total = t * 1; // cada ticket S/1
+    const msg = encodeURIComponent(
+      `Hola! Quiero comprar ${t} ticket(s) del Sorteo Diario Acumulable de Casa de la Suerte Perú. Total: S/${total.toFixed(2)}`
+    );
+    const phone = "519XXXXXXXX"; // <-- tu número AQUÍ
+    whatsappLink.href = `https://wa.me/${phone}?text=${msg}`;
+    whatsappLink.click();
+  });
+</script>
 </body>
 </html>
