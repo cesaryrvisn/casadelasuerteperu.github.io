@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casa de la Suerte Perú 🍀</title>
   <style>
     body {
       font-family: 'Poppins', sans-serif;
-      background-color: #002366;
+      background: linear-gradient(180deg, #002366, #000d3d);
       color: white;
       text-align: center;
       margin: 0;
@@ -15,163 +15,103 @@
     }
     h1 {
       color: #FFD700;
-      font-size: 2em;
       margin-top: 20px;
     }
-    h2 {
-      color: #fff;
-      margin-top: 10px;
-    }
     .section {
-      background: #0033A0;
-      margin: 15px auto;
-      border-radius: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
       padding: 20px;
+      margin: 20px auto;
       width: 90%;
-      max-width: 500px;
-      box-shadow: 0 0 15px rgba(0,0,0,0.4);
+      max-width: 400px;
+      box-shadow: 0 0 10px rgba(255,255,255,0.1);
     }
     .highlight {
       background: #FFD700;
       color: #002366;
-      display: inline-block;
-      padding: 10px 15px;
+      padding: 8px 15px;
       border-radius: 10px;
       font-weight: bold;
-      margin: 10px 0;
+      display: inline-block;
+      margin-bottom: 10px;
     }
     .button {
       background: #FFD700;
       color: #002366;
       border: none;
-      border-radius: 20px;
-      padding: 10px 20px;
-      font-size: 1em;
-      cursor: pointer;
-      margin-top: 10px;
+      border-radius: 25px;
+      padding: 10px 25px;
       font-weight: bold;
+      cursor: pointer;
+      transition: 0.3s;
     }
     .button:hover {
-      background: #FFEA00;
-    }
-    .cash {
-      color: #00FF90;
-      font-weight: bold;
+      background: #ffed4a;
     }
     input[type="number"] {
       width: 60px;
-      text-align: center;
-      border-radius: 10px;
+      border-radius: 8px;
       border: none;
       padding: 5px;
+      text-align: center;
       font-size: 1em;
     }
-    footer {
-      margin-top: 30px;
-      font-size: 0.9em;
-      color: #ccc;
-    }
-    .whatsapp-btn {
-      background: #25D366;
-      color: white;
-      padding: 12px 25px;
-      border-radius: 25px;
-      text-decoration: none;
-      display: inline-block;
+    .cash {
+      color: #00ff90;
       font-weight: bold;
-      margin-top: 15px;
+      font-size: 1.3em;
+    }
+    footer {
+      margin: 20px 0;
+      color: #bbb;
+      font-size: 0.9em;
     }
   </style>
 </head>
 <body>
 
   <h1>CASA DE LA SUERTE PERÚ 🍀</h1>
-  <h2>Tu portal de diversión y premios increíbles</h2>
+  <p>Tu portal de diversión y premios reales 💸</p>
 
   <div class="section">
-    <div class="highlight">⏰ Sorteo en: <span id="countdown"></span></div>
-    <p>Participa con tan solo <b>S/10</b> por ticket.<br>¡A más tickets, más probabilidades de ganar!</p>
-    <button class="button">💸 COMPRA TU TICKET 💸</button>
-  </div>
-
-  <div class="section">
-    <h3>🎯 Sorteo Diario Acumulable</h3>
-    <p>Participa desde solo <b>S/1</b> y mira cómo crece el pozo en tiempo real 💰</p>
-    <p class="cash">Pozo actual: S/ <span id="pozo">0.00</span></p>
+    <div class="highlight">Pozo actual: S/ <span id="pozo">0.00</span></div>
+    <p class="cash">Acumulado total: S/ <span id="acumulado">0.00</span></p>
 
     <label>Tickets:</label>
-    <input type="number" id="tickets" min="1" value="1" />
-
-    <br>
+    <input type="number" id="tickets" min="1" value="1">
     <button class="button" onclick="comprarTickets()">🎟️ Comprar ticket(s)</button>
 
     <p style="font-size:0.9em; color:#ccc;">* Reinicia automáticamente cada día a medianoche</p>
   </div>
-
-  <div class="section">
-    <h3>💵 Premio en efectivo</h3>
-    <p style="font-size:1.5em; font-weight:bold;">S/500 en efectivo</p>
-    <p>Premio mayor — ¡podría ser tuyo!</p>
-  </div>
-
-  <div class="section">
-    <h3>🌸 Caja de perfumes</h3>
-    <p>Pack premium — 4 fragancias exclusivas</p>
-  </div>
-
-  <a href="https://wa.me/51999999999" target="_blank" class="whatsapp-btn">📲 Participar por WhatsApp</a>
 
   <footer>
     © 2025 Casa de la Suerte Perú — Todos los derechos reservados
   </footer>
 
   <script>
-    // ======== CUENTA REGRESIVA ========
-    const countdownElement = document.getElementById("countdown");
-    const drawDate = new Date();
-    drawDate.setDate(drawDate.getDate() + 21); // 21 días desde hoy
-
-    function updateCountdown() {
-      const now = new Date().getTime();
-      const distance = drawDate - now;
-
-      if (distance < 0) {
-        countdownElement.innerHTML = "¡Sorteo en curso!";
-        return;
-      }
-
-      const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-      const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-      const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-      countdownElement.innerHTML = `${days}d ${hours}h ${minutes}m ${seconds}s`;
-    }
-    setInterval(updateCountdown, 1000);
-    updateCountdown();
-
-    // ======== POZO ACUMULABLE ========
-    const pozoElement = document.getElementById("pozo");
+    const pozoEl = document.getElementById("pozo");
+    const acumuladoEl = document.getElementById("acumulado");
     let pozo = parseFloat(localStorage.getItem("pozo")) || 0;
+    let acumulado = parseFloat(localStorage.getItem("acumulado")) || 0;
     const ticketPrice = 1;
 
-    function actualizarPozo() {
-      pozoElement.textContent = pozo.toFixed(2);
+    function actualizar() {
+      pozoEl.textContent = pozo.toFixed(2);
+      acumuladoEl.textContent = acumulado.toFixed(2);
       localStorage.setItem("pozo", pozo);
+      localStorage.setItem("acumulado", acumulado);
     }
 
     function comprarTickets() {
       const cantidad = parseInt(document.getElementById("tickets").value);
       if (cantidad > 0) {
         pozo += cantidad * ticketPrice;
-        actualizarPozo();
-        alert(`¡Compra exitosa! Se añadieron ${cantidad} ticket(s).`);
+        acumulado += cantidad * ticketPrice;
+        actualizar();
+        alert(`¡Compra registrada! Has agregado ${cantidad} ticket(s).`);
       }
     }
 
-    actualizarPozo();
-
-    // ======== REINICIO AUTOMÁTICO A MEDIANOCHE ========
     function reiniciarPozo() {
       const ahora = new Date();
       const medianoche = new Date();
@@ -180,10 +120,12 @@
       const tiempoRestante = medianoche - ahora;
       setTimeout(() => {
         pozo = 0;
-        actualizarPozo();
+        actualizar();
         reiniciarPozo();
       }, tiempoRestante);
     }
+
+    actualizar();
     reiniciarPozo();
   </script>
 
