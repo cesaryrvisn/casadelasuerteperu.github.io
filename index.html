@@ -1,149 +1,91 @@
-  <!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Casa de la Suerte Perú 🍀</title>
-  <style>
-    body {
-      font-family: "Poppins", sans-serif;
-      background-color: #002b7a;
-      color: white;
-      text-align: center;
-      margin: 0;
-      padding: 0;
+<!-- 🔥 Sorteo Diario Acumulable Script -->
+<script type="module">
+  // Configura Firebase
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+  import { getDatabase, ref, get, set, update, onValue } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-database.js";
+
+  const firebaseConfig = {
+    apiKey: "AIzaSyCj-REEMPLAZA-CON-LA-TUYA",
+    authDomain: "casa-de-la-suerte.firebaseapp.com",
+    databaseURL: "https://casa-de-la-suerte-default-rtdb.firebaseio.com",
+    projectId: "casa-de-la-suerte",
+    storageBucket: "casa-de-la-suerte.appspot.com",
+    messagingSenderId: "000000000000",
+    appId: "1:000000000000:web:xxxxxxxxxxxxxxxx"
+  };
+
+  const app = initializeApp(firebaseConfig);
+  const db = getDatabase(app);
+
+  const pozoRef = ref(db, "pozo_diario");
+  const acumuladoRef = ref(db, "acumulado_total");
+  const modoAcumulableRef = ref(db, "modo_acumulable");
+
+  const pozoDisplay = document.querySelector("#pozo-actual");
+  const ticketsInput = document.querySelector("#tickets");
+  const comprarBtn = document.querySelector("#comprar-btn");
+  const acumuladoDisplay = document.querySelector("#acumulado");
+
+  // Inicializa los valores
+  async function initPozo() {
+    const snapshot = await get(pozoRef);
+    if (!snapshot.exists()) {
+      await set(pozoRef, { monto: 0, fecha: new Date().toDateString() });
     }
-    h1 {
-      color: #ffcc00;
-      font-size: 2.3em;
-      margin-top: 30px;
+    const acumuladoSnap = await get(acumuladoRef);
+    if (!acumuladoSnap.exists()) {
+      await set(acumuladoRef, { total: 0 });
     }
-    .btn {
-      background: #ffcc00;
-      color: #002b7a;
-      font-weight: bold;
-      border: none;
-      border-radius: 12px;
-      padding: 14px 25px;
-      font-size: 1.1em;
-      cursor: pointer;
-      box-shadow: 0 0 15px rgba(255, 255, 0, 0.6);
-      text-decoration: none;
-      display: inline-block;
-      margin: 10px;
+    const modoSnap = await get(modoAcumulableRef);
+    if (!modoSnap.exists()) {
+      await set(modoAcumulableRef, { activo: true });
     }
-    .btn:hover {
-      background: #ffe44d;
-    }
-    .countdown {
-      background: #ffcc00;
-      color: #002b7a;
-      font-weight: bold;
-      border-radius: 12px;
-      display: inline-block;
-      padding: 10px 18px;
-      margin-top: 20px;
-      box-shadow: 0 0 10px rgba(255, 255, 0, 0.6);
-    }
-    .section {
-      background: #011f56;
-      margin: 20px auto;
-      padding: 20px;
-      border-radius: 15px;
-      width: 85%;
-      max-width: 500px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
-    }
-    input[type="number"] {
-      width: 60px;
-      text-align: center;
-      font-size: 1em;
-      padding: 5px;
-      border-radius: 6px;
-      border: none;
-      margin-left: 10px;
-    }
-  </style>
-</head>
-<body>
-  <h1>CASA DE LA SUERTE PERÚ 🍀</h1>
-  <p>Tu portal de diversión y premios increíbles</p>
+  }
 
-  <div class="countdown" id="countdown">
-    🕒 Sorteo en: 21d 12h 37m 0s
-  </div>
+  initPozo();
 
-  <br />
-  <a id="whatsappMain" class="btn" href="#" target="_blank">💸 COMPRA TU TICKET 💸</a>
+  // Escucha los cambios en tiempo real
+  onValue(pozoRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) pozoDisplay.textContent = `S/ ${data.monto.toFixed(2)}`;
+  });
 
-  <p>Participa con tan solo <b>S/10 por ticket</b>.<br />¡A más tickets, más probabilidades de ganar!</p>
+  onValue(acumuladoRef, (snapshot) => {
+    const data = snapshot.val();
+    if (data) acumuladoDisplay.textContent = `Acumulado total: S/ ${data.total.toFixed(2)}`;
+  });
 
-  <div class="section">
-    <h2>🎯 Sorteo Diario Acumulable</h2>
-    <p>Participa desde solo <b>S/1</b> y mira cómo crece el pozo en tiempo real 💰</p>
+  // Botón de compra
+  comprarBtn.addEventListener("click", async () => {
+    const cantidad = parseInt(ticketsInput.value) || 1;
+    const snapshot = await get(pozoRef);
+    const data = snapshot.val() || { monto: 0 };
+    const nuevoPozo = data.monto + cantidad;
+    await update(pozoRef, { monto: nuevoPozo });
+    alert(`✅ Has comprado ${cantidad} ticket(s). ¡Suerte! 🍀`);
+  });
 
-    <h3>Pozo actual: <span id="pozo">S/ 0.00</span></h3>
-    <div>
-      Tickets: <input type="number" id="tickets" value="1" min="1" />
-    </div>
-    <button id="comprar" class="btn">🎟️ Comprar ticket(s)</button>
+  // Reinicia el pozo a medianoche
+  setInterval(async () => {
+    const now = new Date();
+    if (now.getHours() === 0 && now.getMinutes() === 0 && now.getSeconds() === 0) {
+      const pozoSnap = await get(pozoRef);
+      const modoSnap = await get(modoAcumulableRef);
+      const acumuladoSnap = await get(acumuladoRef);
+      const pozoActual = pozoSnap.val().monto;
+      const acumuladoActual = acumuladoSnap.val().total;
+      const modo = modoSnap.val().activo;
 
-    <p><small>* Reinicia automáticamente cada día a medianoche</small></p>
-  </div>
-
-  <script>
-    // === CONFIGURACIÓN ===
-    const phone = "519XXXXXXXX"; // 🔹 TU NÚMERO DE WHATSAPP AQUÍ
-    let pozo = 0;
-
-    // === ACTUALIZAR POZO EN TIEMPO REAL ===
-    function actualizarPozoDisplay() {
-      document.getElementById("pozo").textContent = "S/ " + pozo.toFixed(2);
-    }
-
-    // === COMPRAR TICKET ACUMULABLE ===
-    document.getElementById("comprar").addEventListener("click", () => {
-      const cantidad = parseInt(document.getElementById("tickets").value);
-      if (cantidad > 0) {
-        pozo += cantidad * 1;
-        actualizarPozoDisplay();
-
-        const msg = encodeURIComponent(
-          `Hola 👋, quiero participar en el *Sorteo Diario Acumulable* de Casa de la Suerte Perú 🎯.\n\nCantidad: ${cantidad} ticket(s)\nTotal: S/${cantidad}.00\n\n¡Listo para la suerte! 🍀`
-        );
-
-        window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
+      if (modo) {
+        await update(acumuladoRef, { total: acumuladoActual + pozoActual });
       }
-    });
-
-    // === BOTÓN PRINCIPAL (S/10 por ticket) ===
-    const mainBtn = document.getElementById("whatsappMain");
-    mainBtn.addEventListener("click", (e) => {
-      e.preventDefault();
-      const msg = encodeURIComponent(
-        "Hola 👋, quiero participar en el *SORTEO PRINCIPAL* de Casa de la Suerte Perú 🎉 con 1 ticket (S/10)."
-      );
-      window.open(`https://wa.me/${phone}?text=${msg}`, "_blank");
-    });
-
-    // === REINICIAR POZO A MEDIANOCHE ===
-    function reiniciarPozoAMedianoche() {
-      const ahora = new Date();
-      const proximaMedianoche = new Date(
-        ahora.getFullYear(),
-        ahora.getMonth(),
-        ahora.getDate() + 1,
-        0, 0, 0
-      );
-      const msRestantes = proximaMedianoche - ahora;
-      setTimeout(() => {
-        pozo = 0;
-        actualizarPozoDisplay();
-        reiniciarPozoAMedianoche();
-      }, msRestantes);
+      await set(pozoRef, { monto: 0, fecha: new Date().toDateString() });
     }
-    reiniciarPozoAMedianoche();
-    actualizarPozoDisplay();
-  </script>
-</body>
-</html>
+  }, 1000);
+</script>
+
+<!-- 🧾 Elementos HTML que deben existir -->
+<p><strong>Pozo actual:</strong> <span id="pozo-actual">S/ 0.00</span></p>
+<p><strong id="acumulado">Acumulado total: S/ 0.00</strong></p>
+<label>Tickets: <input type="number" id="tickets" value="1" min="1"></label>
+<button id="comprar-btn">🎟️ Comprar ticket(s)</button>
