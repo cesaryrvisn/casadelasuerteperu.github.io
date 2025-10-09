@@ -1,127 +1,141 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Casa de la Suerte Perú</title>
-<style>
-body {
-  font-family: "Poppins", sans-serif;
-  background-color: #002b80;
-  color: white;
-  text-align: center;
-  margin: 0;
-  padding: 0;
-}
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa de la Suerte Perú</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(180deg, #004aad, #001f54);
+      color: #fff;
+      text-align: center;
+      overflow-x: hidden;
+    }
 
-h1 { font-size: 1.8em; margin-top: 10px; }
+    header {
+      background: linear-gradient(90deg, #ffd700, #ffb700);
+      color: #004aad;
+      padding: 20px 0;
+      font-size: 2em;
+      font-weight: 800;
+      text-transform: uppercase;
+      box-shadow: 0 0 20px rgba(255, 215, 0, 0.6);
+    }
 
-.highlight {
-  background: #ffd60a;
-  color: #001a4d;
-  padding: 10px 20px;
-  border-radius: 15px;
-  display: inline-block;
-  font-weight: bold;
-  box-shadow: 0 0 20px #ffd60a;
-  animation: glow 1.8s ease-in-out infinite alternate;
-}
+    .container {
+      padding: 40px 20px;
+    }
 
-@keyframes glow {
-  from { box-shadow: 0 0 10px #ffd60a; }
-  to { box-shadow: 0 0 25px #ffd60a; }
-}
+    .premios {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      margin-top: 20px;
+    }
 
-button {
-  background: #ffd60a;
-  color: #001a4d;
-  border: none;
-  padding: 14px 35px;
-  border-radius: 25px;
-  font-weight: bold;
-  cursor: pointer;
-  box-shadow: 0 0 15px #ffd60a;
-  margin-top: 15px;
-  transition: transform 0.2s ease-in-out;
-}
-button:hover { transform: scale(1.05); }
+    .card {
+      background: rgba(255, 255, 255, 0.1);
+      border: 2px solid #ffd700;
+      border-radius: 15px;
+      padding: 20px;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
 
-.premio {
-  background: rgba(255,255,255,0.15);
-  border-radius: 15px;
-  margin: 10px auto;
-  padding: 10px;
-  width: 80%;
-  max-width: 400px;
-}
+    .card:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px #ffd700;
+    }
 
-.whatsapp-float {
-  position: fixed;
-  width: 65px;
-  height: 65px;
-  bottom: 25px;
-  right: 25px;
-  background-color: #25d366;
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  box-shadow: 0 0 25px rgba(37,211,102,0.8);
-  z-index: 100;
-  animation: bounce 1.5s infinite ease-in-out, glow-green 2s infinite alternate;
-}
+    .card h3 {
+      color: #ffd700;
+      margin-bottom: 10px;
+    }
 
-@keyframes bounce {
-  0%, 100% { transform: translateY(0); }
-  50% { transform: translateY(-6px); }
-}
+    .btn {
+      display: inline-block;
+      background: #ffd700;
+      color: #004aad;
+      padding: 15px 30px;
+      margin-top: 30px;
+      font-size: 1.3em;
+      font-weight: bold;
+      border: none;
+      border-radius: 30px;
+      text-decoration: none;
+      box-shadow: 0 0 20px #ffd700;
+      transition: all 0.3s ease;
+    }
 
-@keyframes glow-green {
-  from { box-shadow: 0 0 10px #25d366; }
-  to { box-shadow: 0 0 25px #00ff88; }
-}
+    .btn:hover {
+      background: #fff;
+      color: #004aad;
+      box-shadow: 0 0 40px #ffd700;
+    }
 
-.whatsapp-float:hover {
-  background-color: #1ebe5b;
-  transform: scale(1.05);
-}
+    footer {
+      background: #002a6b;
+      padding: 15px;
+      color: #ffd700;
+      font-size: 0.9em;
+      margin-top: 40px;
+    }
 
-.whatsapp-icon svg {
-  width: 35px;
-  height: 35px;
-  fill: white;
-}
-</style>
+    /* Botón flotante de WhatsApp */
+    .whatsapp {
+      position: fixed;
+      bottom: 25px;
+      right: 25px;
+      background-color: #25d366;
+      color: white;
+      border-radius: 50%;
+      width: 60px;
+      height: 60px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 30px;
+      text-decoration: none;
+      box-shadow: 0 0 20px rgba(0,0,0,0.3);
+      animation: float 2s ease-in-out infinite;
+      z-index: 1000;
+    }
+
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .descripcion {
+      margin-top: 20px;
+      font-size: 1.1em;
+      color: #fff;
+    }
+  </style>
 </head>
 <body>
+  <header>🍀 Casa de la Suerte Perú 🍀</header>
 
-<h2 class="highlight">🏆 PREMIO MAYOR: S/500</h2>
-<p>💰 Premio en efectivo — entrega verificada</p>
+  <div class="container">
+    <h2>🎉 ¡Grandes premios te esperan! 🎉</h2>
+    <div class="premios">
+      <div class="card"><h3>💰 Premio Mayor</h3><p>S/ 500 soles en efectivo</p></div>
+      <div class="card"><h3>💄 Perfumes para Dama</h3><p>Caja valorizada en S/ 300 (4 perfumes)</p></div>
+      <div class="card"><h3>🕺 Perfumes para Caballero</h3><p>Caja valorizada en S/ 300 (4 perfumes)</p></div>
+      <div class="card"><h3>🎽 Bolsos Deportivos</h3><p>20 ganadores</p></div>
+      <div class="card"><h3>🎁 Premios Sorpresa</h3><p>¡10 premios ocultos te esperan!</p></div>
+    </div>
 
-<h1>Casa de la Suerte Perú</h1>
-<p>¡Participa y gana! Sorteos transparentes y premios reales.</p>
+    <a href="https://mpago.la/1jQtrAC" class="btn">💸 Compra tu ticket</a>
 
-<a href="https://mpago.la/1jQtrAC" target="_blank">
-  <button>🎟️ Participa ahora</button>
-</a>
-
-<p>Participa con tan solo <strong>S/10 por ticket.</strong><br>
-A más tickets, ¡mayor probabilidad de ganar!</p>
-
-<div class="premio">💵 <strong>S/500 en efectivo</strong><br>Premio mayor — ¡podría ser tuyo!</div>
-<div class="premio">🎁 <strong>Caja de perfumes</strong><br>Pack premium — 4 fragancias.</div>
-<div class="premio">🏋️‍♂️ <strong>Bolso deportivo</strong><br>Ideal para gym o viajes.</div>
-<div class="premio">🎉 <strong>Premios sorpresa</strong><br>Animaciones y sorteos continuos.</div>
-
-<!-- BOTÓN DE WHATSAPP CON ÍCONO SVG REAL -->
-<a href="https://wa.me/519944315625?text=Hola%20👋%20quiero%20participar%20en%20el%20sorteo%20de%20la%20Casa%20de%20la%20Suerte%20Perú%20🎟️" 
-   class="whatsapp-float" target="_blank">
-  <div class="whatsapp-icon">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512">
-      <path d="M380.9 97.1C339-3.9 208.1-32 112.4 28.6c-92.6 57.4-127.4 172.3-80.3 267.8L0 480l187.2-32.3c89.5 49.5 203.3 17.1 260.7-72.4 57.4-89.6 25.1-203.5-67-278.2zm-70.6 248.7c-12.3 34.7-60.5 31.5-100.2 17.7-23.8-8.5-53.5-24.5-75.8-47.3s-41-51.8-49.4-75.4c-13.9-39.6-17.2-87.8 17.3-100.2 9.5-3.3 23.8 2.8 33.8 17.7l19.7 30.4c5.6 8.7 6.7 19.8 2.8 29.5l-8.3 20.7c6.8 11.7 22.2 30.9 39.1 45.2s33.8 24.9 45.2 29.1l20.4-8.1c9.8-3.9 20.9-2.8 29.6 2.7l30.4 19.5c14.9 9.5 20.9 24.2 17.7 33.7z"/>
-    </svg>
+    <p class="descripcion">Participa con tan solo <b>S/10</b> por ticket.  
+      ¡A más tickets, más oportunidades de ganar! 🍀</p>
   </div>
-</a>
 
+  <footer>© 2025 Casa de la Suerte Perú - Tu portal de diversión y premios</footer>
+
+  <!-- Botón flotante WhatsApp -->
+  <a href="https://wa.me/51944315625?text=Quiero%20participar%20en%20el%20sorteo%20de%20Casa%20de%20la%20Suerte%20Perú" class="whatsapp">💬</a>
 </body>
 </html>
