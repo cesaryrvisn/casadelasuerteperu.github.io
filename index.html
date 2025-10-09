@@ -1,133 +1,116 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Casa de la Suerte Perú 🍀</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #002366, #000d3d);
+      font-family: Arial, sans-serif;
+      background: #002060;
       color: white;
       text-align: center;
       margin: 0;
       padding: 0;
     }
     h1 {
-      color: #FFD700;
+      color: #ffcc00;
+      font-size: 28px;
       margin-top: 20px;
     }
     .section {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      padding: 20px;
-      margin: 20px auto;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 10px rgba(255,255,255,0.1);
+      background: #003399;
+      margin: 15px;
+      border-radius: 15px;
+      padding: 15px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.3);
     }
-    .highlight {
-      background: #FFD700;
-      color: #002366;
-      padding: 8px 15px;
+    .btn {
+      background: #ffcc00;
+      color: #000;
+      font-weight: bold;
+      padding: 10px 20px;
       border-radius: 10px;
-      font-weight: bold;
-      display: inline-block;
-      margin-bottom: 10px;
-    }
-    .button {
-      background: #FFD700;
-      color: #002366;
       border: none;
-      border-radius: 25px;
-      padding: 10px 25px;
-      font-weight: bold;
       cursor: pointer;
-      transition: 0.3s;
+      font-size: 16px;
     }
-    .button:hover {
-      background: #ffed4a;
+    .btn:hover {
+      background: #ffdb4d;
     }
-    input[type="number"] {
+    input {
       width: 60px;
-      border-radius: 8px;
-      border: none;
-      padding: 5px;
       text-align: center;
-      font-size: 1em;
+      font-size: 16px;
+      border-radius: 5px;
+      padding: 5px;
+      border: none;
     }
-    .cash {
-      color: #00ff90;
+    .whatsapp {
+      background: #25D366;
+      color: #fff;
+      border-radius: 10px;
+      padding: 12px 20px;
       font-weight: bold;
-      font-size: 1.3em;
-    }
-    footer {
-      margin: 20px 0;
-      color: #bbb;
-      font-size: 0.9em;
+      text-decoration: none;
+      display: inline-block;
+      margin-top: 15px;
     }
   </style>
 </head>
 <body>
 
   <h1>CASA DE LA SUERTE PERÚ 🍀</h1>
-  <p>Tu portal de diversión y premios reales 💸</p>
+  <p>Tu portal de diversión y premios increíbles</p>
 
   <div class="section">
-    <div class="highlight">Pozo actual: S/ <span id="pozo">0.00</span></div>
-    <p class="cash">Acumulado total: S/ <span id="acumulado">0.00</span></p>
+    <h2>🎯 Sorteo Diario Acumulable</h2>
+    <p>Participa desde solo <b>S/1</b> y mira cómo crece el pozo en tiempo real 💰</p>
+    <p><b>Pozo actual:</b> S/ <span id="pozo">0.00</span></p>
+    <p><b>Acumulado total:</b> S/ <span id="acumulado">0.00</span></p>
 
     <label>Tickets:</label>
-    <input type="number" id="tickets" min="1" value="1">
-    <button class="button" onclick="comprarTickets()">🎟️ Comprar ticket(s)</button>
+    <input type="number" id="tickets" min="1" value="1" />
+    <button class="btn" onclick="comprar()">🎟️ Comprar ticket(s)</button>
 
-    <p style="font-size:0.9em; color:#ccc;">* Reinicia automáticamente cada día a medianoche</p>
+    <p style="font-size: 12px; margin-top: 10px;">* Reinicia automáticamente cada día a medianoche</p>
   </div>
 
-  <footer>
-    © 2025 Casa de la Suerte Perú — Todos los derechos reservados
-  </footer>
+  <a class="whatsapp" id="whatsappLink" href="https://wa.me/51944315625?text=Hola%20quiero%20comprar" target="_blank">
+    📲 Participar por WhatsApp
+  </a>
 
   <script>
-    const pozoEl = document.getElementById("pozo");
-    const acumuladoEl = document.getElementById("acumulado");
+    const precioTicket = 1.0;
     let pozo = parseFloat(localStorage.getItem("pozo")) || 0;
     let acumulado = parseFloat(localStorage.getItem("acumulado")) || 0;
-    const ticketPrice = 1;
 
-    function actualizar() {
-      pozoEl.textContent = pozo.toFixed(2);
-      acumuladoEl.textContent = acumulado.toFixed(2);
-      localStorage.setItem("pozo", pozo);
-      localStorage.setItem("acumulado", acumulado);
-    }
+    document.getElementById("pozo").textContent = pozo.toFixed(2);
+    document.getElementById("acumulado").textContent = acumulado.toFixed(2);
 
-    function comprarTickets() {
+    function comprar() {
       const cantidad = parseInt(document.getElementById("tickets").value);
       if (cantidad > 0) {
-        pozo += cantidad * ticketPrice;
-        acumulado += cantidad * ticketPrice;
-        actualizar();
-        alert(`¡Compra registrada! Has agregado ${cantidad} ticket(s).`);
+        const total = cantidad * precioTicket;
+        pozo += total;
+        acumulado += total;
+        localStorage.setItem("pozo", pozo);
+        localStorage.setItem("acumulado", acumulado);
+        document.getElementById("pozo").textContent = pozo.toFixed(2);
+        document.getElementById("acumulado").textContent = acumulado.toFixed(2);
+        alert(`✅ Compra registrada: ${cantidad} ticket(s) por S/${total.toFixed(2)}`);
       }
     }
 
-    function reiniciarPozo() {
+    // Reinicia el pozo cada medianoche (00:00)
+    setInterval(() => {
       const ahora = new Date();
-      const medianoche = new Date();
-      medianoche.setHours(24, 0, 0, 0);
-
-      const tiempoRestante = medianoche - ahora;
-      setTimeout(() => {
+      if (ahora.getHours() === 0 && ahora.getMinutes() === 0 && ahora.getSeconds() < 2) {
         pozo = 0;
-        actualizar();
-        reiniciarPozo();
-      }, tiempoRestante);
-    }
-
-    actualizar();
-    reiniciarPozo();
+        localStorage.setItem("pozo", pozo);
+        document.getElementById("pozo").textContent = pozo.toFixed(2);
+      }
+    }, 1000);
   </script>
-
 </body>
 </html>
