@@ -1,47 +1,123 @@
-<!-- 🟦 BLOQUE PÚBLICO: Sorteo Diario Acumulable -->
-<section id="sorteo-diario" style="background:#002b7f; color:white; padding:20px; border-radius:15px; text-align:center; margin:20px 0;">
-  <h2>🎯 Sorteo Diario Acumulable</h2>
-  <p>Participa desde solo <strong>S/1</strong> y mira cómo crece el pozo en tiempo real 💰</p>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sorteo Diario – Premios increíbles cada día</title>
+  <style>
+    body {
+      margin: 0;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #002f6c, #0056b3);
+      color: gold;
+      font-family: "Poppins", sans-serif;
+      overflow: hidden;
+      text-align: center;
+    }
 
-  <p style="font-size:18px;">Pozo actual: <span id="pozo-actual" style="color:#00FF66; font-weight:bold;">S/0.00</span></p>
-  <p>Acumulado total: <span id="acumulado-total" style="color:#FFD700;">S/0.00</span></p>
+    h1 {
+      font-size: 2em;
+      margin-bottom: 20px;
+      text-shadow: 2px 2px 5px #000;
+    }
 
-  <div style="margin-top:10px;">
-    <label style="font-size:16px;">Tickets:
-      <input type="number" id="tickets" min="1" value="1" style="width:60px; text-align:center;">
-    </label>
-  </div>
+    #timer {
+      font-size: 4em;
+      font-weight: bold;
+      letter-spacing: 2px;
+      text-shadow: 2px 2px 8px #000;
+    }
 
-  <button id="comprar-ticket" style="background:#FFD700; color:black; border:none; padding:10px 20px; border-radius:10px; margin-top:10px; font-weight:bold;">
-    🎟️ Comprar ticket(s)
-  </button>
+    #message {
+      font-size: 2em;
+      margin-top: 20px;
+      display: none;
+      animation: aparecer 1.5s ease-in-out forwards;
+    }
 
-  <p style="margin-top:10px; font-size:13px;">* Reinicia automáticamente cada día a medianoche</p>
-</section>
+    @keyframes aparecer {
+      0% { opacity: 0; transform: scale(0.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
 
-<script>
-  // 🟩 Simulación de actualización en tiempo real
-  let pozo = 0;
-  let acumulado = 0;
+    canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+  </style>
+</head>
+<body>
 
-  const pozoElem = document.getElementById("pozo-actual");
-  const acumuladoElem = document.getElementById("acumulado-total");
-  const ticketsInput = document.getElementById("tickets");
-  const comprarBtn = document.getElementById("comprar-ticket");
+  <h1>🎟️ Sorteo Diario – Premios increíbles cada día 🎟️</h1>
+  <div id="timer">00:00:10</div>
+  <div id="message">🎉 ¡El sorteo ha comenzado! 🎉</div>
+  <audio id="sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_7b6e3f078b.mp3"></audio>
+  <canvas id="confetti"></canvas>
 
-  function actualizarVista() {
-    pozoElem.textContent = "S/ " + pozo.toFixed(2);
-    acumuladoElem.textContent = "S/ " + acumulado.toFixed(2);
-  }
+  <script>
+    const timerEl = document.getElementById("timer");
+    const messageEl = document.getElementById("message");
+    const soundEl = document.getElementById("sound");
+    const canvas = document.getElementById("confetti");
+    const ctx = canvas.getContext("2d");
 
-  comprarBtn.addEventListener("click", () => {
-    const cantidad = parseInt(ticketsInput.value) || 1;
-    const monto = cantidad * 1; // S/1 por ticket
-    pozo += monto;
-    acumulado += monto;
-    actualizarVista();
-    alert(`🎟️ Has comprado ${cantidad} ticket(s) por S/${monto}. ¡Suerte! 🍀`);
-  });
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
 
-  actualizarVista();
-</script>
+    // 🎯 Tiempo inicial (10 segundos de ejemplo)
+    let time = 10;
+
+    const countdown = setInterval(() => {
+      const minutes = String(Math.floor(time / 60)).padStart(2, "0");
+      const seconds = String(time % 60).padStart(2, "0");
+      timerEl.textContent = `00:${minutes}:${seconds}`;
+      
+      if (time <= 0) {
+        clearInterval(countdown);
+        timerEl.style.display = "none";
+        messageEl.style.display = "block";
+        soundEl.play();
+        startConfetti();
+      }
+      time--;
+    }, 1000);
+
+    // 🎊 Confeti animado
+    const confettiPieces = Array.from({ length: 100 }, () => ({
+      x: Math.random() * canvas.width,
+      y: Math.random() * canvas.height - canvas.height,
+      size: Math.random() * 6 + 4,
+      speed: Math.random() * 3 + 2,
+      color: `hsl(${Math.random() * 360}, 100%, 50%)`
+    }));
+
+    function startConfetti() {
+      function draw() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        confettiPieces.forEach(p => {
+          ctx.beginPath();
+          ctx.fillStyle = p.color;
+          ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
+          ctx.fill();
+          p.y += p.speed;
+          if (p.y > canvas.height) p.y = -10;
+        });
+        requestAnimationFrame(draw);
+      }
+      draw();
+    }
+
+    window.addEventListener("resize", () => {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    });
+  </script>
+
+</body>
+</html>
