@@ -3,121 +3,115 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorteo Diario – Premios increíbles cada día</title>
+  <title>Sorteo Diario Acumulable</title>
   <style>
     body {
-      margin: 0;
-      height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      background: linear-gradient(135deg, #002f6c, #0056b3);
-      color: gold;
-      font-family: "Poppins", sans-serif;
-      overflow: hidden;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background-color: #001f54;
+      color: white;
       text-align: center;
+      margin: 0;
+      padding: 0;
     }
 
-    h1 {
-      font-size: 2em;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 5px #000;
+    .container {
+      background-color: #013a63;
+      border-radius: 15px;
+      padding: 20px;
+      margin: 50px auto;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
     }
 
-    #timer {
-      font-size: 4em;
+    h2 {
+      color: #f8f9fa;
+      font-size: 1.4em;
+    }
+
+    p {
+      font-size: 0.95em;
+      color: #d8dee9;
+    }
+
+    .highlight {
+      color: #00ff7f;
       font-weight: bold;
-      letter-spacing: 2px;
-      text-shadow: 2px 2px 8px #000;
     }
 
-    #message {
-      font-size: 2em;
-      margin-top: 20px;
-      display: none;
-      animation: aparecer 1.5s ease-in-out forwards;
+    input[type="number"] {
+      width: 60px;
+      text-align: center;
+      border-radius: 5px;
+      border: none;
+      padding: 5px;
+      margin: 5px;
     }
 
-    @keyframes aparecer {
-      0% { opacity: 0; transform: scale(0.5); }
-      100% { opacity: 1; transform: scale(1); }
+    button {
+      background-color: #ffc107;
+      color: #000;
+      border: none;
+      border-radius: 8px;
+      padding: 8px 15px;
+      cursor: pointer;
+      font-weight: bold;
+      transition: 0.3s;
     }
 
-    canvas {
-      position: fixed;
-      top: 0;
-      left: 0;
-      pointer-events: none;
+    button:hover {
+      background-color: #ffca2c;
+      transform: scale(1.05);
+    }
+
+    small {
+      display: block;
+      margin-top: 10px;
+      color: #adb5bd;
+      font-size: 0.8em;
     }
   </style>
 </head>
 <body>
+  <div class="container">
+    <h2>🎯 Sorteo Diario Acumulable</h2>
+    <p>Participa desde solo <span class="highlight">S/1</span> y mira cómo crece el pozo en tiempo real 💰</p>
 
-  <h1>🎟️ Sorteo Diario – Premios increíbles cada día 🎟️</h1>
-  <div id="timer">00:00:10</div>
-  <div id="message">🎉 ¡El sorteo ha comenzado! 🎉</div>
-  <audio id="sound" src="https://cdn.pixabay.com/audio/2022/03/15/audio_7b6e3f078b.mp3"></audio>
-  <canvas id="confetti"></canvas>
+    <p>Pozo actual: <span id="pozo" class="highlight">S/ 0.00</span></p>
+    <p>Acumulado total: <span id="acumulado" class="highlight">S/ 0.00</span></p>
+
+    <label for="tickets">Tickets:</label>
+    <input type="number" id="tickets" value="1" min="1">
+
+    <button onclick="comprar()">🟡 Comprar ticket(s)</button>
+
+    <small>* Reinicia automáticamente cada día a medianoche</small>
+  </div>
 
   <script>
-    const timerEl = document.getElementById("timer");
-    const messageEl = document.getElementById("message");
-    const soundEl = document.getElementById("sound");
-    const canvas = document.getElementById("confetti");
-    const ctx = canvas.getContext("2d");
+    let pozo = 0;
+    let acumulado = 0;
 
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
+    function comprar() {
+      const tickets = parseInt(document.getElementById('tickets').value);
+      const total = tickets * 1; // cada ticket vale S/1
+      pozo += total;
+      acumulado += total;
 
-    // 🎯 Tiempo inicial (10 segundos de ejemplo)
-    let time = 10;
-
-    const countdown = setInterval(() => {
-      const minutes = String(Math.floor(time / 60)).padStart(2, "0");
-      const seconds = String(time % 60).padStart(2, "0");
-      timerEl.textContent = `00:${minutes}:${seconds}`;
-      
-      if (time <= 0) {
-        clearInterval(countdown);
-        timerEl.style.display = "none";
-        messageEl.style.display = "block";
-        soundEl.play();
-        startConfetti();
-      }
-      time--;
-    }, 1000);
-
-    // 🎊 Confeti animado
-    const confettiPieces = Array.from({ length: 100 }, () => ({
-      x: Math.random() * canvas.width,
-      y: Math.random() * canvas.height - canvas.height,
-      size: Math.random() * 6 + 4,
-      speed: Math.random() * 3 + 2,
-      color: `hsl(${Math.random() * 360}, 100%, 50%)`
-    }));
-
-    function startConfetti() {
-      function draw() {
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        confettiPieces.forEach(p => {
-          ctx.beginPath();
-          ctx.fillStyle = p.color;
-          ctx.arc(p.x, p.y, p.size, 0, 2 * Math.PI);
-          ctx.fill();
-          p.y += p.speed;
-          if (p.y > canvas.height) p.y = -10;
-        });
-        requestAnimationFrame(draw);
-      }
-      draw();
+      document.getElementById('pozo').textContent = `S/ ${pozo.toFixed(2)}`;
+      document.getElementById('acumulado').textContent = `S/ ${acumulado.toFixed(2)}`;
     }
 
-    window.addEventListener("resize", () => {
-      canvas.width = window.innerWidth;
-      canvas.height = window.innerHeight;
-    });
+    // Reinicio automático del pozo (simulado)
+    const hora = new Date();
+    const milisegundosHastaMedianoche = 
+      (24 - hora.getHours()) * 3600000 - hora.getMinutes() * 60000 - hora.getSeconds() * 1000;
+    
+    setTimeout(() => {
+      pozo = 0;
+      document.getElementById('pozo').textContent = "S/ 0.00";
+      alert("🎉 Nuevo día, nuevo sorteo!");
+    }, milisegundosHastaMedianoche);
   </script>
-
 </body>
 </html>
