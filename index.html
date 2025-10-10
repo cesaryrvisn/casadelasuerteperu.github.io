@@ -7,45 +7,57 @@
   <style>
     body {
       font-family: Arial, sans-serif;
-      background: #001f54;
+      background: linear-gradient(180deg, #001f54 0%, #003087 100%);
       color: white;
       text-align: center;
       margin: 0;
       padding: 0;
+      overflow-x: hidden;
     }
     .container {
-      background: #003087;
-      padding: 20px;
-      border-radius: 15px;
+      background: rgba(0, 48, 135, 0.9);
+      padding: 25px;
+      border-radius: 20px;
       max-width: 400px;
-      margin: 50px auto;
-      box-shadow: 0 0 15px rgba(255,255,255,0.2);
+      margin: 60px auto;
+      box-shadow: 0 0 20px rgba(255,255,255,0.3);
+      animation: flotar 3s infinite ease-in-out;
+    }
+    @keyframes flotar {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-8px); }
     }
     h1 {
       color: #ffd700;
       margin-bottom: 10px;
+      font-size: 1.6em;
     }
     .pozo, .acumulado {
       font-size: 1.2em;
-      margin: 10px 0;
+      margin: 12px 0;
     }
     input {
       width: 60px;
       text-align: center;
       font-size: 1em;
       margin: 10px 0;
+      border-radius: 6px;
+      border: none;
+      padding: 5px;
     }
     button {
       background-color: #ffd700;
       border: none;
       color: #000;
-      padding: 10px 20px;
+      padding: 10px 25px;
       border-radius: 10px;
-      font-size: 1em;
+      font-size: 1.1em;
       cursor: pointer;
+      transition: all 0.3s ease;
     }
     button:hover {
       background-color: #ffeb3b;
+      transform: scale(1.05);
     }
     footer {
       margin-top: 20px;
@@ -58,18 +70,43 @@
   <div class="container">
     <h1>🎯 Sorteo Diario Acumulable</h1>
     <p>Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰</p>
-    <p class="pozo">Pozo actual: <span style="color:#00ff00;">S/ 0.00</span></p>
-    <p class="acumulado">Acumulado total: S/ 0.00</p>
+    <p class="pozo">Pozo actual: <span id="pozo" style="color:#00ff00;">S/ 0.00</span></p>
+    <p class="acumulado">Acumulado total: <span id="acumulado">S/ 0.00</span></p>
     <label>Tickets: <input type="number" id="tickets" min="1" value="1"></label>
     <br>
     <button onclick="comprar()">🎟️ Comprar ticket(s)</button>
     <footer>* Reinicia automáticamente cada día a medianoche</footer>
   </div>
 
+  <!-- Librería de confeti -->
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+
   <script>
+    let pozo = 0;
+    let acumulado = 0;
+
     function comprar() {
-      const cantidad = document.getElementById('tickets').value;
-      alert('Compraste ' + cantidad + ' ticket(s) ✅');
+      const cantidad = parseInt(document.getElementById('tickets').value) || 1;
+      const monto = cantidad * 1;
+      pozo += monto;
+      acumulado += monto;
+
+      document.getElementById('pozo').innerText = "S/ " + pozo.toFixed(2);
+      document.getElementById('acumulado').innerText = "S/ " + acumulado.toFixed(2);
+
+      // Confeti 🎉
+      confetti({
+        particleCount: 120,
+        spread: 70,
+        origin: { y: 0.6 },
+        colors: ['#FFD700', '#00FF00', '#FF4500']
+      });
+
+      // Sonido 🔊
+      const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c9e6a26c3f.mp3?filename=success-1-6297.mp3");
+      audio.play();
+
+      alert('🎟️ Compraste ' + cantidad + ' ticket(s). ¡Buena suerte!');
     }
   </script>
 </body>
