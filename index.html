@@ -1,219 +1,104 @@
-  <!DOCTYPE html>
+  
+    <!DOCTYPE html>
 <html lang="es">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎟️ La Suerte del Día 🎉</title>
+  <title>Casa de la Suerte Perú</title>
   <style>
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #ff007a, #00c3ff);
-      color: white;
+      background: linear-gradient(180deg, #002b80, #0040ff);
+      color: #fff;
       text-align: center;
       overflow-x: hidden;
     }
-
-    h1 {
-      font-size: 2.5em;
-      margin-top: 20px;
-    }
-
-    .sub {
-      font-size: 1.3em;
-      font-weight: 500;
-      margin-top: 10px;
-    }
-
-    .sorteo {
-      background: rgba(0, 0, 30, 0.85);
-      margin: 30px auto;
-      padding: 20px;
-      width: 90%;
-      max-width: 500px;
-      border-radius: 20px;
-      box-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
-    }
-
-    .premios {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 20px;
-      margin: 40px 0;
-    }
-
-    .premio {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      width: 140px;
-      padding: 10px;
-      box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
-      transition: transform 0.3s;
-    }
-
-    .premio:hover {
-      transform: scale(1.05);
-    }
-
-    .premio img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .premio p {
-      margin: 8px 0 0;
+    header {
+      padding: 30px;
+      font-size: 2rem;
       font-weight: bold;
-      color: #ffeb3b;
+      text-shadow: 2px 2px 8px rgba(255, 255, 255, 0.3);
+      position: relative;
+      animation: pulse 3s infinite;
     }
-
-    .ganadores {
-      background: rgba(0, 0, 50, 0.85);
-      padding: 20px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 600px;
-      margin: 0 auto 40px;
+    @keyframes pulse {
+      0% {text-shadow: 0 0 10px #ffea00;}
+      50% {text-shadow: 0 0 25px #ffea00;}
+      100% {text-shadow: 0 0 10px #ffea00;}
     }
-
-    .ganadores h2 {
-      color: #ffeb3b;
+    .container {
+      margin-top: 40px;
     }
-
-    .galeria {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: center;
-      gap: 15px;
-      margin-top: 15px;
-    }
-
-    .ganador {
-      background: rgba(255, 255, 255, 0.1);
-      padding: 10px;
-      border-radius: 15px;
-      width: 130px;
-    }
-
-    .ganador img {
-      width: 100%;
-      border-radius: 10px;
-    }
-
-    .ganador p {
-      font-size: 0.9em;
-      margin: 5px 0 0;
-    }
-
-    .comentarios {
-      background: rgba(255, 255, 255, 0.1);
-      margin: 30px auto;
-      padding: 20px;
-      border-radius: 20px;
-      width: 90%;
-      max-width: 600px;
-    }
-
-    .comentario {
-      margin: 10px 0;
-      background: rgba(0,0,0,0.3);
-      padding: 10px;
-      border-radius: 10px;
-    }
-
-    footer {
-      margin: 20px 0;
-      font-size: 0.8em;
-      color: #ddd;
-    }
-
-    .boton {
-      background: #ffcc00;
+    .button {
+      background-color: #ff0000;
       border: none;
-      padding: 12px 20px;
-      border-radius: 10px;
-      font-weight: bold;
-      color: #000;
+      color: white;
+      padding: 18px 35px;
+      text-align: center;
+      font-size: 20px;
+      margin: 15px;
+      border-radius: 12px;
       cursor: pointer;
-      transition: transform 0.2s;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
     }
-
-    .boton:hover {
-      transform: scale(1.05);
+    .button:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px #fff;
     }
-
-    @keyframes brillo {
-      0% { text-shadow: 0 0 5px #fff, 0 0 10px #ff00de, 0 0 20px #ff00de; }
-      100% { text-shadow: 0 0 20px #fff, 0 0 40px #00c3ff, 0 0 60px #00c3ff; }
+    .yape-section {
+      margin-top: 40px;
+      background: rgba(255,255,255,0.1);
+      border-radius: 15px;
+      padding: 25px;
+      width: 85%;
+      max-width: 400px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 0 15px rgba(255,255,255,0.3);
     }
-
-    h1, h2, h3 {
-      animation: brillo 2s infinite alternate;
+    .yape-section img {
+      width: 180px;
+      height: 180px;
+      border-radius: 15px;
+      margin-top: 10px;
+      animation: pulseQR 2s infinite;
+    }
+    @keyframes pulseQR {
+      0% {box-shadow: 0 0 10px #ffea00;}
+      50% {box-shadow: 0 0 25px #ffea00;}
+      100% {box-shadow: 0 0 10px #ffea00;}
+    }
+    footer {
+      margin-top: 50px;
+      font-size: 0.9rem;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
+  <header>🍀 CASA DE LA SUERTE PERÚ 🍀</header>
 
-  <h1>🎟️ La Suerte del Día 🎉</h1>
-  <p class="sub">🎊 Premios increíbles cada día 🥳</p>
-  <p class="sub">🎉 ¡El sorteo ha comenzado! 🎉</p>
+  <div class="container">
+    <h2>🎉 Participa en el Sorteo por S/500 + Premios Sorpresa 🎁</h2>
+    <p>Con solo <strong>S/10 por ticket</strong> podrás participar y aumentar tus probabilidades de ganar.</p>
 
-  <div class="sorteo">
-    <h2>🎯 Sorteo Diario Acumulable</h2>
-    <p>Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰</p>
-    <p>💵 Pozo actual: <strong>S/ 0.00</strong></p>
-    <p>💰 Acumulado total: <strong>S/ 0.00</strong></p>
-    <p>Tickets: <input type="number" value="1" min="1" style="width:60px; border-radius:5px;"> </p>
-    <button class="boton">🎫 Comprar ticket(s)</button>
-    <p><small>* Reinicia automáticamente cada día a medianoche</small></p>
-  </div>
+    <a href="https://mpago.la/1jQtrAC" target="_blank">
+      <button class="button">💳 Pagar con Tarjeta</button>
+    </a>
 
-  <h2>🏆 Premios del Día</h2>
-  <div class="premios">
-    <div class="premio">
-      <img src="https://i.imgur.com/XxP3dQN.png" alt="Premio 500 soles">
-      <p>💸 S/500</p>
-    </div>
-    <div class="premio">
-      <img src="https://i.imgur.com/L8p6xRU.png" alt="Perfume">
-      <p>🌸 Perfume</p>
-    </div>
-    <div class="premio">
-      <img src="https://i.imgur.com/bpKSRhP.png" alt="Bolso">
-      <p>👜 Bolso</p>
-    </div>
-    <div class="premio">
-      <img src="https://i.imgur.com/v6T7LUI.png" alt="Smartwatch">
-      <p>⌚ Smartwatch</p>
+    <div class="yape-section">
+      <h3>📱 Paga por Yape (S/10 por ticket)</h3>
+      <p>Escanea el código o envía a <strong>936331215</strong></p>
+      <img src="https://quickchart.io/qr?text=936331215&size=200" alt="QR de Yape">
+      <p><em>El monto se actualizará automáticamente según tus participaciones.</em></p>
     </div>
   </div>
 
-  <div class="ganadores">
-    <h2>🎉 Ganadores Recientes 🎉</h2>
-    <div class="galeria">
-      <div class="ganador">
-        <img src="https://i.imgur.com/Hp1iW3U.jpg" alt="Ganador 1">
-        <p><strong>María P.</strong><br>💸 S/500</p>
-      </div>
-      <div class="ganador">
-        <img src="https://i.imgur.com/hkQm1Ax.jpg" alt="Ganador 2">
-        <p><strong>Jorge L.</strong><br>👜 Bolso</p>
-      </div>
-      <div class="ganador">
-        <img src="https://i.imgur.com/tHUnAgG.jpg" alt="Ganador 3">
-        <p><strong>Daniela R.</strong><br>🌸 Perfume</p>
-      </div>
-    </div>
-  </div>
+  <footer>© 2025 Casa de la Suerte Perú | Suerte, emoción y premios todos los días 🎊</footer>
 
-  <div class="comentarios">
-    <h2>💬 Opiniones de los jugadores</h2>
-    <div class="comentario">“¡Gané mi primer premio! Todo súper rápido 😍” — <strong>Lucía</strong></div>
-    <div class="comentario">“Me encanta ver cómo crece el pozo cada día 💸” — <strong>Rafael</strong></div>
-    <div class="comentario">“La mejor página de sorteos 💖” — <strong>Karina</strong></div>
-  </div>
-
-  <footer>© 2025 La Suerte del Día – Todos los derechos reservados</footer>
-
+  <audio autoplay>
+    <source src="https://cdn.pixabay.com/download/audio/2023/02/28/audio_3e1e4b63b6.mp3" type="audio/mpeg">
+  </audio>
 </body>
 </html>
