@@ -6,141 +6,165 @@
   <title>Casa de la Suerte Perú</title>
   <style>
     body {
-      margin: 0;
       font-family: 'Poppins', sans-serif;
-      background: linear-gradient(135deg, #002b80, #0047b3);
+      background: linear-gradient(to bottom right, #001f3f, #003f7f);
       color: white;
       text-align: center;
-      overflow-x: hidden;
-      animation: fondo 6s ease-in-out infinite alternate;
+      margin: 0;
+      padding: 0;
     }
 
-    @keyframes fondo {
-      0% { background: linear-gradient(135deg, #001a66, #005ce6); }
-      100% { background: linear-gradient(135deg, #0047b3, #0073e6); }
+    header {
+      padding: 25px 10px;
+      background-color: #002b5c;
+      color: #fff;
+      font-size: 2em;
+      font-weight: bold;
+      position: relative;
+      text-shadow: 2px 2px 6px #000;
     }
 
-    h1 {
-      font-size: 2.5em;
-      margin-top: 40px;
-      animation: parpadeo 1.2s infinite alternate;
-      color: #00ff66;
-      text-shadow: 0 0 15px #00ff66;
+    .resaltado {
+      color: #ffeb3b;
+      animation: parpadeo 1s infinite alternate;
     }
 
     @keyframes parpadeo {
-      from { opacity: 1; }
-      to { opacity: 0.4; }
+      from { color: #00ff55; }
+      to { color: #ffeb3b; }
     }
 
-    p {
-      font-size: 1.2em;
-      margin: 15px auto;
+    .seccion {
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 15px;
+      padding: 25px;
+      margin: 25px auto;
       width: 90%;
       max-width: 700px;
-      line-height: 1.5em;
+      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+    }
+
+    .titulo {
+      font-size: 1.6em;
+      margin-bottom: 10px;
+      color: #ffcc00;
+      text-shadow: 1px 1px 5px #000;
+    }
+
+    .premio {
+      font-size: 1.3em;
+      color: #ff5555;
     }
 
     .contador {
-      font-size: 1.6em;
-      margin: 30px auto;
-      background: rgba(255, 255, 255, 0.15);
-      padding: 10px 20px;
-      border-radius: 15px;
-      display: inline-block;
-      box-shadow: 0 0 15px #00ff66;
-    }
-
-    .botones {
-      margin-top: 30px;
+      font-size: 2em;
+      color: #00ff55;
+      margin: 15px 0;
     }
 
     .boton {
-      display: inline-block;
-      background: #00ff66;
-      color: #002b80;
-      padding: 15px 25px;
-      margin: 10px;
-      border-radius: 10px;
-      text-decoration: none;
+      background-color: #ffcc00;
+      color: #002b5c;
       font-weight: bold;
-      transition: transform 0.2s ease, background 0.3s ease;
-      box-shadow: 0 0 12px #00ff66;
+      padding: 12px 25px;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: 0.3s;
+      margin: 5px;
+      font-size: 1em;
     }
 
     .boton:hover {
+      background-color: #ffeb3b;
       transform: scale(1.05);
-      background: #33ff88;
     }
 
     footer {
-      margin-top: 40px;
+      background-color: #002b5c;
       padding: 20px;
       font-size: 0.9em;
-      opacity: 0.8;
-    }
-
-    .premios {
+      color: #ccc;
       margin-top: 40px;
-      padding: 15px;
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 20px;
-      display: inline-block;
-      width: 90%;
-      max-width: 700px;
     }
 
-    .premios h2 {
-      color: #00ff66;
+    .acumulado {
+      font-size: 1.5em;
+      font-weight: bold;
+      color: #00ff55;
+      margin-top: 10px;
     }
+
+    .info {
+      font-size: 1em;
+      color: #ffeb3b;
+      margin: 5px 0;
+    }
+
   </style>
 </head>
 <body>
-  <h1>🎉 CASA DE LA SUERTE PERÚ 🎉</h1>
-  <p>Participa con <b>solo S/1</b> o con el <b>Ticket de S/10</b> para el gran sorteo mensual.</p>
 
-  <div class="contador" id="contador"></div>
+  <header>
+    🍀 <span class="resaltado">Casa de la Suerte Perú</span> 🍀
+    <div style="font-size: 0.6em; margin-top: 10px;">¡Doble oportunidad de ganar todos los días!</div>
+  </header>
 
-  <div class="premios">
-    <h2>🎁 Premios del Sorteo Mensual 🎁</h2>
-    <p>
-      🎯 Gana <b>S/500 en efectivo</b> <br>
-      👜 20 Bolsos Deportivos <br>
-      💐 10 Perfumes Exclusivos <br>
-      🏆 ¡Y muchas sorpresas más!
-    </p>
-    <p>
-      Los tickets de <b>S/10</b> participan automáticamente en todos los premios del mes.  
-      ¡Más tickets, más oportunidades de ganar!
-    </p>
-  </div>
+  <!-- SORTEO DIARIO -->
+  <section class="seccion">
+    <div class="titulo">🎯 Sorteo Diario - Ticket de S/1</div>
+    <p>Participa desde solo <strong>S/1 sol</strong> y compite por el premio <strong>acumulativo diario</strong> 🎉</p>
+    <p class="info">El pozo crece en tiempo real y revienta cada noche a las <strong>9:00 p.m.</strong> 🔥</p>
+    <div class="acumulado">💰 Pozo actual: <span id="acumulado">S/38</span></div>
 
-  <div class="botones">
-    <a href="https://mpago.la/1jQtrAC" target="_blank" class="boton">💳 Pagar con Tarjeta (S/10)</a>
-    <a href="https://wa.me/51936331215?text=Hola,%20quiero%20participar%20en%20el%20sorteo%20Casa%20de%20la%20Suerte%20Perú%20por%20Yape%20a%20936331215" target="_blank" class="boton">📱 Pagar por Yape (S/10 o S/1)</a>
-  </div>
+    <div class="contador" id="contador"></div>
+
+    <p>Compra tus tickets y observa cómo el monto crece ⏫</p>
+    <button class="boton" onclick="window.location.href='https://mpago.la/1jQtrAC'">💳 Pagar con Tarjeta</button>
+    <button class="boton" onclick="window.location.href='https://wa.me/51936331215?text=Hola!%20Quiero%20participar%20en%20el%20sorteo%20de%201%20sol%20por%20Yape.'">📱 Pagar por Yape</button>
+  </section>
+
+  <!-- SORTEO MENSUAL -->
+  <section class="seccion">
+    <div class="titulo">💎 Sorteo Mensual - Ticket de S/10</div>
+    <p>Participa con <strong>S/10 soles</strong> y entra automáticamente al <strong>gran sorteo mensual</strong> con premios espectaculares:</p>
+    <ul style="list-style:none; text-align:left; display:inline-block; font-size:1em;">
+      <li>🏆 S/500 en efectivo</li>
+      <li>👜 20 bolsos deportivos</li>
+      <li>🌸 10 perfumes de marca</li>
+    </ul>
+    <p class="info">¡Cada ticket de 10 soles te da acceso directo a todos los premios del mes!</p>
+    <p class="info">El sorteo se realiza el <strong>último día de cada mes a las 9:00 p.m.</strong></p>
+
+    <button class="boton" onclick="window.location.href='https://mpago.la/1jQtrAC'">💳 Pagar con Tarjeta</button>
+    <button class="boton" onclick="window.location.href='https://wa.me/51936331215?text=Hola!%20Quiero%20participar%20en%20el%20sorteo%20mensual%20de%2010%20soles%20por%20Yape.'">📱 Pagar por Yape</button>
+  </section>
 
   <footer>
-    © 2025 Casa de la Suerte Perú - Todos los derechos reservados.  
+    © 2025 Casa de la Suerte Perú 🌟 | Todos los derechos reservados.<br>
+    Contacto: <a href="https://wa.me/51944315625" style="color:#ffcc00;">WhatsApp 944315625</a>
   </footer>
 
   <script>
-    // --- Contador dinámico hasta el último día del mes ---
+    // Contador regresivo al día siguiente 9:00 p.m.
     function actualizarContador() {
-      const hoy = new Date();
-      const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
-      const diferencia = ultimoDia - hoy;
+      const ahora = new Date();
+      const siguiente = new Date();
+      siguiente.setHours(21, 0, 0, 0);
+      if (ahora > siguiente) siguiente.setDate(siguiente.getDate() + 1);
 
-      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const diferencia = siguiente - ahora;
       const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
       const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
       const segundos = Math.floor((diferencia / 1000) % 60);
 
-      document.getElementById("contador").innerHTML =
-        `⏰ Faltan <b>${dias}</b> días, <b>${horas}</b> horas, <b>${minutos}</b> min y <b>${segundos}</b> seg para el sorteo del mes 🎊`;
-    }
+      document.getElementById("contador").textContent =
+        `${horas.toString().padStart(2,'0')}:${minutos.toString().padStart(2,'0')}:${segundos.toString().padStart(2,'0')}`;
 
-    setInterval(actualizarContador, 1000);
+      setTimeout(actualizarContador, 1000);
+    }
+    actualizarContador();
   </script>
+
 </body>
 </html>
