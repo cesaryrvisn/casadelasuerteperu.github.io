@@ -166,3 +166,10 @@
     }
 
     // Contador hasta el último día del mes
+    const hoy = new Date();
+    const finMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+    const diff = Math.ceil((finMes - hoy) / (1000 * 60 * 60 * 24));
+    document.getElementById("contador").innerText = `⏳ Faltan ${diff} días para el sorteo mensual de S/500`;
+  </script>
+</body>
+</html>
