@@ -1,142 +1,389 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Casa de la Suerte Perú — La Suerte del Día</title>
-  <style>
-    :root{
-      --bg1:#00234d; --bg2:#0047b3; --gold:#ffd100; --accent:#ff3b3b;
-    }
-    *{box-sizing:border-box}
-    body{
-      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-      background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent),
-                  linear-gradient(180deg,var(--bg1),var(--bg2));
-      color:#fff; -webkit-font-smoothing:antialiased;
-      min-height:100vh; display:flex; flex-direction:column; align-items:center;
-    }
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Casa de la Suerte Perú — Sorteos</title>
 
-    header{
-      width:100%; padding:28px 16px; text-align:center;
-      background: linear-gradient(90deg, rgba(255,209,64,0.06), rgba(255,77,77,0.03));
-      box-shadow:0 6px 30px rgba(0,0,0,0.35);
-    }
-    header h1{margin:0; font-size:1.6rem; color:var(--gold); text-shadow:0 3px 12px rgba(0,0,0,0.6)}
-    header p{margin:8px 0 0; opacity:0.95}
+<!-- Meta para redes -->
+<meta name="description" content="Casa de la Suerte Perú — participa y gana premios cada día. Paga por Yape o tarjeta.">
 
-    .wrap{width:92%; max-width:1100px; margin:20px auto 60px; display:grid; gap:20px;
-      grid-template-columns: 1fr; align-items:start;
-    }
-    @media(min-width:900px){ .wrap{grid-template-columns: 1fr 430px;} }
+<style>
+  :root{
+    --bg1:#052a66;
+    --card:#08224f;
+    --accent:#ffd400;
+    --muted:#cfe6ff;
+    --green:#0ff080;
+    --glass: rgba(255,255,255,0.04);
+    --radius:28px;
+    font-family: 'Inter', system-ui, -apple-system, "Helvetica Neue", Arial;
+  }
+  html,body{height:100%;}
+  body{
+    margin:0;
+    background: linear-gradient(180deg,#021030 0%, #001c3a 50%, #001528 100%);
+    color:#fff;
+    -webkit-font-smoothing:antialiased;
+    -moz-osx-font-smoothing:grayscale;
+    overflow-y:auto;
+  }
 
-    /* Panel izquierdo (contenido) */
-    .left{
-      display:flex; flex-direction:column; gap:18px;
-    }
+  /* header */
+  .top{
+    padding:26px 18px 8px;
+    text-align:center;
+  }
+  .brand{
+    font-weight:800;
+    font-size:28px;
+    color:var(--accent);
+    text-shadow:0 6px 18px rgba(0,0,0,0.6);
+    display:flex;
+    gap:10px;
+    align-items:center;
+    justify-content:center;
+  }
+  .subtitle{
+    margin-top:10px;
+    font-size:16px;
+    color:var(--muted);
+  }
 
-    .section{
-      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
-      border-radius:14px; padding:18px; box-shadow:0 8px 30px rgba(0,0,0,0.45);
-    }
+  /* big hero */
+  .hero{
+    margin:18px auto;
+    max-width:920px;
+    padding:30px;
+    border-radius:24px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+  }
 
-    .sorteos{
-      display:flex; gap:12px; flex-direction:column;
-    }
-    @media(min-width:700px){ .sorteos{flex-direction:row} }
+  .card{
+    background: linear-gradient(180deg, rgba(6,21,48,0.98), rgba(2,17,39,0.96));
+    padding:26px;
+    border-radius:var(--radius);
+    box-shadow: 0 18px 36px rgba(0,0,0,0.55), inset 0 -8px 28px rgba(0,0,0,0.2);
+  }
 
-    .card{
-      flex:1; padding:14px; border-radius:12px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
-      position:relative; overflow:hidden;
-    }
-    .card h3{margin:0 0 6px; color:var(--gold)}
-    .price{font-size:1.1rem; color:#bfffb0; font-weight:700}
-    .small{font-size:0.9rem; color:rgba(255,255,255,0.85)}
+  h1{font-size:34px;margin:6px 0;color:var(--accent);text-align:center}
+  p.lead{color:var(--muted);text-align:center;margin:10px 0 22px;}
 
-    .row{display:flex; gap:8px; align-items:center; margin-top:8px}
-    input[type=number]{width:90px; padding:10px; border-radius:8px; border:none; text-align:center; font-size:1rem}
-    .btn-pay{background:var(--accent); border:none; color:#fff; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700}
-    .btn-mp{background:#ff8a00; border:none; color:#001; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800}
+  .center{display:flex;flex-direction:column;align-items:center;gap:12px}
 
-    .hint{font-size:0.85rem; color:rgba(255,255,255,0.8); margin-top:8px}
+  /* Info numbers */
+  .numbers{display:flex;flex-direction:column;gap:8px;align-items:center;margin:6px 0 18px}
+  .numbers .big{font-weight:700;color:var(--green);font-size:22px;text-shadow:0 6px 18px rgba(0,0,0,0.6)}
 
-    /* right column (info + rewards) */
-    .right{
-      display:flex; flex-direction:column; gap:16px;
-    }
+  /* Tickets controls */
+  .ticket-row{display:flex;gap:12px;align-items:center;justify-content:center;margin:8px 0}
+  .ticket-row label{min-width:68px;font-weight:600}
+  .ticket-input{
+    width:86px;padding:10px;border-radius:12px;border:none;text-align:center;font-size:18px;font-weight:700;background:#fff;color:#000;
+    box-shadow:0 8px 18px rgba(2,8,30,0.3);
+  }
+  .total{font-size:18px;color:var(--muted);font-weight:700;margin-left:12px}
 
-    .panel{
-      padding:14px; border-radius:12px; background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(255,255,255,0.02));
-      box-shadow:0 8px 24px rgba(0,0,0,0.45);
-    }
+  /* buttons */
+  .btn-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:12px}
+  .btn{
+    border:none;padding:14px 20px;border-radius:14px;font-weight:800;cursor:pointer;min-width:180px;
+    display:inline-flex;align-items:center;gap:10px;justify-content:center;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  }
+  .btn-card{background:#ff3b3b;color:white}
+  .btn-yape{background:#ff7b5b;color:white}
+  .btn:active{transform:translateY(2px)}
 
-    .qr-box{display:flex; flex-direction:column; align-items:center; gap:10px}
-    .qr-box img{width:200px; height:200px; border-radius:12px; background:#fff; padding:8px}
-    .qr-caption{font-size:0.9rem; color:rgba(255,255,255,0.9)}
+  /* QR box */
+  .qr-box{margin-top:20px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06));padding:18px;border-radius:16px;text-align:center}
+  .qr-box img{width:220px;height:220px;border-radius:12px;background:#fff;padding:8px;box-shadow:0 8px 28px rgba(0,0,0,0.4)}
+  .muted{color:var(--muted);font-size:14px}
 
-    /* premios */
-    .premios-grid{display:flex; gap:12px; flex-wrap:wrap; justify-content:center;}
-    .premio{
-      width:120px; background:rgba(255,255,255,0.03); border-radius:12px; padding:8px; text-align:center;
-      transition:transform .2s; box-shadow:0 6px 18px rgba(0,0,0,0.45);
-    }
-    .premio img{width:100%; border-radius:8px}
-    .premio p{margin:8px 0 0; color:var(--gold); font-weight:700}
+  /* prizes / winners / comments */
+  .section{margin:26px auto;max-width:920px;padding:18px}
+  .section h2{font-size:22px;color:var(--accent);text-shadow:0 6px 18px rgba(0,0,0,0.5);margin-bottom:12px;text-align:center}
 
-    /* galería ganadores */
-    .galeria{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
-    .ganador{width:110px; background:rgba(255,255,255,0.03); padding:8px; border-radius:10px; text-align:center}
-    .ganador img{width:100%; border-radius:8px}
+  .prizes-grid{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+  .prize{width:120px;height:120px;border-radius:14px;background:#072449;display:flex;align-items:center;justify-content:center;box-shadow:0 10px 20px rgba(0,0,0,0.45)}
+  .prize img{width:60%;height:auto}
 
-    /* comentarios */
-    .comentario{background:rgba(0,0,0,0.25); padding:10px; border-radius:8px; margin:8px 0; font-style:italic}
+  .winners{display:flex;flex-direction:column;gap:10px;align-items:center}
+  .winner-card{width:100%;max-width:760px;background:linear-gradient(90deg, rgba(0,0,0,0.2), rgba(255,255,255,0.02));padding:12px;border-radius:12px;display:flex;align-items:center;gap:12px}
+  .winner-card img{width:56px;height:56px;border-radius:8px;object-fit:cover}
+  .winner-name{font-weight:700}
 
-    footer{width:100%; padding:18px 10px; text-align:center; color:rgba(255,255,255,0.8); font-size:0.9rem}
-    .top-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px}
+  .comments{display:flex;gap:10px;flex-wrap:wrap;justify-content:center;margin-top:14px}
+  .bubble{background:#0a1b3b;padding:12px;border-radius:14px;max-width:260px;box-shadow:0 8px 16px rgba(0,0,0,0.4)}
 
-    /* small helpers */
-    .muted{color:rgba(255,255,255,0.75); font-size:0.9rem}
+  /* footer */
+  footer{padding:28px;text-align:center;color:var(--muted);font-size:14px;margin-top:30px}
 
-    /* confetti container at top layer */
-    #confetti-canvas{position:fixed; pointer-events:none; top:0; left:0; width:100%; height:100%; z-index:9999}
+  /* floating confetti */
+  .confetti{position:fixed;left:0;right:0;top:0;bottom:0;pointer-events:none;mix-blend-mode:screen;opacity:0.8}
+  .dot{position:absolute;width:18px;height:18px;border-radius:50%;animation:float 7s linear infinite;opacity:0.95}
+  @keyframes float{
+    0%{transform:translateY(-10vh) translateX(0) scale(0.8);opacity:1}
+    100%{transform:translateY(110vh) translateX(120px) scale(1);opacity:0}
+  }
 
-  </style>
+  /* responsive */
+  @media (max-width:600px){
+    h1{font-size:28px}
+    .brand{font-size:20px}
+    .ticket-input{width:78px}
+    .qr-box img{width:200px;height:200px}
+  }
+</style>
 </head>
 <body>
-  <canvas id="confetti-canvas"></canvas>
 
-  <header>
-    <h1>CASA DE LA SUERTE PERÚ</h1>
-    <p>La Suerte del Día — participa y gana premios cada día</p>
-  </header>
+<!-- floating confetti (pure CSS circles, for visual pop) -->
+<div class="confetti" aria-hidden="true">
+  <div class="dot" style="background:#ff3b3b;left:6%;animation-duration:6s;top:-5%"></div>
+  <div class="dot" style="background:#ffd400;left:20%;animation-duration:8s;top:-10%;width:14px;height:14px"></div>
+  <div class="dot" style="background:#3bffb5;left:35%;animation-duration:7.5s;top:-8%"></div>
+  <div class="dot" style="background:#6ea8ff;left:50%;animation-duration:6.7s;top:-6%"></div>
+  <div class="dot" style="background:#ff7b5b;left:70%;animation-duration:9s;top:-12%"></div>
+  <div class="dot" style="background:#ff6bf0;left:88%;animation-duration:7.4s;top:-9%"></div>
+</div>
 
-  <main class="wrap">
-    <div class="left">
-      <!-- SORTEOS -->
-      <section class="section">
-        <div class="sorteos">
-          <!-- Card S/1 -->
-          <div class="card" id="card-1">
-            <h3>Sorteo acumulable — S/1 por ticket</h3>
-            <div class="small">Compra la cantidad que quieras. A más tickets, más probabilidad.</div>
-            <div class="row">
-              <label class="muted">Tickets:</label>
-              <input type="number" id="tickets1" min="1" value="1" />
-              <div style="flex:1"></div>
-              <div class="price price1">Total: S/ <span id="total1">1.00</span></div>
-            </div>
+<header class="top">
+  <div class="brand">🍀 CASA DE LA SUERTE PERÚ</div>
+  <div class="subtitle">La Suerte del Día — participa y gana premios cada día</div>
+</header>
 
-            <div class="row" style="margin-top:12px">
-              <button class="btn-pay" onclick="openYapeModal(1)">📲 Pagar por Yape</button>
-              <a id="mp1" href="https://mpago.la/1jQtrAC" target="_blank"><button class="btn-mp">💳 Pagar con Tarjeta</button></a>
-            </div>
-            <div class="hint">Monto base S/1. Por defecto S/1 por ticket.</div>
-          </div>
+<main>
+  <section class="hero">
+    <div class="card">
+      <div class="center">
+        <h1>🎯 Sorteo Diario Acumulable</h1>
+        <p class="lead">Participa desde S/1 y mira cómo crece el pozo en tiempo real. También participa en sorteos especiales por S/10.</p>
 
-          <!-- Card S/10 -->
-          <div class="card" id="card-10">
-            <h3>Sorteo especial — S/10 por ticket (Premio S/500)</h3>
-            <div class="small">Sorteo con premio fijo. Compra y participa.</div>
-            <div class="row">
-              <label class="muted">
+        <!-- numbers -->
+        <div class="numbers">
+          <div>Pozo actual: <span id="pozo" class="big">S/ 0.00</span></div>
+          <div>Acumulado total: <span id="acum" class="big">S/ 0.00</span></div>
+        </div>
+
+        <!-- tickets controls -->
+        <div class="ticket-row">
+          <label>Sorteo S/1:</label>
+          <input id="tickets1" class="ticket-input" type="number" min="1" value="1" />
+          <div class="total" id="total1">Total: S/ 1.00</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-yape" id="payYape1">📲 Pagar por Yape (S/1)</button>
+          <button class="btn btn-card" id="payCard1">💳 Pagar con Tarjeta (S/1)</button>
+        </div>
+
+        <div style="height:18px"></div>
+
+        <!-- special S/10 -->
+        <div class="ticket-row">
+          <label>Sorteo S/10:</label>
+          <input id="tickets10" class="ticket-input" type="number" min="1" value="1" />
+          <div class="total" id="total10">Total: S/ 10.00</div>
+        </div>
+
+        <div class="btn-row">
+          <button class="btn btn-yape" id="payYape10">📲 Pagar por Yape (S/10)</button>
+          <button class="btn btn-card" id="payCard10">💳 Pagar con Tarjeta (S/10)</button>
+        </div>
+
+        <!-- qr & helper -->
+        <div class="qr-box" id="qrBox">
+          <div class="muted">Escanea el QR o envía al número <strong id="yapeNum">936331215</strong></div>
+          <div style="height:12px"></div>
+          <img id="qrImg" src="" alt="QR de pago" />
+          <div style="height:8px"></div>
+          <div class="muted">QR dinámico (se actualiza con el monto). El botón de tarjeta abre MercadoPago.</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- prizes -->
+  <section class="section">
+    <h2>🏆 Premios del Día</h2>
+    <div class="prizes-grid">
+      <div class="prize"><img src="https://i.imgur.com/6K7b5xC.png" alt="premio1" /></div>
+      <div class="prize"><img src="https://i.imgur.com/Lx5q5k2.png" alt="premio2" /></div>
+      <div class="prize"><img src="https://i.imgur.com/2KXzK0u.png" alt="premio3" /></div>
+    </div>
+  </section>
+
+  <!-- winners -->
+  <section class="section">
+    <h2>🏅 Ganadores recientes</h2>
+    <div class="winners">
+      <!-- ejemplo: reemplaza con datos reales si los tienes -->
+      <div class="winner-card">
+        <img src="https://i.pravatar.cc/56?img=12" alt="ganador">
+        <div>
+          <div class="winner-name">María R. — S/500</div>
+          <div class="muted">Ganador del sorteo especial — 2025-05-01</div>
+        </div>
+      </div>
+
+      <div class="winner-card">
+        <img src="https://i.pravatar.cc/56?img=5" alt="ganador">
+        <div>
+          <div class="winner-name">José L. — Bolsa</div>
+          <div class="muted">Ganó premio sorpresa — 2025-05-01</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- comments -->
+  <section class="section">
+    <h2>💬 Comentarios</h2>
+    <div class="comments">
+      <div class="bubble">¡Me encantó! Compré 3 tickets y tuve suerte 😄</div>
+      <div class="bubble">Excelente servicio — pago rápido por Yape ✅</div>
+      <div class="bubble">¿Cuándo anuncian al ganador? ⏰</div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  © 2025 Casa de la Suerte Perú — Todos los derechos reservados
+</footer>
+
+<script>
+/* ------------- CONFIGURACION EDITABLE ------------- */
+const YAPE_NUMBER = "936331215";                 // número Yape (mostrar y copiar)
+const MPAGO_LINK_BASE = "https://mpago.la/1jQtrAC"; // tu link de MercadoPago (puedes añadir parámetros)
+const PRICE_SMALL = 1.00;   // S/1 por ticket
+const PRICE_BIG = 10.00;    // S/10 por ticket
+/* -------------------------------------------------- */
+
+/* helpers DOM */
+const tickets1 = document.getElementById('tickets1');
+const total1 = document.getElementById('total1');
+const tickets10 = document.getElementById('tickets10');
+const total10 = document.getElementById('total10');
+const yapeNum = document.getElementById('yapeNum');
+const qrImg = document.getElementById('qrImg');
+const pozo = document.getElementById('pozo');
+const acum = document.getElementById('acum');
+
+yapeNum.textContent = YAPE_NUMBER;
+
+/* inicial */
+function formatMoney(n){ return "S/ " + Number(n).toFixed(2); }
+function updateTotals(){
+  const t1 = Math.max(1, Number(tickets1.value||1));
+  const t10 = Math.max(1, Number(tickets10.value||1));
+  total1.textContent = "Total: " + formatMoney(t1 * PRICE_SMALL);
+  total10.textContent = "Total: " + formatMoney(t10 * PRICE_BIG);
+  // actualizar QR con opción prioritaria: si el usuario tocó S/10, preferimos mostrar su QR; aqui mostramos S/1 QR si está en foco
+  generateQR();
+}
+tickets1.addEventListener('input', updateTotals);
+tickets10.addEventListener('input', updateTotals);
+
+/* Demo: valores de pozo / acumulado (puedes reemplazar por valores desde JSON o base de datos) */
+let demoPozo = 0.00;
+let demoAcum = 0.00;
+function refreshDemoNumbers(){
+  // simplemente actualizamos (en producción reemplazar con fetch desde content.json o API)
+  pozo.textContent = formatMoney(demoPozo);
+  acum.textContent = formatMoney(demoAcum);
+}
+/* Llamada inicial */
+updateTotals();
+refreshDemoNumbers();
+
+/* ---------- Pagos ---------- */
+/* Botones */
+document.getElementById('payYape1').addEventListener('click',function(){
+  const count = Math.max(1, Number(tickets1.value||1));
+  const amount = (count * PRICE_SMALL).toFixed(2);
+  openYapePayment(amount);
+});
+document.getElementById('payYape10').addEventListener('click',function(){
+  const count = Math.max(1, Number(tickets10.value||1));
+  const amount = (count * PRICE_BIG).toFixed(2);
+  openYapePayment(amount);
+});
+
+/* Tarjeta (MercadoPago) */
+document.getElementById('payCard1').addEventListener('click',function(){
+  const count = Math.max(1, Number(tickets1.value||1)), amount=(count*PRICE_SMALL).toFixed(2);
+  openCardPayment(amount);
+});
+document.getElementById('payCard10').addEventListener('click',function(){
+  const count = Math.max(1, Number(tickets10.value||1)), amount=(count*PRICE_BIG).toFixed(2);
+  openCardPayment(amount);
+});
+
+/* Abre link de tarjeta (mercadopago) con posible parámetro de monto */
+function openCardPayment(amount){
+  // intentamos pasar monto como parámetro (si tu link lo acepta)
+  let link = MPAGO_LINK_BASE;
+  // añadimos amount si queremos que aparezca (según configuración de tu preferencia)
+  if(!link.includes("?")) link += "?";
+  link += "amount=" + encodeURIComponent(amount);
+  window.open(link, "_blank");
+}
+
+/* Yape: mostramos QR que contenga el número y monto; también copiamos número al portapapeles */
+function openYapePayment(amount){
+  // Copiar número al portapapeles y mostrar notificación ligera
+  navigator.clipboard?.writeText(YAPE_NUMBER).then(()=>{
+    alert("Número Yape copiado: " + YAPE_NUMBER + " — monto: S/ " + amount + "\nEscanea el QR para pagar o envía el monto por Yape.");
+  }).catch(()=>{/* ignore */});
+  // Opcional: si quieres abrir la App de Yape por esquema, no todos los móviles lo permiten. Aquí solo actualizamos el QR.
+  generateQR(amount);
+}
+
+/* Generar QR dinámico: usamos servicio público api.qrserver.com */
+function generateQR(preferredAmount){
+  // priorizamos: si la S/10 tiene focus/valor reciente y preferredAmount no pasado, se podría priorizar
+  const t1 = Math.max(1, Number(tickets1.value||1));
+  const t10 = Math.max(1, Number(tickets10.value||1));
+  // si se pasó preferredAmount la usamos, sino usamos total del último control editado (priorizamos S/10 si >1)
+  let amount = preferredAmount || (t10>0 ? (t10*PRICE_BIG).toFixed(2) : (t1*PRICE_SMALL).toFixed(2));
+  // construimos texto de pago: preferimos el link de MercadoPago con amount para que el QR dirija a tu checkout
+  let link = MPAGO_LINK_BASE;
+  if(!link.includes("?")) link += "?";
+  link += "amount=" + encodeURIComponent(amount);
+  // generamos QR con la API pública
+  const qr = "https://api.qrserver.com/v1/create-qr-code/?size=300x300&data=" + encodeURIComponent(link);
+  qrImg.src = qr;
+}
+
+/* generar inicialmente */
+generateQR();
+
+/* Ejemplo: simular actualización del pozo cuando se hace un pago (solo demo) */
+function addToPozo(amount){
+  demoPozo += Number(amount);
+  demoAcum += Number(amount);
+  refreshDemoNumbers();
+}
+
+/* Para demo: cuando se abre card o yape asumimos pago confirmado y actualizamos números.
+   En producción aquí debes validar transacción real (webhook) y luego actualizar data. */
+window.addEventListener('message',function(){});
+/* (Opcional) Si quieres que al presionar Pagar con tarjeta simulemos el ingreso: */
+document.getElementById('payCard1').addEventListener('dblclick',function(){
+  // doble click simula pago
+  addToPozo(PRICE_SMALL * Math.max(1,Number(tickets1.value||1)));
+  alert("Simulación: pago detectado. Pozo actualizado.");
+});
+
+/* Copiar número Yape al tocar la imagen QR (útil) */
+qrImg.addEventListener('click',function(){
+  navigator.clipboard?.writeText(YAPE_NUMBER).then(()=>alert("Número Yape copiado: "+YAPE_NUMBER));
+});
+
+</script>
+</body>
+</html>
