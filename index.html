@@ -1,175 +1,146 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Casa de la Suerte Perú</title>
   <style>
     body {
-      font-family: "Poppins", sans-serif;
-      background: linear-gradient(180deg, #001d3d, #000814);
+      margin: 0;
+      font-family: 'Poppins', sans-serif;
+      background: linear-gradient(135deg, #002b80, #0047b3);
       color: white;
       text-align: center;
-      padding: 20px;
+      overflow-x: hidden;
+      animation: fondo 6s ease-in-out infinite alternate;
     }
+
+    @keyframes fondo {
+      0% { background: linear-gradient(135deg, #001a66, #005ce6); }
+      100% { background: linear-gradient(135deg, #0047b3, #0073e6); }
+    }
+
     h1 {
-      color: #ffee00;
-      font-size: 2em;
-      margin-bottom: 5px;
+      font-size: 2.5em;
+      margin-top: 40px;
+      animation: parpadeo 1.2s infinite alternate;
+      color: #00ff66;
+      text-shadow: 0 0 15px #00ff66;
     }
-    h2 {
-      color: #ffd60a;
-      margin-top: 25px;
-    }
-    .contador {
-      font-size: 1.2em;
-      font-weight: bold;
-      color: lime;
-      animation: parpadeo 1s infinite;
-    }
+
     @keyframes parpadeo {
-      50% { opacity: 0; }
+      from { opacity: 1; }
+      to { opacity: 0.4; }
     }
-    .card {
-      background: #001233;
-      padding: 20px;
-      border-radius: 20px;
-      box-shadow: 0 0 10px #003566;
-      margin: 20px auto;
-      max-width: 400px;
+
+    p {
+      font-size: 1.2em;
+      margin: 15px auto;
+      width: 90%;
+      max-width: 700px;
+      line-height: 1.5em;
     }
-    .btn {
-      display: block;
-      margin: 10px auto;
+
+    .contador {
+      font-size: 1.6em;
+      margin: 30px auto;
+      background: rgba(255, 255, 255, 0.15);
       padding: 10px 20px;
-      border-radius: 12px;
-      font-weight: bold;
-      border: none;
-      cursor: pointer;
-    }
-    .btn-yape {
-      background: #ff6b6b;
-      color: white;
-    }
-    .btn-tarjeta {
-      background: #ffb703;
-      color: black;
-    }
-    .premio {
+      border-radius: 15px;
       display: inline-block;
-      background: #001845;
-      padding: 10px;
-      border-radius: 15px;
-      margin: 10px;
-      width: 140px;
+      box-shadow: 0 0 15px #00ff66;
     }
-    .premio img {
-      width: 100%;
+
+    .botones {
+      margin-top: 30px;
+    }
+
+    .boton {
+      display: inline-block;
+      background: #00ff66;
+      color: #002b80;
+      padding: 15px 25px;
+      margin: 10px;
       border-radius: 10px;
-      height: 120px;
-      object-fit: cover;
+      text-decoration: none;
+      font-weight: bold;
+      transition: transform 0.2s ease, background 0.3s ease;
+      box-shadow: 0 0 12px #00ff66;
     }
-    .comentario {
-      background: #001845;
-      border-radius: 15px;
-      margin: 10px;
-      padding: 10px;
-      font-style: italic;
+
+    .boton:hover {
+      transform: scale(1.05);
+      background: #33ff88;
+    }
+
+    footer {
+      margin-top: 40px;
+      padding: 20px;
+      font-size: 0.9em;
+      opacity: 0.8;
+    }
+
+    .premios {
+      margin-top: 40px;
+      padding: 15px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 20px;
+      display: inline-block;
+      width: 90%;
+      max-width: 700px;
+    }
+
+    .premios h2 {
+      color: #00ff66;
     }
   </style>
 </head>
 <body>
-  <h1>🍀 CASA DE LA SUERTE PERÚ 🍀</h1>
-  <p>La Suerte del Día — participa y gana premios cada día</p>
-  <p class="contador" id="contador"></p>
+  <h1>🎉 CASA DE LA SUERTE PERÚ 🎉</h1>
+  <p>Participa con <b>solo S/1</b> o con el <b>Ticket de S/10</b> para el gran sorteo mensual.</p>
 
-  <h2>🎟️ Participa — Elige tu entrada</h2>
-  <p>Compra tickets y participa en los sorteos.  
-  El ticket de S/10 participa también por los S/500, los perfumes y los 20 bolsos deportivos.</p>
+  <div class="contador" id="contador"></div>
 
-  <!-- Sorteo de 1 sol -->
-  <div class="card">
-    <h3>🎯 Sorteo acumulable — S/1 por ticket</h3>
-    <label>Tickets: <input type="number" id="tickets1" min="1" value="1" onchange="calcularTotal(1)"></label>
-    <p>Total: <span id="total1" style="color:lime">S/1.00</span></p>
-    <button class="btn btn-yape" onclick="pagar(1)">📱 Pagar por Yape</button>
-    <button class="btn btn-tarjeta" onclick="tarjeta(1)">💳 Pagar con Tarjeta</button>
+  <div class="premios">
+    <h2>🎁 Premios del Sorteo Mensual 🎁</h2>
+    <p>
+      🎯 Gana <b>S/500 en efectivo</b> <br>
+      👜 20 Bolsos Deportivos <br>
+      💐 10 Perfumes Exclusivos <br>
+      🏆 ¡Y muchas sorpresas más!
+    </p>
+    <p>
+      Los tickets de <b>S/10</b> participan automáticamente en todos los premios del mes.  
+      ¡Más tickets, más oportunidades de ganar!
+    </p>
   </div>
 
-  <!-- Sorteo de 10 soles -->
-  <div class="card">
-    <h3>💥 Sorteo especial — S/10 por ticket</h3>
-    <p>Cada ticket S/10 te inscribe automáticamente en el sorteo mensual por S/500, perfumes y 20 bolsos deportivos.</p>
-    <label>Tickets: <input type="number" id="tickets10" min="1" value="1" onchange="calcularTotal(10)"></label>
-    <p>Total: <span id="total10" style="color:lime">S/10.00</span></p>
-    <button class="btn btn-yape" onclick="pagar(10)">📱 Pagar por Yape</button>
-    <button class="btn btn-tarjeta" onclick="tarjeta(10)">💳 Pagar con Tarjeta</button>
+  <div class="botones">
+    <a href="https://mpago.la/1jQtrAC" target="_blank" class="boton">💳 Pagar con Tarjeta (S/10)</a>
+    <a href="https://wa.me/51936331215?text=Hola,%20quiero%20participar%20en%20el%20sorteo%20Casa%20de%20la%20Suerte%20Perú%20por%20Yape%20a%20936331215" target="_blank" class="boton">📱 Pagar por Yape (S/10 o S/1)</a>
   </div>
 
-  <!-- Premios -->
-  <h2>🏆 Premios del Día</h2>
-  <div>
-    <div class="premio">
-      <img src="https://images.unsplash.com/photo-1600180758890-6d3e6a8a9b1a?auto=format&fit=crop&w=400&q=60" alt="Premio 500">
-      <p>S/500</p>
-    </div>
-    <div class="premio">
-      <img src="https://images.unsplash.com/photo-1593032465171-bb3d39a0f4e5?auto=format&fit=crop&w=400&q=60" alt="Bolsos">
-      <p>Bolsos deportivos</p>
-    </div>
-    <div class="premio">
-      <img src="https://images.unsplash.com/photo-1585386959984-a4155223166d?auto=format&fit=crop&w=400&q=60" alt="Perfumes">
-      <p>Perfumes</p>
-    </div>
-  </div>
-
-  <!-- Comentarios -->
-  <h2>💬 Comentarios</h2>
-  <div class="comentario">"Compré 2 tickets S/10 y me siento con más chances 😄" — Andrea</div>
-  <div class="comentario">"Fácil de pagar con Yape, buen soporte por WhatsApp." — Carlos</div>
-
-  <!-- Pago por Yape -->
-  <h2>📲 Pagar con Yape</h2>
-  <p>Número: <strong>936331215</strong></p>
-  <img id="qr" src="" alt="QR dinámico" width="220" style="border-radius:10px;">
-  <p>El QR se actualiza con el monto seleccionado. Puedes escanearlo con tu app o abrirlo en el celular.</p>
-  <button class="btn btn-tarjeta" onclick="window.open('https://mpago.la/1jQtrAC')">💳 Pagar con Tarjeta (MercadoPago)</button>
-  <button class="btn btn-yape" onclick="copiarNumero()">📋 Copiar número Yape</button>
+  <footer>
+    © 2025 Casa de la Suerte Perú - Todos los derechos reservados.  
+  </footer>
 
   <script>
-    function calcularTotal(tipo) {
-      const cantidad = document.getElementById('tickets' + tipo).value;
-      const total = tipo * cantidad;
-      document.getElementById('total' + tipo).innerText = `S/${total.toFixed(2)}`;
-      actualizarQR(total);
+    // --- Contador dinámico hasta el último día del mes ---
+    function actualizarContador() {
+      const hoy = new Date();
+      const ultimoDia = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
+      const diferencia = ultimoDia - hoy;
+
+      const dias = Math.floor(diferencia / (1000 * 60 * 60 * 24));
+      const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
+      const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
+      const segundos = Math.floor((diferencia / 1000) % 60);
+
+      document.getElementById("contador").innerHTML =
+        `⏰ Faltan <b>${dias}</b> días, <b>${horas}</b> horas, <b>${minutos}</b> min y <b>${segundos}</b> seg para el sorteo del mes 🎊`;
     }
 
-    function actualizarQR(monto) {
-      const qr = document.getElementById('qr');
-      qr.src = `https://chart.googleapis.com/chart?chs=300x300&cht=qr&chl=936331215%20S/${monto}`;
-    }
-
-    function pagar(tipo) {
-      const cantidad = document.getElementById('tickets' + tipo).value;
-      const total = tipo * cantidad;
-      actualizarQR(total);
-      alert(`Escanea el QR para pagar S/${total.toFixed(2)} por Yape.`);
-    }
-
-    function tarjeta(tipo) {
-      window.open('https://mpago.la/1jQtrAC', '_blank');
-    }
-
-    function copiarNumero() {
-      navigator.clipboard.writeText('936331215');
-      alert('Número copiado ✅');
-    }
-
-    // Contador hasta el último día del mes
-    const hoy = new Date();
-    const finMes = new Date(hoy.getFullYear(), hoy.getMonth() + 1, 0);
-    const diff = Math.ceil((finMes - hoy) / (1000 * 60 * 60 * 24));
-    document.getElementById("contador").innerText = `⏳ Faltan ${diff} días para el sorteo mensual de S/500`;
+    setInterval(actualizarContador, 1000);
   </script>
 </body>
 </html>
