@@ -1,238 +1,79 @@
-      <!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8" />
-<meta name="viewport" content="width=device-width,initial-scale=1" />
-<title>Casa de la Suerte Perú — La Suerte del Día</title>
+<!-- 🌟 BLOQUE DE SORTEO MODERNO — LISTO PARA PEGAR -->
 
-<style>
-  :root{
-    --bg1:#02102a; --bg2:#002a66; --gold:#ffd100; --lucky:#00ff88; --mp:#ff8a00;
-    --accent:#ff3b3b; --glass: rgba(255,255,255,0.03);
-  }
-  *{box-sizing:border-box}
-  body{
-    margin:0; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-    background: linear-gradient(180deg,var(--bg1),var(--bg2));
-    color:#fff; -webkit-font-smoothing:antialiased;
-  }
+<section style="text-align:center; background:#061b3a; color:#fff; padding:20px; border-radius:16px; font-family:'Poppins', sans-serif; max-width:600px; margin:auto; box-shadow:0 0 15px rgba(0,255,128,0.2);">
 
-  header{padding:26px 12px 4px;text-align:center}
-  .brand{font-weight:800;color:var(--gold);font-size:28px;letter-spacing:0.6px}
-  .subtitle{color:#cfe6ff;margin-top:6px}
+  <h1 style="font-size:1.8em; color:#ffe600; margin-bottom:10px;">🍀 CASA DE LA SUERTE PERÚ</h1>
 
-  /* CONTADOR verde parpadeante */
-  .contador{
-    margin:12px auto 0; text-align:center;
-    font-weight:800; color:var(--lucky);
-    font-size:16px; padding:8px 14px; border-radius:12px; display:inline-block;
-    box-shadow:0 8px 30px rgba(0,0,0,0.5);
-    animation:blink 1.6s steps(2, start) infinite;
-  }
-  @keyframes blink{50%{opacity:.4}100%{opacity:1}}
-
-  /* layout */
-  .wrap{max-width:1100px;margin:20px auto;padding:12px;display:grid;gap:18px;grid-template-columns:1fr 360px}
-  @media(max-width:920px){ .wrap{grid-template-columns:1fr} }
-
-  .card{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.06)); padding:18px; border-radius:14px; box-shadow:0 12px 30px rgba(0,0,0,0.6)}
-
-  h2{color:var(--gold); margin:4px 0 8px;font-family:Montserrat,system-ui}
-
-  .small{color:#cfe6ff;font-size:14px}
-
-  /* controles de tickets */
-  .tickets-row{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
-  input[type=number]{width:95px;padding:10px;border-radius:10px;border:none;text-align:center;font-weight:700}
-  .total{margin-left:auto;font-weight:800;color:var(--lucky)}
-
-  /* botones */
-  .btn{padding:12px 18px;border-radius:12px;border:none;cursor:pointer;font-weight:800;display:inline-flex;gap:10px;align-items:center}
-  .btn-yape{background:#ff6b5f;color:#fff}
-  .btn-mp{background:var(--mp);color:#001}
-  .btn:active{transform:translateY(2px)}
-
-  /* QR */
-  .qr-box{display:flex;flex-direction:column;align-items:center;gap:12px;padding:14px;border-radius:12px;background:var(--glass)}
-  .qr-box img{width:220px;height:220px;border-radius:12px;background:#fff;padding:8px}
-
-  /* premios */
-  .prizes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;margin-top:8px}
-  .prize{width:120px;border-radius:12px;padding:10px;background:rgba(255,255,255,0.02);text-align:center}
-  .prize img{width:72px;height:72px;display:block;margin:0 auto 6px}
-
-  /* ganadores & comentarios */
-  .list{display:flex;flex-direction:column;gap:10px}
-  .winner{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,0.15);padding:8px;border-radius:10px}
-  .winner img{width:56px;height:56px;border-radius:8px;object-fit:cover}
-  .bubble{background:rgba(255,255,255,0.03);padding:10px;border-radius:12px}
-
-  footer{padding:18px;text-align:center;color:#cfe6ff;margin-top:20px;font-size:14px}
-
-  /* confetti canvas overlay */
-  #confetti-canvas{position:fixed;left:0;top:0;width:100%;height:100%;pointer-events:none;z-index:9999}
-
-  /* small responsive tweaks */
-  @media(max-width:640px){
-    .qr-box img{width:180px;height:180px}
-    .wrap{padding:8px}
-  }
-</style>
-</head>
-<body>
-
-<!-- confetti canvas -->
-<canvas id="confetti-canvas"></canvas>
-
-<header>
-  <div class="brand">🍀 CASA DE LA SUERTE PERÚ</div>
-  <div class="subtitle">La Suerte del Día — participa y gana premios cada día</div>
-
-  <!-- contador verde parpadeante (debajo del título) -->
-  <div id="contadorDias" class="contador" aria-live="polite">⏳ Faltan -- días para el sorteo mensual de S/500</div>
-</header>
-
-<main class="wrap">
-  <!-- columna izquierda: sorteos + premios + ganadores + comentarios -->
-  <div>
-    <!-- SORTEOS -->
-    <section class="card" id="sorteos">
-      <h2>Participa — Elige tu entrada</h2>
-      <p class="small">Compra tickets y participa en los sorteos. El sorteo S/10 participa automáticamente en el sorteo mensual por S/500.</p>
-
-      <!-- S/1 -->
-      <div style="margin-top:10px" class="card">
-        <h3 style="margin:0;color:var(--gold)">🎯 Sorteo acumulable — S/1 por ticket</h3>
-        <p class="small">Compra cuantos tickets quieras. A más tickets, más probabilidad.</p>
-
-        <div class="tickets-row" style="margin-top:8px">
-          <label style="min-width:80px">Tickets:</label>
-          <input id="tickets1" type="number" min="1" value="1" />
-          <div class="total" id="total1">Total: S/1.00</div>
-        </div>
-
-        <div style="margin-top:12px" class="tickets-row">
-          <button class="btn btn-yape" id="payYape1">📲 Pagar por Yape</button>
-          <button class="btn btn-mp" id="payMP1">💳 Pagar con Tarjeta</button>
-        </div>
-      </div>
-
-      <!-- S/10 -->
-      <div style="margin-top:12px" class="card">
-        <h3 style="margin:0;color:var(--gold)">💥 Sorteo especial — S/10 por ticket</h3>
-        <p class="small">Cada ticket S/10 te inscribe también en el sorteo mensual por <strong>S/500</strong>.</p>
-
-        <div class="tickets-row" style="margin-top:8px">
-          <label style="min-width:80px">Tickets:</label>
-          <input id="tickets10" type="number" min="1" value="1" />
-          <div class="total" id="total10">Total: S/10.00</div>
-        </div>
-
-        <div style="margin-top:12px" class="tickets-row">
-          <button class="btn btn-yape" id="payYape10">📲 Pagar por Yape</button>
-          <button class="btn btn-mp" id="payMP10">💳 Pagar con Tarjeta</button>
-        </div>
-
-        <div style="margin-top:12px" class="small">Nota: Los tickets S/10 participan en el sorteo mensual por S/500. Revisa el contador arriba para saber cuántos días faltan.</div>
-      </div>
-    </section>
-
-    <!-- PREMIOS -->
-    <section class="card" style="margin-top:14px">
-      <h2>🏆 Premios del Día</h2>
-      <div class="prizes" id="prizes">
-        <!-- imágenes libres de derechos (puedes reemplazarlas luego con tus propias URLs) -->
-        <div class="prize"><img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=7f89b8f6b3e3b4d9b3f2d46c1b7a2a8f" alt="soles"><div>S/500</div></div>
-
-        <div class="prize"><img src="https://images.unsplash.com/photo-1526178612452-c5e8f7bd9a2e?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=07a6d9b3c3a3b2b2f2b5d7c1b1f1a7f" alt="bolso"><div>Bolsos deportivos</div></div>
-
-        <div class="prize"><img src="https://images.unsplash.com/photo-1522335789203-aabd1fc54bc9?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=8f8b8c9e9d8f7a6b5c4d3e2f1a0b9c8d" alt="perfume"><div>Perfumes</div></div>
-
-      </div>
-    </section>
-
-    <!-- GANADORES -->
-    <section class="card" style="margin-top:14px">
-      <h2>🏅 Ganadores recientes</h2>
-      <div class="list" id="winnersList" style="margin-top:8px">
-        <div class="winner"><img src="https://i.pravatar.cc/56?img=47" alt="ganador"><div><strong>María R.</strong><div class="small">Ganó S/200 — 2025-05-01</div></div></div>
-        <div class="winner"><img src="https://i.pravatar.cc/56?img=12" alt="ganador"><div><strong>Jorge L.</strong><div class="small">Ganó Bolsos — 2025-04-28</div></div></div>
-      </div>
-    </section>
-
-    <!-- COMENTARIOS -->
-    <section class="card" style="margin-top:14px">
-      <h2>💬 Comentarios</h2>
-      <div style="display:flex;flex-wrap:wrap;gap:10px;margin-top:10px">
-        <div class="bubble">"Compré 2 tickets S/10 y me siento con más chances 😄" — <strong>Andrea</strong></div>
-        <div class="bubble">"Fácil de pagar con Yape, buen soporte por WhatsApp." — <strong>Carlos</strong></div>
-      </div>
-    </section>
+  <div style="margin-bottom:15px; font-size:1.1em;">
+    💫 <strong>¡Último día del mes!</strong>  
+    <br>
+    <span class="blink" style="color:#00ff88; font-weight:bold;">Faltan <span id="contador">2</span> días para el gran sorteo de S/500 🎉</span>
   </div>
 
-  <!-- columna derecha: QR + info rápida -->
-  <aside>
-    <div class="card qr-box">
-      <div style="text-align:center"><strong>📱 Pagar con Yape</strong></div>
-      <div class="small">Número: <strong id="yapeNumber">936331215</strong></div>
-      <img id="qrImg" src="" alt="QR dinámico" />
-      <div class="small">El QR se actualiza con el monto seleccionado. Puedes escanearlo con tu app o abrirlo en el celular.</div>
+  <img src="https://images.unsplash.com/photo-1565958011705-44e2119d1f9d?auto=format&fit=crop&w=600&q=80" alt="Premios" style="width:90%; border-radius:12px; margin-bottom:20px;">
 
-      <div style="margin-top:12px;display:flex;gap:8px;flex-direction:column">
-        <a id="mpLink" class="btn btn-mp" href="https://mpago.la/1jQtrAC" target="_blank">💳 Pagar con Tarjeta (MercadoPago)</a>
-        <button class="btn btn-yape" id="copyNumberBtn">📋 Copiar número Yape</button>
+  <h2 style="color:#ffd700;">🎟️ Sorteo Especial — S/10 por ticket</h2>
+  <p style="margin:10px 0; font-size:1em; line-height:1.5;">
+    Cada ticket de <strong>S/10</strong> te da la oportunidad de ganar <strong>todo esto:</strong>  
+    💰 <strong>S/500 en efectivo</strong>,  
+    👜 <strong>20 bolsos deportivos</strong>  
+    y 💄 <strong>perfumes exclusivos</strong>.  
+    <br><br>
+    ¡Un solo ticket te incluye automáticamente en el <strong>sorteo mensual de S/500</strong> y en los premios del día!
+  </p>
+
+  <div style="background:#0a2b5c; padding:15px; border-radius:12px; margin-top:10px;">
+    <label for="tickets" style="font-size:1.1em;">Tickets:</label>
+    <input id="tickets" type="number" min="1" value="1" style="width:60px; text-align:center; font-size:1em; margin:0 10px; border-radius:8px;">
+    <p style="font-size:1.1em; color:#00ff88;">Total: S/<span id="total">10.00</span></p>
+
+    <button style="background:#ff5e5e; color:white; border:none; border-radius:10px; padding:10px 18px; margin:5px; cursor:pointer;">📱 Pagar por Yape</button>
+    <button style="background:#ff9800; color:white; border:none; border-radius:10px; padding:10px 18px; margin:5px; cursor:pointer;">💳 Pagar con Tarjeta</button>
+  </div>
+
+  <div style="margin-top:25px;">
+    <h3 style="color:#ffd700;">🏆 Premios del Día</h3>
+    <div style="display:flex; justify-content:center; gap:10px; flex-wrap:wrap;">
+      <div>
+        <img src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?auto=format&fit=crop&w=150&q=80" alt="Zapatillas" style="width:100px; border-radius:10px;">
+        <p>S/500</p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1589986234385-7685e86e69b4?auto=format&fit=crop&w=150&q=80" alt="Bolso deportivo" style="width:100px; border-radius:10px;">
+        <p>Bolsos deportivos</p>
+      </div>
+      <div>
+        <img src="https://images.unsplash.com/photo-1585386959984-a41552231693?auto=format&fit=crop&w=150&q=80" alt="Perfumes" style="width:100px; border-radius:10px;">
+        <p>Perfumes</p>
       </div>
     </div>
+  </div>
 
-    <div class="card" style="margin-top:12px">
-      <h3 style="margin:0;color:var(--gold)">Info rápida</h3>
-      <p class="small" style="margin-top:8px">Participas con S/1 o S/10. Los tickets S/10 también entran al sorteo mensual S/500. Guarda tu comprobante y envíalo por WhatsApp si lo solicitan.</p>
-      <p class="small">WhatsApp: <strong id="whatsappNumberDisplay">+51 936 331 215</strong></p>
-    </div>
-  </aside>
-</main>
+  <p style="font-size:0.9em; color:#bbb; margin-top:20px;">
+    🕓 Revisa el contador para saber cuántos días faltan.  
+    Mientras más tickets compres, ¡más chances tienes!
+  </p>
+</section>
 
-<footer>© 2025 Casa de la Suerte Perú — Todos los derechos reservados</footer>
-
-<!-- libs -->
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
-
-<script>
-/* ===================== CONFIGURACIÓN EDITABLE ================ */
-const YAPE_NUMBER = "936331215";                 // tu número
-const MPAGO_LINK = "https://mpago.la/1jQtrAC";   // enlace MercadoPago (usado para tarjeta)
-const PRICE_S1 = 1.00;
-const PRICE_S10 = 10.00;
-/* ============================================================ */
-
-document.getElementById('yapeNumber').textContent = YAPE_NUMBER;
-document.getElementById('whatsappNumberDisplay').textContent = '+51 ' + YAPE_NUMBER;
-document.getElementById('mpLink').href = MPAGO_LINK;
-
-// elementos
-const tickets1 = document.getElementById('tickets1');
-const tickets10 = document.getElementById('tickets10');
-const total1 = document.getElementById('total1');
-const total10 = document.getElementById('total10');
-const qrImg = document.getElementById('qrImg');
-const contadorDiasEl = document.getElementById('contadorDias');
-
-// actualiza totales y QR
-function updateTotalsAndQR(preferred){
-  const n1 = Math.max(1, parseInt(tickets1.value||1));
-  const n10 = Math.max(1, parseInt(tickets10.value||1));
-  const t1 = (n1 * PRICE_S1);
-  const t10 = (n10 * PRICE_S10);
-  total1.textContent = 'Total: S/' + t1.toFixed(2);
-  total10.textContent = 'Total: S/' + t10.toFixed(2);
-
-  // decidir qué monto mostrar en QR:
-  // si preferred viene (cuando una acción concreta), mostramos eso; si no, preferimos el S/10 si >0
-  let amount = preferred ?? (t10>=PRICE_S10 ? t10 : t1);
-  setQRCode(amount);
+<!-- ✨ Estilo de parpadeo verde -->
+<style>
+.blink {
+  animation: blink 1s infinite;
 }
+@keyframes blink {
+  50% { opacity: 0; }
+}
+</style>
 
-// genera QR usando api.qrserver.com con texto amigable (puede abrir en móvil)
-// aquí ponemos un texto que diga "Pagar S/x a Yape 936331215 - Casa de la Suerte Perú"
-// opcional: podríamos apuntar a un checkout de Mpago con amount si tu enlace lo soporta
-function setQRCode(amount){
+<!-- 💡 Script opcional para actualizar contador -->
+<script>
+  const diasRestantes = 2; // Cambia manualmente según el día
+  document.getElementById('contador').textContent = diasRestantes;
+
+  const ticketsInput = document.getElementById('tickets');
+  const total = document.getElementById('total');
+  ticketsInput.addEventListener('input', () => {
+    const cantidad = ticketsInput.value || 1;
+    total.textContent = (cantidad * 10).toFixed(2);
+  });
+</script>
