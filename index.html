@@ -1,163 +1,142 @@
-  
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎯 Casa de la Suerte Perú</title>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Casa de la Suerte Perú — La Suerte del Día</title>
   <style>
-    body {
-      margin: 0;
-      font-family: 'Poppins', sans-serif;
-      text-align: center;
-      background: linear-gradient(180deg, #001F54, #003C8F, #001F54);
-      color: white;
-      overflow-x: hidden;
-      animation: fondoBrillo 6s infinite alternate;
+    :root{
+      --bg1:#00234d; --bg2:#0047b3; --gold:#ffd100; --accent:#ff3b3b;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; font-family:Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      background: radial-gradient(circle at 10% 10%, rgba(255,255,255,0.02), transparent),
+                  linear-gradient(180deg,var(--bg1),var(--bg2));
+      color:#fff; -webkit-font-smoothing:antialiased;
+      min-height:100vh; display:flex; flex-direction:column; align-items:center;
     }
 
-    @keyframes fondoBrillo {
-      0% { filter: brightness(1); }
-      100% { filter: brightness(1.2); }
+    header{
+      width:100%; padding:28px 16px; text-align:center;
+      background: linear-gradient(90deg, rgba(255,209,64,0.06), rgba(255,77,77,0.03));
+      box-shadow:0 6px 30px rgba(0,0,0,0.35);
+    }
+    header h1{margin:0; font-size:1.6rem; color:var(--gold); text-shadow:0 3px 12px rgba(0,0,0,0.6)}
+    header p{margin:8px 0 0; opacity:0.95}
+
+    .wrap{width:92%; max-width:1100px; margin:20px auto 60px; display:grid; gap:20px;
+      grid-template-columns: 1fr; align-items:start;
+    }
+    @media(min-width:900px){ .wrap{grid-template-columns: 1fr 430px;} }
+
+    /* Panel izquierdo (contenido) */
+    .left{
+      display:flex; flex-direction:column; gap:18px;
     }
 
-    h1 {
-      margin-top: 30px;
-      font-size: 2.5em;
-      text-shadow: 0 0 20px #0ff, 0 0 30px #0ff;
-      animation: parpadeo 1.5s infinite;
+    .section{
+      background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(0,0,0,0.02));
+      border-radius:14px; padding:18px; box-shadow:0 8px 30px rgba(0,0,0,0.45);
     }
 
-    @keyframes parpadeo {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.7; }
+    .sorteos{
+      display:flex; gap:12px; flex-direction:column;
+    }
+    @media(min-width:700px){ .sorteos{flex-direction:row} }
+
+    .card{
+      flex:1; padding:14px; border-radius:12px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.04));
+      position:relative; overflow:hidden;
+    }
+    .card h3{margin:0 0 6px; color:var(--gold)}
+    .price{font-size:1.1rem; color:#bfffb0; font-weight:700}
+    .small{font-size:0.9rem; color:rgba(255,255,255,0.85)}
+
+    .row{display:flex; gap:8px; align-items:center; margin-top:8px}
+    input[type=number]{width:90px; padding:10px; border-radius:8px; border:none; text-align:center; font-size:1rem}
+    .btn-pay{background:var(--accent); border:none; color:#fff; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:700}
+    .btn-mp{background:#ff8a00; border:none; color:#001; padding:10px 14px; border-radius:10px; cursor:pointer; font-weight:800}
+
+    .hint{font-size:0.85rem; color:rgba(255,255,255,0.8); margin-top:8px}
+
+    /* right column (info + rewards) */
+    .right{
+      display:flex; flex-direction:column; gap:16px;
     }
 
-    .subtitulo {
-      font-size: 1.3em;
-      margin-bottom: 20px;
+    .panel{
+      padding:14px; border-radius:12px; background:linear-gradient(180deg,rgba(0,0,0,0.15),rgba(255,255,255,0.02));
+      box-shadow:0 8px 24px rgba(0,0,0,0.45);
     }
 
-    .tarjeta {
-      background: rgba(255, 255, 255, 0.1);
-      border-radius: 15px;
-      padding: 20px;
-      margin: 20px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-      animation: flotar 3s ease-in-out infinite;
-    }
+    .qr-box{display:flex; flex-direction:column; align-items:center; gap:10px}
+    .qr-box img{width:200px; height:200px; border-radius:12px; background:#fff; padding:8px}
+    .qr-caption{font-size:0.9rem; color:rgba(255,255,255,0.9)}
 
-    @keyframes flotar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-5px); }
+    /* premios */
+    .premios-grid{display:flex; gap:12px; flex-wrap:wrap; justify-content:center;}
+    .premio{
+      width:120px; background:rgba(255,255,255,0.03); border-radius:12px; padding:8px; text-align:center;
+      transition:transform .2s; box-shadow:0 6px 18px rgba(0,0,0,0.45);
     }
+    .premio img{width:100%; border-radius:8px}
+    .premio p{margin:8px 0 0; color:var(--gold); font-weight:700}
 
-    .btn {
-      display: inline-block;
-      background: #ff0000;
-      color: white;
-      padding: 15px 25px;
-      margin-top: 10px;
-      border-radius: 12px;
-      font-weight: bold;
-      text-decoration: none;
-      font-size: 1.2em;
-      transition: 0.3s;
-    }
+    /* galería ganadores */
+    .galeria{display:flex; gap:10px; flex-wrap:wrap; justify-content:center}
+    .ganador{width:110px; background:rgba(255,255,255,0.03); padding:8px; border-radius:10px; text-align:center}
+    .ganador img{width:100%; border-radius:8px}
 
-    .btn:hover {
-      background: #ff4d4d;
-      transform: scale(1.05);
-    }
+    /* comentarios */
+    .comentario{background:rgba(0,0,0,0.25); padding:10px; border-radius:8px; margin:8px 0; font-style:italic}
 
-    .qr {
-      margin: 20px auto;
-      background: white;
-      padding: 10px;
-      border-radius: 10px;
-      width: 200px;
-    }
+    footer{width:100%; padding:18px 10px; text-align:center; color:rgba(255,255,255,0.8); font-size:0.9rem}
+    .top-actions{display:flex; gap:10px; flex-wrap:wrap; justify-content:center; margin-top:8px}
 
-    h2 {
-      margin-top: 40px;
-      font-size: 1.8em;
-      text-shadow: 0 0 10px yellow;
-    }
+    /* small helpers */
+    .muted{color:rgba(255,255,255,0.75); font-size:0.9rem}
 
-    .premios img {
-      width: 100px;
-      margin: 10px;
-      border-radius: 10px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.4);
-      transition: 0.3s;
-    }
+    /* confetti container at top layer */
+    #confetti-canvas{position:fixed; pointer-events:none; top:0; left:0; width:100%; height:100%; z-index:9999}
 
-    .premios img:hover {
-      transform: scale(1.1);
-    }
-
-    .ganadores, .comentarios {
-      background: rgba(0, 0, 0, 0.4);
-      padding: 20px;
-      border-radius: 10px;
-      margin: 20px;
-    }
-
-    .comentario {
-      font-style: italic;
-      margin: 10px 0;
-      animation: aparecer 2s ease;
-    }
-
-    @keyframes aparecer {
-      from { opacity: 0; transform: translateY(10px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    footer {
-      font-size: 0.9em;
-      padding: 15px;
-      color: #ccc;
-    }
   </style>
 </head>
 <body>
-  <h1>🍀 CASA DE LA SUERTE PERÚ 🍀</h1>
-  <p class="subtitulo">🎉 Participa en el Sorteo por <b>S/500</b> + Premios Sorpresa 🎁</p>
+  <canvas id="confetti-canvas"></canvas>
 
-  <div class="tarjeta">
-    <p>Con solo <b>S/10 por ticket</b> podrás participar y aumentar tus probabilidades de ganar.</p>
-    <a href="#" class="btn">💳 Pagar con Tarjeta</a>
+  <header>
+    <h1>CASA DE LA SUERTE PERÚ</h1>
+    <p>La Suerte del Día — participa y gana premios cada día</p>
+  </header>
 
-    <div style="margin-top:20px;">
-      <h3>📱 Paga por Yape (S/10 por ticket)</h3>
-      <p>Escanea el código o envía a <b>936331215</b></p>
-      <img src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=936331215" alt="QR Yape" class="qr">
-    </div>
-  </div>
+  <main class="wrap">
+    <div class="left">
+      <!-- SORTEOS -->
+      <section class="section">
+        <div class="sorteos">
+          <!-- Card S/1 -->
+          <div class="card" id="card-1">
+            <h3>Sorteo acumulable — S/1 por ticket</h3>
+            <div class="small">Compra la cantidad que quieras. A más tickets, más probabilidad.</div>
+            <div class="row">
+              <label class="muted">Tickets:</label>
+              <input type="number" id="tickets1" min="1" value="1" />
+              <div style="flex:1"></div>
+              <div class="price price1">Total: S/ <span id="total1">1.00</span></div>
+            </div>
 
-  <h2>🏆 Premios del Día</h2>
-  <div class="premios">
-    <img src="https://cdn-icons-png.flaticon.com/512/1490/1490858.png" alt="Premio 500 soles">
-    <img src="https://cdn-icons-png.flaticon.com/512/1791/1791342.png" alt="Bolso de regalo">
-    <img src="https://cdn-icons-png.flaticon.com/512/3039/3039436.png" alt="Perfume">
-    <p>🎁 ¡Más premios sorpresa cada semana!</p>
-  </div>
+            <div class="row" style="margin-top:12px">
+              <button class="btn-pay" onclick="openYapeModal(1)">📲 Pagar por Yape</button>
+              <a id="mp1" href="https://mpago.la/1jQtrAC" target="_blank"><button class="btn-mp">💳 Pagar con Tarjeta</button></a>
+            </div>
+            <div class="hint">Monto base S/1. Por defecto S/1 por ticket.</div>
+          </div>
 
-  <h2>🎉 Ganadores Recientes</h2>
-  <div class="ganadores">
-    <p>👩‍🦰 María P. — Ganó S/500 💸</p>
-    <p>👨‍🦱 Carlos R. — Ganó un Bolso 🎒</p>
-    <p>👩‍🦳 Ana M. — Ganó un Perfume 💐</p>
-  </div>
-
-  <h2>💬 Comentarios</h2>
-  <div class="comentarios">
-    <p class="comentario">“¡No lo podía creer! Participé por curiosidad y gané 🎉” — <b>Lucía</b></p>
-    <p class="comentario">“Fácil de pagar y súper divertido 🔥” — <b>Jorge</b></p>
-    <p class="comentario">“Recomendado 100%, la emoción cada día es genial 😍” — <b>Andrea</b></p>
-  </div>
-
-  <footer>© 2025 Casa de la Suerte Perú — Todos los derechos reservados</footer>
-</body>
-</html>
+          <!-- Card S/10 -->
+          <div class="card" id="card-10">
+            <h3>Sorteo especial — S/10 por ticket (Premio S/500)</h3>
+            <div class="small">Sorteo con premio fijo. Compra y participa.</div>
+            <div class="row">
+              <label class="muted">
