@@ -1,151 +1,157 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>🎯 La Suerte del Día 🎉</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎉 La Suerte del Día 🎉</title>
   <style>
     body {
       margin: 0;
-      font-family: "Poppins", sans-serif;
+      font-family: 'Poppins', sans-serif;
+      color: #fff;
       text-align: center;
-      color: white;
-      background: radial-gradient(circle at top, #0a002b, #000);
+      background: radial-gradient(circle at center, #0b0f2f, #000);
       overflow-x: hidden;
     }
 
-    h1 {
-      color: #FFD700;
-      text-shadow: 2px 2px 10px #ff0077;
-      font-size: 2.4em;
-      margin-top: 30px;
+    header {
+      padding: 40px 10px;
+      background: linear-gradient(90deg, #ff0080, #7928ca, #00b4d8);
+      color: #fff;
+      font-size: 1.8em;
+      font-weight: bold;
+      text-shadow: 2px 2px 6px rgba(0, 0, 0, 0.6);
     }
 
-    h2 {
-      color: #FFEB3B;
-      text-shadow: 1px 1px 8px #ff9800;
+    h1 {
+      margin: 0;
+      animation: glow 2s ease-in-out infinite alternate;
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #ffdd00, 0 0 20px #ff9900; }
+      to { text-shadow: 0 0 20px #ff0077, 0 0 40px #ff00ff; }
     }
 
     .container {
-      background: rgba(10, 20, 60, 0.8);
-      border-radius: 20px;
+      background: rgba(0, 0, 30, 0.8);
+      margin: 30px auto;
       padding: 25px;
-      margin: 20px auto;
       width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 20px rgba(255, 255, 255, 0.2);
-      position: relative;
-      z-index: 2;
+      max-width: 500px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
     }
 
-    label {
-      font-size: 1.2em;
-      margin-right: 5px;
+    h2 {
+      color: #ffdd00;
+      font-size: 1.5em;
+      text-shadow: 0 0 10px #ffbb00;
     }
 
-    input {
-      width: 60px;
-      padding: 5px;
-      border-radius: 8px;
-      border: none;
-      text-align: center;
-      font-size: 1.1em;
-    }
-
-    button {
-      background: #FFD700;
-      border: none;
-      border-radius: 10px;
-      padding: 15px 25px;
-      font-size: 1.1em;
-      font-weight: bold;
-      cursor: pointer;
-      margin-top: 10px;
-      transition: all 0.3s ease;
-    }
-
-    button:hover {
-      background: #FFC107;
-      transform: scale(1.05);
-    }
-
-    footer {
-      margin-top: 30px;
-      font-size: 0.9em;
-      opacity: 0.8;
-    }
-
-    .pozo {
-      color: #00FF7F;
+    .money {
+      color: #00ff66;
       font-weight: bold;
       font-size: 1.3em;
     }
 
-    /* 🎉 Fondo animado con luces */
-    .fondo {
-      position: fixed;
-      top: 0; left: 0;
-      width: 100%; height: 100%;
-      z-index: 1;
-      background: radial-gradient(circle, rgba(255,0,150,0.3), transparent 70%),
-                  radial-gradient(circle, rgba(0,255,255,0.3), transparent 70%),
-                  radial-gradient(circle, rgba(255,255,0,0.3), transparent 70%);
-      background-size: 400% 400%;
-      animation: moverLuces 10s ease infinite;
+    input {
+      padding: 6px;
+      border-radius: 6px;
+      border: none;
+      text-align: center;
+      width: 60px;
+      font-size: 1em;
     }
 
-    @keyframes moverLuces {
-      0% { background-position: 0% 50%; }
-      50% { background-position: 100% 50%; }
-      100% { background-position: 0% 50%; }
+    button {
+      background: #ffcc00;
+      border: none;
+      color: #000;
+      padding: 10px 25px;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: 0.3s;
+      margin-top: 10px;
+    }
+
+    button:hover {
+      background: #ffaa00;
+      transform: scale(1.05);
+    }
+
+    footer {
+      font-size: 0.9em;
+      color: #ccc;
+      margin: 30px 0 10px;
+    }
+
+    /* 🎊 Confeti animado */
+    .confetti {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: -1;
+      overflow: hidden;
+    }
+
+    .confetti div {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background-color: hsl(calc(360 * var(--i) / 20), 80%, 60%);
+      animation: fall 5s linear infinite;
+      opacity: 0.8;
+    }
+
+    @keyframes fall {
+      0% {
+        transform: translateY(-10%) rotate(0deg);
+      }
+      100% {
+        transform: translateY(110vh) rotate(720deg);
+      }
     }
   </style>
 </head>
 <body>
-  <div class="fondo"></div>
-
-  <h1>🎟️ La Suerte del Día 🎉</h1>
-  <h2>Premios increíbles cada día 🥳</h2>
-  <p>🎊 ¡El sorteo ha comenzado! 🎊</p>
+  <header>
+    <h1>🎟️ La Suerte del Día 🎉</h1>
+    <p>🎊 Premios increíbles cada día 🥳</p>
+    <p>🎉 ¡El sorteo ha comenzado! 🎉</p>
+  </header>
 
   <div class="container">
     <h2>🎯 Sorteo Diario Acumulable</h2>
     <p>Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰</p>
-
-    <p class="pozo">Pozo actual: S/ <span id="pozo">0.00</span></p>
-    <p class="pozo">Acumulado total: S/ <span id="acumulado">0.00</span></p>
-
-    <label>Tickets:</label>
-    <input type="number" id="tickets" min="1" value="1">
-    <br>
-    <button id="comprar">🎫 Comprar ticket(s)</button>
-
-    <p style="font-size: 0.8em; margin-top: 10px;">
-      * Reinicia automáticamente cada día a medianoche
-    </p>
+    <p>Pozo actual: <span class="money" id="pozo">S/ 0.00</span></p>
+    <p>Acumulado total: <span class="money" id="acumulado">S/ 0.00</span></p>
+    <label>Tickets: <input type="number" value="1" min="1" id="tickets"></label>
+    <br />
+    <button>🎫 Comprar ticket(s)</button>
+    <p><small>* Reinicia automáticamente cada día a medianoche</small></p>
   </div>
 
   <footer>
     © 2025 La Suerte del Día — Todos los derechos reservados
   </footer>
 
-  <script>
-    let pozo = 0;
-    let acumulado = 0;
-    const pozoEl = document.getElementById("pozo");
-    const acumEl = document.getElementById("acumulado");
-    const comprarBtn = document.getElementById("comprar");
-
-    comprarBtn.addEventListener("click", () => {
-      const tickets = parseInt(document.getElementById("tickets").value);
-      const monto = tickets * 1;
-      pozo += monto;
-      acumulado += monto;
-      pozoEl.textContent = pozo.toFixed(2);
-      acumEl.textContent = acumulado.toFixed(2);
-
-      alert(`🎉 Compraste ${tickets} ticket(s) por S/ ${monto.toFixed(2)} 🎟️`);
-    });
-  </script>
+  <div class="confetti">
+    <!-- confeti animado -->
+    <script>
+      for (let i = 0; i < 40; i++) {
+        const c = document.createElement('div');
+        c.style.left = Math.random() * 100 + '%';
+        c.style.animationDelay = Math.random() * 5 + 's';
+        c.style.setProperty('--i', i);
+        document.querySelector('.confetti').appendChild(c);
+      }
+    </script>
+  </div>
 </body>
 </html>
