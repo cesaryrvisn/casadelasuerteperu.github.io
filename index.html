@@ -8,204 +8,91 @@
     body {
       margin: 0;
       font-family: 'Poppins', sans-serif;
-      text-align: center;
-      background: radial-gradient(circle at top, #000428, #004e92);
+      background: radial-gradient(circle at top, #001845, #000);
       color: white;
+      text-align: center;
       overflow-x: hidden;
     }
-
-    .confetti {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      pointer-events: none;
-      overflow: hidden;
-      z-index: 1;
-    }
-
-    .confetti span {
-      position: absolute;
-      width: 8px;
-      height: 8px;
-      background: hsl(var(--hue), 100%, 50%);
-      top: -10px;
-      left: calc(100% * var(--x));
-      animation: fall var(--duration) linear infinite;
-    }
-
-    @keyframes fall {
-      to {
-        transform: translateY(110vh) rotate(720deg);
-      }
-    }
-
     header {
-      margin-top: 30px;
-      z-index: 2;
-      position: relative;
-    }
-
-    header h1 {
-      font-size: 2rem;
-      color: #ffcc00;
-      margin-bottom: 0.3em;
-    }
-
-    header p {
-      font-size: 1.2rem;
-    }
-
-    .card {
-      background: rgba(0, 0, 60, 0.85);
-      width: 85%;
-      max-width: 400px;
-      margin: 20px auto;
-      border-radius: 20px;
-      padding: 25px;
-      box-shadow: 0 0 20px #00ff99;
-      position: relative;
-      z-index: 2;
-    }
-
-    .card h2 {
-      color: #ffcc00;
-    }
-
-    .amount {
-      color: #00ff66;
-      font-size: 1.6rem;
+      padding: 20px;
+      background: linear-gradient(45deg, #ff007f, #00c3ff);
+      font-size: 1.5em;
       font-weight: bold;
-      margin: 10px 0;
+      text-shadow: 2px 2px 6px #000;
     }
-
-    input[type="number"] {
-      width: 60px;
-      text-align: center;
-      padding: 5px;
-      font-size: 1.2rem;
-      border-radius: 8px;
-      border: none;
-      outline: none;
-    }
-
-    button {
-      background: #ffcc00;
-      color: black;
-      font-weight: bold;
-      border: none;
-      padding: 12px 20px;
-      border-radius: 12px;
-      cursor: pointer;
-      font-size: 1.1rem;
+    h1 {
+      color: #ffd700;
       margin-top: 10px;
-      transition: transform 0.2s ease, background 0.3s;
     }
-
-    button:hover {
+    .confetti {
+      position: absolute;
+      width: 10px;
+      height: 10px;
+      background: red;
+      animation: fall 5s infinite;
+    }
+    @keyframes fall {
+      0% { transform: translateY(0); opacity: 1; }
+      100% { transform: translateY(100vh); opacity: 0; }
+    }
+    .card {
+      background: #002b5b;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(255,255,255,0.1);
+    }
+    .btn {
+      background: #ffcc00;
+      color: #000;
+      border: none;
+      padding: 10px 20px;
+      font-size: 1.1em;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: all 0.3s;
+    }
+    .btn:hover {
       background: #ffaa00;
-      transform: scale(1.08);
     }
-
     footer {
-      margin-top: 30px;
-      padding: 15px;
-      font-size: 0.9rem;
-      background: rgba(0, 0, 0, 0.4);
-      border-top: 1px solid #222;
-      z-index: 2;
-      position: relative;
+      font-size: 0.9em;
+      padding: 20px;
+      color: #aaa;
     }
-
   </style>
 </head>
 <body>
-
-  <div class="confetti" id="confetti"></div>
-
-  <header>
-    <h1>🎟️ La Suerte del Día – Premios increíbles cada día 🎉</h1>
-    <p>🎊 ¡El sorteo ha comenzado! 🎊</p>
-  </header>
+  <header>🎟️ La Suerte del Día 🎉</header>
+  <h1>Premios increíbles cada día 🥳</h1>
+  <p>🎊 ¡El sorteo ha comenzado! 🎊</p>
 
   <div class="card">
     <h2>🎯 Sorteo Diario Acumulable</h2>
-    <p>Participa desde solo <strong>S/1</strong> y mira cómo crece el pozo en tiempo real 💰</p>
-
-    <div class="amount">Pozo actual: <span id="pozo">S/ 0.00</span></div>
-    <div class="amount">Acumulado total: <span id="acumulado">S/ 0.00</span></div>
-
-    <label for="tickets">Tickets:</label>
-    <input id="tickets" type="number" value="1" min="1" />
-
-    <br />
-    <button id="comprarBtn">🎟️ Comprar ticket(s)</button>
-
-    <p style="margin-top:15px; font-size:0.9rem;">* Reinicia automáticamente cada día a medianoche</p>
+    <p>Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰</p>
+    <h3 style="color:#00ff7f;">Pozo actual: S/ <span id="pozo">0.00</span></h3>
+    <h4 style="color:#00ff7f;">Acumulado total: S/ <span id="acumulado">0.00</span></h4>
+    <p>Tickets: <input type="number" id="tickets" value="1" min="1" style="width:60px;text-align:center;"></p>
+    <button class="btn" onclick="comprar()">🎫 Comprar ticket(s)</button>
+    <p style="font-size:0.8em;">* Reinicia automáticamente cada día a medianoche</p>
   </div>
 
-  <footer>
-    © 2025 <strong>Rifa Express</strong> — Todos los derechos reservados
-  </footer>
+  <footer>© 2025 La Suerte del Día – Todos los derechos reservados</footer>
 
   <script>
-    // Confeti animado
-    const confettiContainer = document.getElementById('confetti');
-    for (let i = 0; i < 80; i++) {
-      const span = document.createElement('span');
-      span.style.setProperty('--x', Math.random());
-      span.style.setProperty('--hue', Math.floor(Math.random() * 360));
-      span.style.setProperty('--duration', 3 + Math.random() * 4 + 's');
-      confettiContainer.appendChild(span);
-    }
-
-    // Variables
     let pozo = 0;
     let acumulado = 0;
 
-    const pozoEl = document.getElementById('pozo');
-    const acumuladoEl = document.getElementById('acumulado');
-    const comprarBtn = document.getElementById('comprarBtn');
-    const ticketsInput = document.getElementById('tickets');
-
-    // Comprar tickets
-    comprarBtn.addEventListener('click', () => {
-      const cantidad = parseInt(ticketsInput.value);
-      if (isNaN(cantidad) || cantidad <= 0) {
-        alert('Por favor ingresa una cantidad válida.');
-        return;
-      }
-
-      const monto = cantidad * 1; // S/1 por ticket
-      pozo += monto;
-      acumulado += monto;
-
-      actualizarPantalla();
-
-      alert(`🎟️ Compraste ${cantidad} ticket(s) por S/ ${monto.toFixed(2)}.\n¡Buena suerte! 🍀`);
-    });
-
-    // Actualizar texto
-    function actualizarPantalla() {
-      pozoEl.textContent = `S/ ${pozo.toFixed(2)}`;
-      acumuladoEl.textContent = `S/ ${acumulado.toFixed(2)}`;
+    function comprar() {
+      const tickets = parseInt(document.getElementById('tickets').value);
+      pozo += tickets;
+      acumulado += tickets;
+      document.getElementById('pozo').innerText = pozo.toFixed(2);
+      document.getElementById('acumulado').innerText = acumulado.toFixed(2);
+      alert('🎉 ¡Has comprado ' + tickets + ' ticket(s)! 🍀');
     }
-
-    // Reiniciar a medianoche
-    function reiniciarDiario() {
-      const ahora = new Date();
-      const proximaMedianoche = new Date();
-      proximaMedianoche.setHours(24, 0, 0, 0);
-
-      setTimeout(() => {
-        pozo = 0;
-        actualizarPantalla();
-        reiniciarDiario();
-      }, proximaMedianoche - ahora);
-    }
-
-    reiniciarDiario();
   </script>
 </body>
 </html>
