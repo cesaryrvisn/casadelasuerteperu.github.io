@@ -1,170 +1,163 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casa de la Suerte Perú</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa de la Suerte Perú 🎉</title>
   <style>
     body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(to bottom right, #001f3f, #003f7f);
+      font-family: "Poppins", sans-serif;
+      background: linear-gradient(135deg, #001f3f, #0074d9);
       color: white;
-      text-align: center;
       margin: 0;
       padding: 0;
+      text-align: center;
     }
 
     header {
-      padding: 25px 10px;
-      background-color: #002b5c;
-      color: #fff;
-      font-size: 2em;
-      font-weight: bold;
-      position: relative;
-      text-shadow: 2px 2px 6px #000;
+      background: rgba(0, 0, 0, 0.3);
+      padding: 20px;
     }
 
-    .resaltado {
-      color: #ffeb3b;
-      animation: parpadeo 1s infinite alternate;
+    h1 {
+      font-size: 2rem;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc;
     }
 
-    @keyframes parpadeo {
-      from { color: #00ff55; }
-      to { color: #ffeb3b; }
+    .contenedor {
+      margin-top: 30px;
     }
 
-    .seccion {
+    .bloque {
       background: rgba(255, 255, 255, 0.1);
+      margin: 20px auto;
+      padding: 20px;
       border-radius: 15px;
-      padding: 25px;
-      margin: 25px auto;
       width: 90%;
-      max-width: 700px;
-      box-shadow: 0 0 15px rgba(255, 255, 255, 0.2);
+      max-width: 500px;
+      box-shadow: 0 0 15px rgba(0, 255, 204, 0.4);
     }
 
-    .titulo {
-      font-size: 1.6em;
-      margin-bottom: 10px;
-      color: #ffcc00;
-      text-shadow: 1px 1px 5px #000;
-    }
-
-    .premio {
-      font-size: 1.3em;
-      color: #ff5555;
-    }
-
-    .contador {
-      font-size: 2em;
-      color: #00ff55;
-      margin: 15px 0;
-    }
-
-    .boton {
-      background-color: #ffcc00;
-      color: #002b5c;
-      font-weight: bold;
-      padding: 12px 25px;
+    .btn {
+      background: #00b894;
+      color: white;
       border: none;
-      border-radius: 8px;
+      border-radius: 10px;
+      padding: 10px 20px;
+      font-size: 1.1rem;
       cursor: pointer;
       transition: 0.3s;
-      margin: 5px;
-      font-size: 1em;
     }
 
-    .boton:hover {
-      background-color: #ffeb3b;
-      transform: scale(1.05);
+    .btn:hover {
+      background: #019170;
     }
 
-    footer {
-      background-color: #002b5c;
-      padding: 20px;
-      font-size: 0.9em;
-      color: #ccc;
-      margin-top: 40px;
-    }
-
-    .acumulado {
-      font-size: 1.5em;
+    #pozo-actual {
+      font-size: 1.5rem;
       font-weight: bold;
-      color: #00ff55;
-      margin-top: 10px;
+      color: #00ffcc;
+      text-shadow: 0 0 10px #00ffcc;
     }
-
-    .info {
-      font-size: 1em;
-      color: #ffeb3b;
-      margin: 5px 0;
-    }
-
   </style>
 </head>
-<body>
 
+<body>
   <header>
-    🍀 <span class="resaltado">Casa de la Suerte Perú</span> 🍀
-    <div style="font-size: 0.6em; margin-top: 10px;">¡Doble oportunidad de ganar todos los días!</div>
+    <h1>💎 Casa de la Suerte Perú 💎</h1>
+    <p>¡Participa, gana y acumula premios todos los días!</p>
   </header>
 
-  <!-- SORTEO DIARIO -->
-  <section class="seccion">
-    <div class="titulo">🎯 Sorteo Diario - Ticket de S/1</div>
-    <p>Participa desde solo <strong>S/1 sol</strong> y compite por el premio <strong>acumulativo diario</strong> 🎉</p>
-    <p class="info">El pozo crece en tiempo real y revienta cada noche a las <strong>9:00 p.m.</strong> 🔥</p>
-    <div class="acumulado">💰 Pozo actual: <span id="acumulado">S/38</span></div>
+  <div class="contenedor">
+    <div class="bloque">
+      <h2>🎟️ Sorteo diario (S/1)</h2>
+      <p>Cada ticket de <strong>S/1</strong> se suma al pozo del día.</p>
+      <p>El premio revienta cada noche a las <strong>9:00 p.m.</strong> ⏰</p>
+      <h3 id="pozo-actual">💰 Cargando pozo acumulado...</h3>
+      <button id="sumar-pozo" class="btn">Simular compra (+1 sol)</button>
+    </div>
 
-    <div class="contador" id="contador"></div>
+    <div class="bloque">
+      <h2>💵 Sorteo mensual (S/10)</h2>
+      <p>Con tu ticket de <strong>S/10</strong> participas por:</p>
+      <ul style="list-style:none; padding:0;">
+        <li>🏆 S/500 en efectivo</li>
+        <li>👜 20 bolsos deportivos</li>
+        <li>💐 Perfumes y premios sorpresa</li>
+      </ul>
+      <p>Compra tus tickets aquí:</p>
+      <a href="https://mpago.la/1jQtrAC" target="_blank">
+        <button class="btn">Comprar Ticket de S/10</button>
+      </a>
+    </div>
+  </div>
 
-    <p>Compra tus tickets y observa cómo el monto crece ⏫</p>
-    <button class="boton" onclick="window.location.href='https://mpago.la/1jQtrAC'">💳 Pagar con Tarjeta</button>
-    <button class="boton" onclick="window.location.href='https://wa.me/51936331215?text=Hola!%20Quiero%20participar%20en%20el%20sorteo%20de%201%20sol%20por%20Yape.'">📱 Pagar por Yape</button>
-  </section>
+  <!-- 🔥 FIREBASE CONFIGURACIÓN Y POZO ACUMULADO -->
+  <script type="module">
+    // Importamos funciones de Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
 
-  <!-- SORTEO MENSUAL -->
-  <section class="seccion">
-    <div class="titulo">💎 Sorteo Mensual - Ticket de S/10</div>
-    <p>Participa con <strong>S/10 soles</strong> y entra automáticamente al <strong>gran sorteo mensual</strong> con premios espectaculares:</p>
-    <ul style="list-style:none; text-align:left; display:inline-block; font-size:1em;">
-      <li>🏆 S/500 en efectivo</li>
-      <li>👜 20 bolsos deportivos</li>
-      <li>🌸 10 perfumes de marca</li>
-    </ul>
-    <p class="info">¡Cada ticket de 10 soles te da acceso directo a todos los premios del mes!</p>
-    <p class="info">El sorteo se realiza el <strong>último día de cada mes a las 9:00 p.m.</strong></p>
+    // 🔧 CONFIGURACIÓN DE TU PROYECTO FIREBASE (REEMPLAZA ESTOS DATOS CON LOS TUYOS)
+    const firebaseConfig = {
+      apiKey: "AIzaSyXXXXXX-REEMPLAZA-ESTO",
+      authDomain: "tuproyecto.firebaseapp.com",
+      projectId: "tuproyecto",
+      storageBucket: "tuproyecto.appspot.com",
+      messagingSenderId: "1234567890",
+      appId: "1:1234567890:web:abcdef123456"
+    };
 
-    <button class="boton" onclick="window.location.href='https://mpago.la/1jQtrAC'">💳 Pagar con Tarjeta</button>
-    <button class="boton" onclick="window.location.href='https://wa.me/51936331215?text=Hola!%20Quiero%20participar%20en%20el%20sorteo%20mensual%20de%2010%20soles%20por%20Yape.'">📱 Pagar por Yape</button>
-  </section>
+    // Inicializamos Firebase y Firestore
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
 
-  <footer>
-    © 2025 Casa de la Suerte Perú 🌟 | Todos los derechos reservados.<br>
-    Contacto: <a href="https://wa.me/51944315625" style="color:#ffcc00;">WhatsApp 944315625</a>
-  </footer>
+    // Referencia al documento del pozo
+    const pozoRef = doc(db, "sorteos_diarios", "acumulado");
 
-  <script>
-    // Contador regresivo al día siguiente 9:00 p.m.
-    function actualizarContador() {
-      const ahora = new Date();
-      const siguiente = new Date();
-      siguiente.setHours(21, 0, 0, 0);
-      if (ahora > siguiente) siguiente.setDate(siguiente.getDate() + 1);
+    // Elementos del DOM
+    const pozoDisplay = document.getElementById("pozo-actual");
+    const botonSimular = document.getElementById("sumar-pozo");
 
-      const diferencia = siguiente - ahora;
-      const horas = Math.floor((diferencia / (1000 * 60 * 60)) % 24);
-      const minutos = Math.floor((diferencia / (1000 * 60)) % 60);
-      const segundos = Math.floor((diferencia / 1000) % 60);
-
-      document.getElementById("contador").textContent =
-        `${horas.toString().padStart(2,'0')}:${minutos.toString().padStart(2,'0')}:${segundos.toString().padStart(2,'0')}`;
-
-      setTimeout(actualizarContador, 1000);
+    // Función para actualizar visualmente el pozo
+    async function actualizarPozo() {
+      const snap = await getDoc(pozoRef);
+      if (snap.exists()) {
+        const data = snap.data();
+        pozoDisplay.textContent = `💰 Pozo acumulado de hoy: S/ ${data.pozo_actual}`;
+      } else {
+        pozoDisplay.textContent = "💰 Pozo acumulado: error al leer datos 😅";
+      }
     }
-    actualizarContador();
-  </script>
 
+    // Función para simular una compra (suma 1 sol)
+    botonSimular.addEventListener("click", async () => {
+      const snap = await getDoc(pozoRef);
+      if (snap.exists()) {
+        const nuevoValor = (snap.data().pozo_actual || 0) + 1;
+        await updateDoc(pozoRef, { pozo_actual: nuevoValor });
+        actualizarPozo();
+      }
+    });
+
+    // Llamar al cargar la página
+    actualizarPozo();
+
+    // 🔄 Reinicio automático del pozo a medianoche
+    function programarReinicio() {
+      const ahora = new Date();
+      const siguienteMedianoche = new Date();
+      siguienteMedianoche.setHours(24, 0, 0, 0);
+      const tiempoRestante = siguienteMedianoche - ahora;
+      setTimeout(async () => {
+        await setDoc(pozoRef, { pozo_actual: 0 });
+        actualizarPozo();
+        programarReinicio();
+      }, tiempoRestante);
+    }
+
+    programarReinicio();
+  </script>
 </body>
 </html>
