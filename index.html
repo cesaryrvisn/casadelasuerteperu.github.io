@@ -4,110 +4,139 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>🎯 Sorteo Diario Acumulable</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml" />
   <style>
     body {
-      font-family: Arial, sans-serif;
-      background: linear-gradient(180deg, #001f54 0%, #003087 100%);
+      font-family: "Poppins", sans-serif;
+      background: radial-gradient(circle at center, #001f4d, #000);
       color: white;
       text-align: center;
       margin: 0;
       padding: 0;
-      overflow-x: hidden;
-    }
-    .container {
-      background: rgba(0, 48, 135, 0.9);
-      padding: 25px;
-      border-radius: 20px;
-      max-width: 400px;
-      margin: 60px auto;
-      box-shadow: 0 0 20px rgba(255,255,255,0.3);
-      animation: flotar 3s infinite ease-in-out;
-    }
-    @keyframes flotar {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-8px); }
     }
     h1 {
-      color: #ffd700;
-      margin-bottom: 10px;
-      font-size: 1.6em;
+      color: #ffcc00;
+      margin-top: 30px;
+      font-size: 2.2em;
     }
-    .pozo, .acumulado {
-      font-size: 1.2em;
-      margin: 12px 0;
+    p {
+      font-size: 1.1em;
+    }
+    .card {
+      background: #002b7a;
+      border-radius: 20px;
+      padding: 25px;
+      margin: 40px auto;
+      width: 85%;
+      max-width: 400px;
+      box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+    }
+    .amount {
+      font-size: 1.5em;
+      color: #00ff66;
+      font-weight: bold;
+    }
+    button {
+      background: #ffcc00;
+      color: black;
+      border: none;
+      border-radius: 10px;
+      padding: 15px 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      transition: all 0.2s ease;
+      margin-top: 10px;
+    }
+    button:hover {
+      background: #ffaa00;
+      transform: scale(1.05);
     }
     input {
       width: 60px;
-      text-align: center;
-      font-size: 1em;
-      margin: 10px 0;
+      padding: 8px;
       border-radius: 6px;
       border: none;
-      padding: 5px;
-    }
-    button {
-      background-color: #ffd700;
-      border: none;
-      color: #000;
-      padding: 10px 25px;
-      border-radius: 10px;
+      text-align: center;
       font-size: 1.1em;
-      cursor: pointer;
-      transition: all 0.3s ease;
-    }
-    button:hover {
-      background-color: #ffeb3b;
-      transform: scale(1.05);
     }
     footer {
-      margin-top: 20px;
-      font-size: 0.8em;
-      color: #ccc;
+      font-size: 0.9em;
+      margin-top: 25px;
+      opacity: 0.8;
     }
   </style>
 </head>
 <body>
-  <div class="container">
+  <div class="card">
     <h1>🎯 Sorteo Diario Acumulable</h1>
     <p>Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰</p>
-    <p class="pozo">Pozo actual: <span id="pozo" style="color:#00ff00;">S/ 0.00</span></p>
-    <p class="acumulado">Acumulado total: <span id="acumulado">S/ 0.00</span></p>
-    <label>Tickets: <input type="number" id="tickets" min="1" value="1"></label>
-    <br>
+
+    <p>Pozo actual: <span id="pozo" class="amount">S/ 0.00</span></p>
+    <p>Acumulado total: <span id="total" class="amount">S/ 0.00</span></p>
+
+    <label>Tickets: 
+      <input type="number" id="tickets" value="1" min="1" />
+    </label>
+    <br />
     <button onclick="comprar()">🎟️ Comprar ticket(s)</button>
     <footer>* Reinicia automáticamente cada día a medianoche</footer>
   </div>
 
-  <!-- Librería de confeti -->
-  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.5.1/dist/confetti.browser.min.js"></script>
+  <audio id="coinSound" src="https://assets.mixkit.co/active_storage/sfx/2006/2006-preview.mp3"></audio>
 
   <script>
     let pozo = 0;
-    let acumulado = 0;
+    let total = 0;
+    const pozoEl = document.getElementById("pozo");
+    const totalEl = document.getElementById("total");
+    const sound = document.getElementById("coinSound");
 
     function comprar() {
-      const cantidad = parseInt(document.getElementById('tickets').value) || 1;
-      const monto = cantidad * 1;
+      const tickets = parseInt(document.getElementById("tickets").value);
+      const monto = tickets * 1; // S/1 por ticket
       pozo += monto;
-      acumulado += monto;
-
-      document.getElementById('pozo').innerText = "S/ " + pozo.toFixed(2);
-      document.getElementById('acumulado').innerText = "S/ " + acumulado.toFixed(2);
-
-      // Confeti 🎉
-      confetti({
-        particleCount: 120,
-        spread: 70,
-        origin: { y: 0.6 },
-        colors: ['#FFD700', '#00FF00', '#FF4500']
-      });
-
-      // Sonido 🔊
-      const audio = new Audio("https://cdn.pixabay.com/download/audio/2022/03/15/audio_c9e6a26c3f.mp3?filename=success-1-6297.mp3");
-      audio.play();
-
-      alert('🎟️ Compraste ' + cantidad + ' ticket(s). ¡Buena suerte!');
+      total += monto;
+      sound.play();
+      animarConfeti();
+      actualizarPantalla();
     }
+
+    function actualizarPantalla() {
+      pozoEl.textContent = "S/ " + pozo.toFixed(2);
+      totalEl.textContent = "S/ " + total.toFixed(2);
+    }
+
+    function animarConfeti() {
+      const duracion = 1000;
+      const fin = Date.now() + duracion;
+      (function frame() {
+        const tiempo = Date.now();
+        if (tiempo > fin) return;
+        crearConfeti();
+        requestAnimationFrame(frame);
+      })();
+    }
+
+    function crearConfeti() {
+      const confeti = document.createElement("div");
+      confeti.textContent = "🎉";
+      confeti.style.position = "fixed";
+      confeti.style.left = Math.random() * 100 + "vw";
+      confeti.style.top = "-20px";
+      confeti.style.fontSize = "24px";
+      confeti.style.animation = "caer 2s linear";
+      document.body.appendChild(confeti);
+      setTimeout(() => confeti.remove(), 2000);
+    }
+
+    const style = document.createElement("style");
+    style.textContent = `
+      @keyframes caer {
+        0% { transform: translateY(0); opacity: 1; }
+        100% { transform: translateY(100vh); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(style);
   </script>
 </body>
 </html>
