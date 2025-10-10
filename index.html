@@ -1,117 +1,76 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Sorteo Diario Acumulable</title>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>🎯 Sorteo Diario Acumulable</title>
   <style>
     body {
-      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-      background-color: #001f54;
+      font-family: Arial, sans-serif;
+      background: #001f54;
       color: white;
       text-align: center;
       margin: 0;
       padding: 0;
     }
-
     .container {
-      background-color: #013a63;
-      border-radius: 15px;
+      background: #003087;
       padding: 20px;
-      margin: 50px auto;
-      width: 90%;
+      border-radius: 15px;
       max-width: 400px;
-      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+      margin: 50px auto;
+      box-shadow: 0 0 15px rgba(255,255,255,0.2);
     }
-
-    h2 {
-      color: #f8f9fa;
-      font-size: 1.4em;
+    h1 {
+      color: #ffd700;
+      margin-bottom: 10px;
     }
-
-    p {
-      font-size: 0.95em;
-      color: #d8dee9;
+    .pozo, .acumulado {
+      font-size: 1.2em;
+      margin: 10px 0;
     }
-
-    .highlight {
-      color: #00ff7f;
-      font-weight: bold;
-    }
-
-    input[type="number"] {
+    input {
       width: 60px;
       text-align: center;
-      border-radius: 5px;
-      border: none;
-      padding: 5px;
-      margin: 5px;
+      font-size: 1em;
+      margin: 10px 0;
     }
-
     button {
-      background-color: #ffc107;
-      color: #000;
+      background-color: #ffd700;
       border: none;
-      border-radius: 8px;
-      padding: 8px 15px;
+      color: #000;
+      padding: 10px 20px;
+      border-radius: 10px;
+      font-size: 1em;
       cursor: pointer;
-      font-weight: bold;
-      transition: 0.3s;
     }
-
     button:hover {
-      background-color: #ffca2c;
-      transform: scale(1.05);
+      background-color: #ffeb3b;
     }
-
-    small {
-      display: block;
-      margin-top: 10px;
-      color: #adb5bd;
+    footer {
+      margin-top: 20px;
       font-size: 0.8em;
+      color: #ccc;
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <h2>🎯 Sorteo Diario Acumulable</h2>
-    <p>Participa desde solo <span class="highlight">S/1</span> y mira cómo crece el pozo en tiempo real 💰</p>
-
-    <p>Pozo actual: <span id="pozo" class="highlight">S/ 0.00</span></p>
-    <p>Acumulado total: <span id="acumulado" class="highlight">S/ 0.00</span></p>
-
-    <label for="tickets">Tickets:</label>
-    <input type="number" id="tickets" value="1" min="1">
-
-    <button onclick="comprar()">🟡 Comprar ticket(s)</button>
-
-    <small>* Reinicia automáticamente cada día a medianoche</small>
+    <h1>🎯 Sorteo Diario Acumulable</h1>
+    <p>Participa desde solo S/1 y mira cómo crece el pozo en tiempo real 💰</p>
+    <p class="pozo">Pozo actual: <span style="color:#00ff00;">S/ 0.00</span></p>
+    <p class="acumulado">Acumulado total: S/ 0.00</p>
+    <label>Tickets: <input type="number" id="tickets" min="1" value="1"></label>
+    <br>
+    <button onclick="comprar()">🎟️ Comprar ticket(s)</button>
+    <footer>* Reinicia automáticamente cada día a medianoche</footer>
   </div>
 
   <script>
-    let pozo = 0;
-    let acumulado = 0;
-
     function comprar() {
-      const tickets = parseInt(document.getElementById('tickets').value);
-      const total = tickets * 1; // cada ticket vale S/1
-      pozo += total;
-      acumulado += total;
-
-      document.getElementById('pozo').textContent = `S/ ${pozo.toFixed(2)}`;
-      document.getElementById('acumulado').textContent = `S/ ${acumulado.toFixed(2)}`;
+      const cantidad = document.getElementById('tickets').value;
+      alert('Compraste ' + cantidad + ' ticket(s) ✅');
     }
-
-    // Reinicio automático del pozo (simulado)
-    const hora = new Date();
-    const milisegundosHastaMedianoche = 
-      (24 - hora.getHours()) * 3600000 - hora.getMinutes() * 60000 - hora.getSeconds() * 1000;
-    
-    setTimeout(() => {
-      pozo = 0;
-      document.getElementById('pozo').textContent = "S/ 0.00";
-      alert("🎉 Nuevo día, nuevo sorteo!");
-    }, milisegundosHastaMedianoche);
   </script>
 </body>
 </html>
