@@ -1,70 +1,151 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Casa de la Suerte Perú</title>
   <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: radial-gradient(circle at center, #001f3f, #000814);
-      color: white;
-      text-align: center;
-      padding: 20px;
+    /* Estilos simples y modernos (móviles primero) */
+    :root{
+      --bg:#071428;
+      --card:#0f2540;
+      --accent:#ffc107;
+      --accent-2:#00e676;
+      --muted:#bcd0e6;
+      --rounded:18px;
+      --glass: rgba(255,255,255,0.03);
     }
-    h1 {
-      color: #00ffcc;
-      text-shadow: 0 0 8px #00ffcc;
-    }
-    .card {
-      background: rgba(255, 255, 255, 0.05);
-      border-radius: 16px;
-      padding: 20px;
-      max-width: 400px;
-      margin: 30px auto;
-      box-shadow: 0 0 20px rgba(0, 255, 150, 0.2);
-    }
-    button {
-      background-color: #00b894;
-      border: none;
-      color: white;
-      padding: 10px 20px;
-      border-radius: 8px;
-      font-size: 16px;
-      cursor: pointer;
-      transition: 0.3s;
-    }
-    button:hover {
-      background-color: #00ffcc;
-      color: #000;
-    }
-    .contador {
-      font-size: 22px;
-      color: #00ffcc;
-      font-weight: bold;
-      text-shadow: 0 0 10px #00ffcc;
-    }
+    html,body{height:100%; margin:0; font-family:Inter, system-ui, Arial, sans-serif; background:linear-gradient(180deg,#071428 0%, #07233a 60%); color:#fff;}
+    .wrap{max-width:980px;margin:0 auto;padding:30px 16px 140px;}
+    h1{font-size:28px; text-align:center; color:var(--accent-2); text-shadow:0 6px 24px rgba(0,230,118,0.08)}
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)); border-radius:18px; padding:20px; margin:18px 0; box-shadow: 0 10px 30px rgba(0,0,0,0.5);}
+    .card{background:var(--card); border-radius:16px; padding:22px; margin:18px 0; box-shadow: 0 12px 30px rgba(0,0,0,0.45); border: 1px solid rgba(255,255,255,0.02);}
+    .big{font-size:20px; font-weight:700; color:var(--accent); text-align:center;}
+    .muted{color:var(--muted)}
+    .pozo{font-size:26px; color:var(--accent-2); font-weight:800; text-align:center; text-shadow:0 6px 20px rgba(0,230,118,0.08);}
+    .controls{display:flex;gap:12px;align-items:center;flex-wrap:wrap; justify-content:center; margin-top:12px;}
+    .input{width:120px; padding:12px; border-radius:12px; text-align:center; font-size:18px; border:none;}
+    button{padding:12px 18px;border-radius:12px;border:none;font-weight:700;cursor:pointer}
+    .yape{background:#ff7a63;color:#fff}
+    .cardpay{background:#ffb040;color:#010101}
+    .sim{background:#00b894;color:#fff}
+    .section-title{font-weight:800;color:var(--accent); font-size:18px; margin-bottom:8px}
+    .small-note{font-size:13px;color:var(--muted); margin-top:8px}
+    .qr{display:block;margin:12px auto;border-radius:12px;padding:10px;background:var(--glass);width:230px;height:230px;display:flex;align-items:center;justify-content:center}
+    .qr img{max-width:100%;max-height:100%}
+    .grid{display:grid;grid-template-columns:1fr;gap:14px}
+    @media(min-width:820px){ .grid{grid-template-columns:1fr 1fr} .wrap{padding:40px} h1{font-size:34px}}
+    .prizes{display:flex;gap:12px;flex-wrap:wrap;justify-content:center}
+    .prize{background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(0,0,0,0.03)); border-radius:12px;padding:10px;width:140px;text-align:center}
+    .prize img{width:100%;height:95px;object-fit:cover;border-radius:10px}
+    .countdown{color:#00e676;font-weight:700;text-align:center;margin-top:6px}
+    footer{padding:18px;text-align:center;color:var(--muted);font-size:13px}
+    .note-yellow{color:var(--accent); font-weight:700}
   </style>
 </head>
 <body>
+  <div class="wrap">
+    <h1>🍀 CASA DE LA SUERTE PERÚ</h1>
 
-  <h1>🍀 Casa de la Suerte Perú</h1>
+    <div class="hero card">
+      <div class="big">🎯 Sorteo Diario Acumulable</div>
+      <p class="muted" style="text-align:center;margin:8px 0 0">Participa desde S/1 y mira cómo crece el pozo en tiempo real. El pozo "revienta" todos los días a las <strong>9:00 p.m.</strong></p>
 
-  <div class="card">
-    <h2>🎯 Sorteo Diario Acumulable</h2>
-    <p>Participa desde <b>S/1</b> y mira cómo crece el pozo en tiempo real.  
-    El pozo revienta todos los días a las <b>9:00 p.m.</b></p>
+      <div style="margin-top:16px;text-align:center">
+        <div class="pozo" id="pozo">Pozo acumulado de hoy: Cargando...</div>
+        <div class="countdown" id="countdown">⏳ Faltan -- días para el sorteo mensual de S/500</div>
+        <div style="margin-top:12px;text-align:center">
+          <button class="sim" id="simula">Simular compra (para pruebas)</button>
+        </div>
+      </div>
+    </div>
 
-    <p class="contador">💰 Pozo acumulado de hoy: <span id="pozo">Cargando...</span></p>
-    <button id="comprar">Simular compra</button>
+    <div class="card">
+      <div class="section-title">Participa — Elige tu entrada</div>
+      <div class="grid">
+        <!-- S/1 diario -->
+        <div>
+          <h3 style="color:var(--accent)">Sorteo acumulable — S/1 por ticket</h3>
+          <p class="muted">Compra cuantos tickets quieras. A más tickets, más probabilidad.</p>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+            <label style="min-width:60px">Tickets:</label>
+            <input id="qty1" class="input" type="number" min="1" value="1">
+            <div style="margin-left:auto; color:var(--accent-2);font-weight:800" id="total1">Total: S/1.00</div>
+          </div>
+          <div class="controls">
+            <button class="yape" id="payYape1">📱 Pagar por Yape</button>
+            <button class="cardpay" id="payCard1">💳 Pagar con Tarjeta</button>
+          </div>
+          <div class="small-note">Monto base S/1. Por defecto S/1 por ticket. Los tickets se registran en el acumulado diario.</div>
+        </div>
+
+        <!-- S/10 mensual -->
+        <div>
+          <h3 style="color:var(--accent)">Sorteo especial — S/10 por ticket (Premio S/500)</h3>
+          <p class="muted">Cada ticket S/10 te inscribe también en el sorteo mensual por S/500.</p>
+          <div style="display:flex;align-items:center;gap:12px;margin-top:12px">
+            <label style="min-width:60px">Tickets:</label>
+            <input id="qty10" class="input" type="number" min="1" value="1">
+            <div style="margin-left:auto; color:var(--accent-2);font-weight:800" id="total10">Total: S/10.00</div>
+          </div>
+          <div class="controls">
+            <button class="yape" id="payYape10">📱 Pagar por Yape</button>
+            <button class="cardpay" id="payCard10">💳 Pagar con Tarjeta</button>
+          </div>
+          <div class="small-note">Nota: Los tickets S/10 participan automáticamente en el sorteo mensual por S/500. Revisa el contador arriba para saber cuántos días faltan.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Pagar por Yape</div>
+      <div class="muted">Número: <strong>+51 936331215</strong></div>
+      <div class="qr" id="qrwrap">
+        <img id="qrimg" src="" alt="QR dinámico">
+      </div>
+      <div style="text-align:center">
+        <button id="toPago" style="background:#ff9800;color:#000;padding:12px 16px;border-radius:12px;font-weight:800">💳 Ir a Pago (MercadoPago)</button>
+      </div>
+      <div class="small-note">Después del pago sube tu comprobante y nombre al WhatsApp o al formulario que uses.</div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Premios del Día</div>
+      <div class="prizes">
+        <div class="prize">
+          <img src="https://images.unsplash.com/photo-1600180758890-1c5b3e17c1a1?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=7d8fbe9b3f3bd4a7cd8f1f1f0b1d2c6f" alt="Premio 1">
+          <div style="margin-top:8px"><strong>S/500</strong></div>
+        </div>
+        <div class="prize">
+          <img src="https://images.unsplash.com/photo-1520975917390-9d8a0f0b5f4b?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=6ffa68a3c3dcd7a1e4b6b4d6a3c9a2b0" alt="Bolsos">
+          <div style="margin-top:8px">Bolsos deportivos</div>
+        </div>
+        <div class="prize">
+          <img src="https://images.unsplash.com/photo-1519744792095-2f2205e87b6f?q=80&w=400&auto=format&fit=crop&ixlib=rb-4.0.3&s=3a71c4b2dc1a4dbd6b8ae8f3d7f4bbd9" alt="Perfumes">
+          <div style="margin-top:8px">Perfumes</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="section-title">Comentarios</div>
+      <div style="background:linear-gradient(180deg,rgba(0,0,0,0.03),transparent);padding:12px;border-radius:10px;margin-bottom:8px">
+        "Compré 2 tickets S/10 y me siento con más chances 😁" — <strong>Andrea</strong>
+      </div>
+      <div style="background:linear-gradient(180deg,rgba(0,0,0,0.03),transparent);padding:12px;border-radius:10px">
+        "Fácil de pagar con Yape, buen soporte por WhatsApp." — <strong>Carlos</strong>
+      </div>
+    </div>
+
+    <footer>© 2025 Casa de la Suerte — Todos los derechos reservados</footer>
   </div>
 
+  <!-- Firebase SDK (modular) -->
   <script type="module">
-    // Importa Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
-    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+    // --- CONFIGURA TU FIREBASE AQUÍ ---
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-app.js";
+    import { getFirestore, doc, setDoc, getDoc, onSnapshot, updateDoc, increment, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/9.22.2/firebase-firestore.js";
 
-    // Configuración de tu proyecto (de tu Firebase)
     const firebaseConfig = {
       apiKey: "AIzaSyA9nXS3Ctz-DTubHMD3xuHksHk5F_a4rgg",
       authDomain: "sorteo-diario-c6897.firebaseapp.com",
@@ -74,39 +155,194 @@
       appId: "1:1095733857217:web:e8969eecb13cc562c0bd40"
     };
 
-    // Inicializa Firebase
     const app = initializeApp(firebaseConfig);
     const db = getFirestore(app);
 
-    // Referencia al documento del pozo
-    const pozoRef = doc(db, "sorteosDiarios", "pozoActual");
+    // utilidades DOM
+    const qty1 = document.getElementById('qty1');
+    const qty10 = document.getElementById('qty10');
+    const total1 = document.getElementById('total1');
+    const total10 = document.getElementById('total10');
+    const pozoEl = document.getElementById('pozo');
+    const simBtn = document.getElementById('simula');
+    const qrImg = document.getElementById('qrimg');
+    const qrWrap = document.getElementById('qrwrap');
+    const countdownEl = document.getElementById('countdown');
+    const toPagoBtn = document.getElementById('toPago');
 
-    // Cargar el pozo actual
-    async function cargarPozo() {
-      const pozo = document.getElementById("pozo");
-      const docSnap = await getDoc(pozoRef);
-      if (docSnap.exists()) {
-        pozo.textContent = "S/ " + docSnap.data().acumulado.toFixed(2);
-      } else {
-        pozo.textContent = "S/ 0.00";
-        await setDoc(pozoRef, { acumulado: 0 });
-      }
+    // datos fijos
+    const YAPE_NUMBER = "+51936331215"; // tu número con +51
+    const MPAGO_LINK = "https://mpago.la/1jQtrAC"; // link fijo (se puede abrir y pagar)
+
+    // devuelve id del día: YYYY-MM-DD
+    function hoyId(){
+      const d = new Date();
+      return d.toISOString().slice(0,10);
     }
 
-    // Simular una compra (+1 sol)
-    async function simularCompra() {
-      const docSnap = await getDoc(pozoRef);
-      let nuevoMonto = 1;
-      if (docSnap.exists()) {
-        nuevoMonto = docSnap.data().acumulado + 1;
+    // crea doc diario si no existe
+    async function ensureDocDiario(){
+      const id = hoyId();
+      const ref = doc(db, 'sorteosDiarios', id);
+      const snap = await getDoc(ref);
+      if(!snap.exists()){
+        await setDoc(ref, {
+          acumulado: 0,
+          tickets1: 0,
+          tickets10: 0,
+          createdAt: serverTimestamp()
+        });
       }
-      await updateDoc(pozoRef, { acumulado: nuevoMonto });
-      document.getElementById("pozo").textContent = "S/ " + nuevoMonto.toFixed(2);
+      return ref;
     }
 
-    document.getElementById("comprar").addEventListener("click", simularCompra);
-    cargarPozo();
+    // escucha en tiempo real el pozo de hoy
+    (async function(){
+      const ref = await ensureDocDiario();
+      onSnapshot(ref, snap => {
+        const data = snap.data();
+        if(!data) return;
+        const acumulado = (data.acumulado || 0).toFixed(2);
+        pozoEl.textContent = `💰 Pozo acumulado de hoy: S/ ${acumulado}`;
+      });
+      updateCountdown();
+    })();
+
+    // actualizar totales cuando cambian las cantidades
+    function updateTotals(){
+      const v1 = Math.max(1, Number(qty1.value || 1));
+      const v10 = Math.max(1, Number(qty10.value || 1));
+      total1.textContent = `Total: S/${(v1 * 1).toFixed(2)}`;
+      total10.textContent = `Total: S/${(v10 * 10).toFixed(2)}`;
+      updateQR(); // qr con total seleccionado (usa la suma activa: preferimos mostrar el total del último botón seleccionado)
+    }
+    qty1.addEventListener('input', updateTotals);
+    qty10.addEventListener('input', updateTotals);
+    updateTotals();
+
+    // genera QR dinámico con info de pago Yape según monto seleccionado (usa la cantidad activa: prioriza S/10 si foco en ese control al hacer click)
+    function updateQR(active='1'){
+      // si active == '1' usamos qty1, si '10' usamos qty10; si ninguno, usamos qty1 por defecto
+      const a = (active === '10') ? Math.max(1, Number(qty10.value || 1))*10 : Math.max(1, Number(qty1.value || 1))*1;
+      const text = `YAPE ${YAPE_NUMBER} | Monto: S/${a.toFixed(2)} | CasaDeLaSuerte`;
+      const src = `https://api.qrserver.com/v1/create-qr-code/?size=400x400&data=${encodeURIComponent(text)}`;
+      qrImg.src = src;
+    }
+    // inicial
+    updateQR('1');
+
+    // compra (registra y actualiza acumulado)
+    async function registrarCompra({amount, tickets, tipo}) {
+      const id = hoyId();
+      const ref = doc(db, 'sorteosDiarios', id);
+      // 1) incrementar acumulado
+      await updateDoc(ref, { acumulado: increment(amount) });
+      // 2) guardar venta en subcolección
+      const ventasCol = collection(db, 'sorteosDiarios', id, 'ventas');
+      await addDoc(ventasCol, {
+        amount,
+        tickets,
+        tipo, // 'yape' o 'tarjeta'
+        createdAt: serverTimestamp()
+      });
+      // 3) incrementar contador de tickets por tipo
+      if(tipo === '1sol') await updateDoc(ref, { tickets1: increment(tickets) });
+      if(tipo === '10sol') await updateDoc(ref, { tickets10: increment(tickets) });
+      // listo
+    }
+
+    // botones de pago S/1
+    document.getElementById('payYape1').addEventListener('click', async () => {
+      const t = Math.max(1, Number(qty1.value || 1));
+      const total = t * 1;
+      // actualiza qr al monto que se va a pagar
+      updateQR('1');
+      // Instrucciones: abrir el QR (el usuario escanea y paga). Luego confirmar con botón de "Confirma pago" (aquí registramos).
+      const ok = confirm(`Vas a pagar S/${total.toFixed(2)} por ${t} ticket(s) (Yape). ¿Confirmar y registrar pago? (sube comprobante por WhatsApp luego)`);
+      if(!ok) return;
+      try{
+        await registrarCompra({ amount: total, tickets: t, tipo: '1sol' });
+        alert('Pago registrado. ¡Gracias! El pozo se actualizó.');
+      }catch(e){
+        console.error(e); alert('Error registrando. Revisa consola o permisos Firestore.');
+      }
+    });
+
+    document.getElementById('payCard1').addEventListener('click', async () => {
+      const t = Math.max(1, Number(qty1.value || 1));
+      const total = t * 1;
+      // abrir link MercadoPago (general). El merchant debe procesar. Aquí abrimos el enlace y luego registras manualmente.
+      window.open(MPAGO_LINK, '_blank');
+      if(confirm(`Abre MercadoPago para pagar S/${total.toFixed(2)} por ${t} tickets. Si ya realizaste el pago confirma para registrar.`)){
+        try{
+          await registrarCompra({ amount: total, tickets: t, tipo: '1sol' });
+          alert('Pago registrado. ¡Gracias!');
+        }catch(e){ console.error(e); alert('Error registrando pago.');}
+      }
+    });
+
+    // botones S/10
+    document.getElementById('payYape10').addEventListener('click', async () => {
+      const t = Math.max(1, Number(qty10.value || 1));
+      const total = t * 10;
+      updateQR('10');
+      const ok = confirm(`Vas a pagar S/${total.toFixed(2)} por ${t} ticket(s) (Yape S/10). ¿Confirmar y registrar pago?`);
+      if(!ok) return;
+      try{
+        await registrarCompra({ amount: total, tickets: t, tipo: '10sol' });
+        alert('Pago registrado. Tus tickets participan también en el sorteo mensual.');
+      }catch(e){ console.error(e); alert('Error registrando.');}
+    });
+
+    document.getElementById('payCard10').addEventListener('click', async () => {
+      const t = Math.max(1, Number(qty10.value || 1));
+      const total = t * 10;
+      window.open(MPAGO_LINK, '_blank');
+      if(confirm(`Abre MercadoPago para pagar S/${total.toFixed(2)} por ${t} tickets. Si ya realizaste el pago confirma para registrar.`)){
+        try{
+          await registrarCompra({ amount: total, tickets: t, tipo: '10sol' });
+          alert('Pago registrado. ¡Gracias!');
+        }catch(e){ console.error(e); alert('Error registrando pago.');}
+      }
+    });
+
+    // botón ir a pago (mercadopago general)
+    toPagoBtn.addEventListener('click', () => {
+      window.open(MPAGO_LINK, '_blank');
+    });
+
+    // simular compra (para pruebas)
+    simBtn.addEventListener('click', async () => {
+      if(!confirm('Simular compra S/1 (no cobra). Esto incrementará el pozo en S/1 para pruebas.')) return;
+      try{
+        await registrarCompra({ amount: 1, tickets: 1, tipo: 'sim' });
+        alert('Simulación registrada.');
+      }catch(e){ console.error(e); alert('Error al simular.');}
+    });
+
+    // cuando cambia foco en S/1 o S/10 actualiza qr con último seleccionado
+    document.getElementById('payYape1').addEventListener('mouseenter', ()=> updateQR('1'));
+    document.getElementById('payYape10').addEventListener('mouseenter', ()=> updateQR('10'));
+
+    // contador días para sorteo mensual (último día del mes)
+    function updateCountdown(){
+      const now = new Date();
+      const year = now.getFullYear();
+      const month = now.getMonth();
+      const last = new Date(year, month+1, 0); // último día del mes
+      const diffMs = last.setHours(23,59,59,999) - now;
+      const days = Math.max(0, Math.ceil(diffMs / (1000*60*60*24)));
+      countdownEl.textContent = `⏳ Faltan ${days} día(s) para el sorteo mensual de S/500`;
+    }
+    updateCountdown();
+
+    // inicial QR load
+    updateQR('1');
+
+    // refresco automático por si cambias cantidad
+    setInterval(updateTotals, 800);
+    setInterval(updateCountdown, 60_000);
+
   </script>
-
 </body>
 </html>
