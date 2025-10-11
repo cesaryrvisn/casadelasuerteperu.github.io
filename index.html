@@ -1,46 +1,112 @@
-<script type="module">
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
-  import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
-
-  // Tu configuración de Firebase
-  const firebaseConfig = {
-    apiKey: "AIzaSyA9nXS3Ctz-DTubHMD3xuHksHk5F_a4rgg",
-    authDomain: "sorteo-diario-c6897.firebaseapp.com",
-    projectId: "sorteo-diario-c6897",
-    storageBucket: "sorteo-diario-c6897.firebasestorage.app",
-    messagingSenderId: "1095733857217",
-    appId: "1:1095733857217:web:e8969eecb13cc562c0bd40"
-  };
-
-  // Inicializa Firebase y Firestore
-  const app = initializeApp(firebaseConfig);
-  const db = getFirestore(app);
-
-  const pozoElement = document.getElementById("pozo");
-  const botonSimular = document.getElementById("simular");
-
-  async function cargarPozo() {
-    const docRef = doc(db, "sorteos", "diario");
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      pozoElement.textContent = "💰 Pozo acumulado de hoy: S/ " + docSnap.data().acumulado;
-    } else {
-      await setDoc(docRef, { acumulado: 0 });
-      pozoElement.textContent = "💰 Pozo acumulado de hoy: S/ 0";
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Casa de la Suerte Perú</title>
+  <style>
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: radial-gradient(circle at center, #001f3f, #000814);
+      color: white;
+      text-align: center;
+      padding: 20px;
     }
-  }
-
-  botonSimular.addEventListener("click", async () => {
-    const docRef = doc(db, "sorteos", "diario");
-    const docSnap = await getDoc(docRef);
-
-    if (docSnap.exists()) {
-      const nuevoValor = docSnap.data().acumulado + 1;
-      await updateDoc(docRef, { acumulado: nuevoValor });
-      pozoElement.textContent = "💰 Pozo acumulado de hoy: S/ " + nuevoValor;
+    h1 {
+      color: #00ffcc;
+      text-shadow: 0 0 8px #00ffcc;
     }
-  });
+    .card {
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 20px;
+      max-width: 400px;
+      margin: 30px auto;
+      box-shadow: 0 0 20px rgba(0, 255, 150, 0.2);
+    }
+    button {
+      background-color: #00b894;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 8px;
+      font-size: 16px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+    button:hover {
+      background-color: #00ffcc;
+      color: #000;
+    }
+    .contador {
+      font-size: 22px;
+      color: #00ffcc;
+      font-weight: bold;
+      text-shadow: 0 0 10px #00ffcc;
+    }
+  </style>
+</head>
+<body>
 
-  cargarPozo();
-</script>
+  <h1>🍀 Casa de la Suerte Perú</h1>
+
+  <div class="card">
+    <h2>🎯 Sorteo Diario Acumulable</h2>
+    <p>Participa desde <b>S/1</b> y mira cómo crece el pozo en tiempo real.  
+    El pozo revienta todos los días a las <b>9:00 p.m.</b></p>
+
+    <p class="contador">💰 Pozo acumulado de hoy: <span id="pozo">Cargando...</span></p>
+    <button id="comprar">Simular compra</button>
+  </div>
+
+  <script type="module">
+    // Importa Firebase
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+    import { getFirestore, doc, getDoc, setDoc, updateDoc } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-firestore.js";
+
+    // Configuración de tu proyecto (de tu Firebase)
+    const firebaseConfig = {
+      apiKey: "AIzaSyA9nXS3Ctz-DTubHMD3xuHksHk5F_a4rgg",
+      authDomain: "sorteo-diario-c6897.firebaseapp.com",
+      projectId: "sorteo-diario-c6897",
+      storageBucket: "sorteo-diario-c6897.firebasestorage.app",
+      messagingSenderId: "1095733857217",
+      appId: "1:1095733857217:web:e8969eecb13cc562c0bd40"
+    };
+
+    // Inicializa Firebase
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    // Referencia al documento del pozo
+    const pozoRef = doc(db, "sorteosDiarios", "pozoActual");
+
+    // Cargar el pozo actual
+    async function cargarPozo() {
+      const pozo = document.getElementById("pozo");
+      const docSnap = await getDoc(pozoRef);
+      if (docSnap.exists()) {
+        pozo.textContent = "S/ " + docSnap.data().acumulado.toFixed(2);
+      } else {
+        pozo.textContent = "S/ 0.00";
+        await setDoc(pozoRef, { acumulado: 0 });
+      }
+    }
+
+    // Simular una compra (+1 sol)
+    async function simularCompra() {
+      const docSnap = await getDoc(pozoRef);
+      let nuevoMonto = 1;
+      if (docSnap.exists()) {
+        nuevoMonto = docSnap.data().acumulado + 1;
+      }
+      await updateDoc(pozoRef, { acumulado: nuevoMonto });
+      document.getElementById("pozo").textContent = "S/ " + nuevoMonto.toFixed(2);
+    }
+
+    document.getElementById("comprar").addEventListener("click", simularCompra);
+    cargarPozo();
+  </script>
+
+</body>
+</html>
