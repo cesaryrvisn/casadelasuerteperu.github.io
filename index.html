@@ -1,138 +1,46 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Casa de la Suerte Perú</title>
-  <style>
-    body {
-      font-family: 'Poppins', sans-serif;
-      background: linear-gradient(180deg, #001f3f, #0074D9);
-      color: white;
-      text-align: center;
-      margin: 0;
-      padding: 0;
-    }
-    h1 {
-      margin-top: 30px;
-      font-size: 2.2em;
-      text-transform: uppercase;
-      color: #FFD700;
-      text-shadow: 0 0 15px #FFD700;
-      animation: parpadeo 1.5s infinite;
-    }
-    @keyframes parpadeo {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.6; }
-    }
-    .contenedor {
-      margin-top: 40px;
-      padding: 20px;
-    }
-    .bloque {
-      background: rgba(255,255,255,0.1);
-      border-radius: 20px;
-      padding: 25px;
-      margin: 20px auto;
-      width: 90%;
-      max-width: 400px;
-      box-shadow: 0 0 15px rgba(255,255,255,0.3);
-    }
-    button {
-      background: #FFD700;
-      border: none;
-      color: #001f3f;
-      padding: 12px 25px;
-      border-radius: 10px;
-      font-weight: bold;
-      cursor: pointer;
-      transition: 0.3s;
-      margin-top: 10px;
-    }
-    button:hover {
-      background: #ffec8b;
-      transform: scale(1.05);
-    }
-    .pozo {
-      font-size: 1.8em;
-      font-weight: bold;
-      color: #00FF9D;
-      margin: 15px 0;
-    }
-    .info {
-      font-size: 0.9em;
-      color: #EEE;
-    }
-  </style>
-</head>
-<body>
-  <h1>🏠 CASA DE LA SUERTE PERÚ 🎰</h1>
+<script type="module">
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+  import { getFirestore, doc, getDoc, updateDoc, setDoc } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
 
-  <div class="contenedor">
-    <!-- 💰 SORTEO ACUMULATIVO DIARIO -->
-    <div class="bloque">
-      <h2>💸 Sorteo Diario Acumulativo - Solo S/1</h2>
-      <p class="info">Participa con solo <b>S/1</b> y entra al sorteo diario de las 9:00 p.m.</p>
-      <p class="pozo" id="pozoActual">💰 Cargando pozo acumulado...</p>
-      <button onclick="simularCompra()">🎟️ Comprar Ticket (S/1)</button>
-      <p class="info">El pozo se actualiza automáticamente con cada compra.</p>
-    </div>
+  // Tu configuración de Firebase
+  const firebaseConfig = {
+    apiKey: "AIzaSyA9nXS3Ctz-DTubHMD3xuHksHk5F_a4rgg",
+    authDomain: "sorteo-diario-c6897.firebaseapp.com",
+    projectId: "sorteo-diario-c6897",
+    storageBucket: "sorteo-diario-c6897.firebasestorage.app",
+    messagingSenderId: "1095733857217",
+    appId: "1:1095733857217:web:e8969eecb13cc562c0bd40"
+  };
 
-    <!-- 🎁 SORTEO MENSUAL -->
-    <div class="bloque">
-      <h2>🎁 Sorteo Mensual - Ticket de S/10</h2>
-      <p class="info">
-        Con tu ticket de <b>S/10</b> participas automáticamente en el sorteo mensual de:
-        <br>💵 <b>S/500</b> + Perfumes + 20 Bolsos Deportivos.
-      </p>
-      <a href="https://mpago.la/1jQtrAC" target="_blank">
-        <button>💳 Pagar Ticket de S/10</button>
-      </a>
-      <p class="info">Compra varios tickets si deseas más oportunidades de ganar.</p>
-    </div>
-  </div>
+  // Inicializa Firebase y Firestore
+  const app = initializeApp(firebaseConfig);
+  const db = getFirestore(app);
 
-  <script type="module">
-    // ✅ Configuración de Firebase
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-app.js";
-    import { getFirestore, doc, getDoc, updateDoc } from "https://www.gstatic.com/firebasejs/10.12.3/firebase-firestore.js";
+  const pozoElement = document.getElementById("pozo");
+  const botonSimular = document.getElementById("simular");
 
-    const firebaseConfig = {
-      apiKey: "TU_API_KEY_AQUI",
-      authDomain: "TU_DOMINIO.firebaseapp.com",
-      projectId: "TU_PROJECT_ID",
-      storageBucket: "TU_BUCKET.appspot.com",
-      messagingSenderId: "TU_MESSAGING_ID",
-      appId: "TU_APP_ID"
-    };
+  async function cargarPozo() {
+    const docRef = doc(db, "sorteos", "diario");
+    const docSnap = await getDoc(docRef);
 
-    const app = initializeApp(firebaseConfig);
-    const db = getFirestore(app);
-
-    const pozoEl = document.getElementById("pozoActual");
-
-    async function cargarPozo() {
-      const ref = doc(db, "sorteos_diarios", "acumulado");
-      const snap = await getDoc(ref);
-      if (snap.exists()) {
-        const data = snap.data();
-        pozoEl.textContent = `💰 Pozo acumulado de hoy: S/ ${data.pozo_actual}`;
-      } else {
-        pozoEl.textContent = "⚠️ No hay datos aún.";
-      }
+    if (docSnap.exists()) {
+      pozoElement.textContent = "💰 Pozo acumulado de hoy: S/ " + docSnap.data().acumulado;
+    } else {
+      await setDoc(docRef, { acumulado: 0 });
+      pozoElement.textContent = "💰 Pozo acumulado de hoy: S/ 0";
     }
+  }
 
-    async function simularCompra() {
-      const ref = doc(db, "sorteos_diarios", "acumulado");
-      const snap = await getDoc(ref);
-      if (snap.exists()) {
-        const nuevoPozo = (snap.data().pozo_actual || 0) + 1;
-        await updateDoc(ref, { pozo_actual: nuevoPozo });
-        pozoEl.textContent = `💰 Pozo acumulado de hoy: S/ ${nuevoPozo}`;
-      }
+  botonSimular.addEventListener("click", async () => {
+    const docRef = doc(db, "sorteos", "diario");
+    const docSnap = await getDoc(docRef);
+
+    if (docSnap.exists()) {
+      const nuevoValor = docSnap.data().acumulado + 1;
+      await updateDoc(docRef, { acumulado: nuevoValor });
+      pozoElement.textContent = "💰 Pozo acumulado de hoy: S/ " + nuevoValor;
     }
+  });
 
-    cargarPozo();
-  </script>
-</body>
-</html>
+  cargarPozo();
+</script>
